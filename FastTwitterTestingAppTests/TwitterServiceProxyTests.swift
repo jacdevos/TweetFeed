@@ -4,7 +4,24 @@ import FastTwitterTestingApp
 
 class TwitterServiceProxyTests: XCTestCase {
 
-    func testStatusses(){
+    
+    func testDownloadLastestTweetData(){
+        let expectAsync = self.expectationWithDescription("testDownloadLastestTweetData")
+        let proxy : TwitterServiceProxy = TwitterServiceProxy()
+        var downloadedData :NSData?
+        
+        proxy.downloadLatestTweetData { (data, error) -> Void in
+            downloadedData = data
+            expectAsync.fulfill()
+        }
+        
+        self.waitForExpectationsWithTimeout(60, handler: { (error: NSError?) -> Void in
+        })
+        
+        XCTAssertNotNil(downloadedData, "unable to download latest tweet data")
+    }
+    
+    func testDownloadLastestTweets(){
         let expectAsync = self.expectationWithDescription("testStatusses")
         let proxy : TwitterServiceProxy = TwitterServiceProxy()
         var downloadedTweets :[TWTRTweet]?
@@ -17,7 +34,7 @@ class TwitterServiceProxyTests: XCTestCase {
         self.waitForExpectationsWithTimeout(60, handler: { (error: NSError?) -> Void in
         })
         
-        XCTAssertNotNil(downloadedTweets, "unable to serialise json object")
+        XCTAssertGreaterThan(downloadedTweets!.count, 0, "No tweets downloaded and serialized")
     }
     
    /*
