@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FastTwitterTestingApp/TweetsTableViewController.swift"
-            timestampString = "459013927.152576"
+            timestampString = "459020184.220414"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "153"
-            endingLineNumber = "153"
+            startingLineNumber = "157"
+            endingLineNumber = "157"
             landmarkName = "tableView(_:heightForRowAtIndexPath:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FastTwitterTestingApp/TweetsTableViewController.swift"
-            timestampString = "459013927.152576"
+            timestampString = "459020184.220414"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "160"
-            endingLineNumber = "160"
+            startingLineNumber = "164"
+            endingLineNumber = "164"
             landmarkName = "tweetView(_:didSelectTweet:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FastTwitterTestingApp/TweetsTableViewController.swift"
-            timestampString = "459013927.152576"
+            timestampString = "459020184.220414"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "174"
-            endingLineNumber = "174"
+            startingLineNumber = "178"
+            endingLineNumber = "178"
             landmarkName = "tweetView(_:didSelectTweet:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -58,28 +58,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FastTwitterTestingApp/TweetsTableViewController.swift"
-            timestampString = "459013927.152576"
+            timestampString = "459020184.220414"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "168"
-            endingLineNumber = "168"
+            startingLineNumber = "172"
+            endingLineNumber = "172"
             landmarkName = "tweetView(_:didSelectTweet:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "FastTwitterTestingApp/TweetsTableViewController.swift"
-            timestampString = "459013927.152576"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "56"
-            endingLineNumber = "56"
-            landmarkName = "onApplicationDidBecomeActive(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -122,12 +106,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FastTwitterTestingApp/TweetsTableViewController.swift"
-            timestampString = "459013927.152576"
+            timestampString = "459020184.220414"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "25"
-            endingLineNumber = "25"
-            landmarkName = "viewDidLoad()"
+            startingLineNumber = "69"
+            endingLineNumber = "69"
+            landmarkName = "setAutoScrollBarButtonImage()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -138,12 +122,60 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FastTwitterTestingApp/TweetsTableViewController.swift"
-            timestampString = "459013927.152576"
+            timestampString = "459020184.220414"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "60"
-            endingLineNumber = "60"
-            landmarkName = "setAutoScrollBarButtonImage()"
+            startingLineNumber = "110"
+            endingLineNumber = "110"
+            landmarkName = "onLoadedTweets(_:error:)"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SpeedTweetRead.TweetsTableViewController.onLoadedTweets (SpeedTweetRead.TweetsTableViewController)(Swift.Optional&lt;Swift.Array&lt;ObjectiveC.TWTRTweet&gt;&gt;, error : Swift.Optional&lt;ObjectiveC.NSError&gt;) -&gt; ()"
+                  moduleName = "SpeedTweetRead"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nreality/Documents/experiments/FastTwitterTestingApp/FastTwitterTestingApp/TweetsTableViewController.swift"
+                  timestampString = "459019598.41916"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "108"
+                  endingLineNumber = "108"
+                  offsetFromSymbolStart = "372">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SpeedTweetRead.TweetsTableViewController.(onLoadedTweets (SpeedTweetRead.TweetsTableViewController) -&gt; (Swift.Optional&lt;Swift.Array&lt;ObjectiveC.TWTRTweet&gt;&gt;, error : Swift.Optional&lt;ObjectiveC.NSError&gt;) -&gt; ()).(closure #1)"
+                  moduleName = "SpeedTweetRead"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/nreality/Documents/experiments/FastTwitterTestingApp/FastTwitterTestingApp/TweetsTableViewController.swift"
+                  timestampString = "459019598.419345"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "109"
+                  endingLineNumber = "109"
+                  offsetFromSymbolStart = "28">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FastTwitterTestingApp/TweetsTableViewController.swift"
+            timestampString = "459020184.220414"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "104"
+            endingLineNumber = "104"
+            landmarkName = "onLoadedTweets(_:error:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

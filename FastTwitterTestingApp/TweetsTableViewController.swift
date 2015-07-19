@@ -17,12 +17,16 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
     var ffdBarButton : UIBarButtonItem? = nil
     var pauseBarButton : UIBarButtonItem? = nil
     
+    func setupTweets(){
+        var previouslyDownloadedTweets = serviceProxy.tweetsLoadedFromFile( "tweets.twt")
+        self.onLoadedTweets(serviceProxy.relevantTweets(previouslyDownloadedTweets),error : nil)
+
+    }
+    
     override func viewDidLoad() {
         TWTRTweetView.appearance().theme = .Dark
         self.setupTableView()
-        var previouslyDownloadedTweets = serviceProxy.tweetsLoadedFromFile( "tweets.twt")
-        self.onLoadedTweets(serviceProxy.relevantTweets(previouslyDownloadedTweets),error : nil)
-        serviceProxy.downloadLatestTweets(onLoadedTweets)
+        self.setupTweets()
         
         ffdBarButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FastForward, target: self, action: "autoScroll:")
         pauseBarButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Pause, target: self, action:  "autoScroll:")
@@ -54,6 +58,11 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
     
     @objc func onApplicationDidBecomeActive(notification: NSNotification){
         serviceProxy.downloadLatestTweets(onLoadedTweets)
+        
+        if tweets.count > 0{
+            let indexPath = NSIndexPath(forRow: 0, inSection: 0)
+            self.tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: UITableViewScrollPosition.Top, animated: false)
+        }
     }
     
     func setAutoScrollBarButtonImage(){
@@ -95,10 +104,7 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
         if let err = error{
             println("Error downloading tweets \(err)")
         }
-        
-        
-        
-        
+
         if let loadedTweets = tweets{
             
             let unreadTweets = loadedTweets.filter(){
@@ -112,9 +118,7 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
             //TODO just append from active one
             let oldCount = self.tweets.count
             self.tweets = unreadTweets
-            if (oldCount == 0){
-                self.tableView.reloadData()
-            }
+            self.tableView.reloadData()
         }
         
     }
