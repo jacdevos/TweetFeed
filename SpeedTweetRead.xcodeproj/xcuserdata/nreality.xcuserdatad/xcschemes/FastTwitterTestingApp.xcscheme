@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "9B93B0001B47BAE10043ADA4"
-               BuildableName = "FastTwitterTestingApp.app"
-               BlueprintName = "FastTwitterTestingApp"
-               ReferencedContainer = "container:FastTwitterTestingApp.xcodeproj">
+               BuildableName = "SpeedTweetRead.app"
+               BlueprintName = "SpeedTweetRead"
+               ReferencedContainer = "container:SpeedTweetRead.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -29,9 +29,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "9B93B0181B47BAE10043ADA4"
-               BuildableName = "FastTwitterTestingAppTests.xctest"
-               BlueprintName = "FastTwitterTestingAppTests"
-               ReferencedContainer = "container:FastTwitterTestingApp.xcodeproj">
+               BuildableName = "SpeedTweetReadTests.xctest"
+               BlueprintName = "SpeedTweetReadTests"
+               ReferencedContainer = "container:SpeedTweetRead.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -47,9 +47,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "9B93B0181B47BAE10043ADA4"
-               BuildableName = "FastTwitterTestingAppTests.xctest"
-               BlueprintName = "FastTwitterTestingAppTests"
-               ReferencedContainer = "container:FastTwitterTestingApp.xcodeproj">
+               BuildableName = "SpeedTweetReadTests.xctest"
+               BlueprintName = "SpeedTweetReadTests"
+               ReferencedContainer = "container:SpeedTweetRead.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -57,9 +57,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9B93B0001B47BAE10043ADA4"
-            BuildableName = "FastTwitterTestingApp.app"
-            BlueprintName = "FastTwitterTestingApp"
-            ReferencedContainer = "container:FastTwitterTestingApp.xcodeproj">
+            BuildableName = "SpeedTweetRead.app"
+            BlueprintName = "SpeedTweetRead"
+            ReferencedContainer = "container:SpeedTweetRead.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -77,9 +77,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9B93B0001B47BAE10043ADA4"
-            BuildableName = "FastTwitterTestingApp.app"
-            BlueprintName = "FastTwitterTestingApp"
-            ReferencedContainer = "container:FastTwitterTestingApp.xcodeproj">
+            BuildableName = "SpeedTweetRead.app"
+            BlueprintName = "SpeedTweetRead"
+            ReferencedContainer = "container:SpeedTweetRead.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -96,9 +96,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9B93B0001B47BAE10043ADA4"
-            BuildableName = "FastTwitterTestingApp.app"
-            BlueprintName = "FastTwitterTestingApp"
-            ReferencedContainer = "container:FastTwitterTestingApp.xcodeproj">
+            BuildableName = "SpeedTweetRead.app"
+            BlueprintName = "SpeedTweetRead"
+            ReferencedContainer = "container:SpeedTweetRead.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

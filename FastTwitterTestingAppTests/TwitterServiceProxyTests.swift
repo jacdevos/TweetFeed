@@ -1,6 +1,5 @@
 import XCTest
 import TwitterKit
-import FastTwitterTestingApp
 
 class TwitterServiceProxyTests: XCTestCase {
     

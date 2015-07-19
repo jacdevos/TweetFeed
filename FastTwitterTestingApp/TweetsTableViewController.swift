@@ -15,7 +15,17 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
         self.setupTableView()
         var previouslyDownloadedTweets = serviceProxy.tweetsLoadedFromFile( "tweets.twt")
         self.onLoadedTweets(serviceProxy.relevantTweets(previouslyDownloadedTweets),error : nil)
-        serviceProxy.downloadLatestTweets(onLoadedTweets);
+        serviceProxy.downloadLatestTweets(onLoadedTweets)
+        
+        NSNotificationCenter.defaultCenter().addObserver(
+            self,
+            selector: "onApplicationDidBecomeActive:",
+            name: UIApplicationDidBecomeActiveNotification,
+            object: nil)
+    }
+    
+    @objc func onApplicationDidBecomeActive(notification: NSNotification){
+        serviceProxy.downloadLatestTweets(onLoadedTweets)
     }
     
     func setupTableView(){

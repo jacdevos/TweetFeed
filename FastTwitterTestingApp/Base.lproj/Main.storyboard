@@ -2,12 +2,14 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Login View Controller-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController id="vXZ-lx-hvc" customClass="LoginViewController" customModule="FastTwitterTestingApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="vXZ-lx-hvc" customClass="LoginViewController" customModule="SpeedTweetRead" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
                         <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
@@ -15,19 +17,54 @@
                     <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shutterstock_151142903" translatesAutoresizingMaskIntoConstraints="NO" id="Eaq-ya-yIt">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                            </imageView>
+                        </subviews>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Eaq-ya-yIt" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="-20" id="3td-Zg-iOt"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="Eaq-ya-yIt" secondAttribute="bottom" id="EdA-8l-uji"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Eaq-ya-yIt" secondAttribute="trailing" constant="-20" id="Tzm-ZK-1ZK"/>
+                            <constraint firstItem="Eaq-ya-yIt" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="-70" id="gfW-xY-Ljk"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="Eaq-ya-yIt"/>
+                            </mask>
+                            <mask key="constraints">
+                                <exclude reference="EdA-8l-uji"/>
+                                <exclude reference="3td-Zg-iOt"/>
+                                <exclude reference="Tzm-ZK-1ZK"/>
+                                <exclude reference="gfW-xY-Ljk"/>
+                            </mask>
+                        </variation>
+                        <variation key="widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="Eaq-ya-yIt"/>
+                            </mask>
+                            <mask key="constraints">
+                                <include reference="EdA-8l-uji"/>
+                                <include reference="3td-Zg-iOt"/>
+                                <include reference="Tzm-ZK-1ZK"/>
+                                <include reference="gfW-xY-Ljk"/>
+                            </mask>
+                        </variation>
                     </view>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <connections>
                         <segue destination="OkY-lB-Z9l" kind="showDetail" identifier="login" id="bDh-Yp-HQm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="529.5" y="219"/>
         </scene>
         <!--News-->
         <scene sceneID="qZY-UY-6LT">
             <objects>
-                <viewController id="jpS-Mg-sdD" customClass="TweetsTableViewController" customModule="FastTwitterTestingApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="jpS-Mg-sdD" customClass="TweetsTableViewController" customModule="SpeedTweetRead" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" title="News" id="aZi-Me-HpQ">
                         <barButtonItem key="leftBarButtonItem" systemItem="camera" id="Mbj-gK-Zo6"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="fastForward" id="3Uw-Em-at1"/>
@@ -56,4 +93,8 @@
             <point key="canvasLocation" x="1242" y="228"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="shutterstock_151142903" width="667" height="1000"/>
+    </resources>
+    <color key="tintColor" red="0.3843137254901961" green="0.37647058823529411" blue="0.68235294117647061" alpha="1" colorSpace="calibratedRGB"/>
 </document>

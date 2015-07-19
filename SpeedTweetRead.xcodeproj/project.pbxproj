@@ -43,7 +43,7 @@
 /* Begin PBXFileReference section */
 		9B680B681B5ACB2900E92874 /* TwitterServiceProxy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterServiceProxy.swift; sourceTree = "<group>"; };
 		9B680B6B1B5AF04900E92874 /* AlreadyReadTweets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlreadyReadTweets.swift; sourceTree = "<group>"; };
-		9B93B0011B47BAE10043ADA4 /* FastTwitterTestingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FastTwitterTestingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9B93B0011B47BAE10043ADA4 /* SpeedTweetRead.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpeedTweetRead.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B93B0051B47BAE10043ADA4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9B93B0061B47BAE10043ADA4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9B93B0091B47BAE10043ADA4 /* FastTwitterTestingApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FastTwitterTestingApp.xcdatamodel; sourceTree = "<group>"; };
@@ -51,7 +51,7 @@
 		9B93B00E1B47BAE10043ADA4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9B93B0101B47BAE10043ADA4 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		9B93B0131B47BAE10043ADA4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		9B93B0191B47BAE10043ADA4 /* FastTwitterTestingAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FastTwitterTestingAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9B93B0191B47BAE10043ADA4 /* SpeedTweetReadTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpeedTweetReadTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B93B01E1B47BAE10043ADA4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9B93B01F1B47BAE10043ADA4 /* TwitterServiceProxyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterServiceProxyTests.swift; sourceTree = "<group>"; };
 		9B93B02A1B47BBBC0043ADA4 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
@@ -148,8 +148,8 @@
 		9B93B0021B47BAE10043ADA4 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				9B93B0011B47BAE10043ADA4 /* FastTwitterTestingApp.app */,
-				9B93B0191B47BAE10043ADA4 /* FastTwitterTestingAppTests.xctest */,
+				9B93B0011B47BAE10043ADA4 /* SpeedTweetRead.app */,
+				9B93B0191B47BAE10043ADA4 /* SpeedTweetReadTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -198,9 +198,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		9B93B0001B47BAE10043ADA4 /* FastTwitterTestingApp */ = {
+		9B93B0001B47BAE10043ADA4 /* SpeedTweetRead */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9B93B0231B47BAE10043ADA4 /* Build configuration list for PBXNativeTarget "FastTwitterTestingApp" */;
+			buildConfigurationList = 9B93B0231B47BAE10043ADA4 /* Build configuration list for PBXNativeTarget "SpeedTweetRead" */;
 			buildPhases = (
 				9B93AFFD1B47BAE10043ADA4 /* Sources */,
 				9B93AFFE1B47BAE10043ADA4 /* Frameworks */,
@@ -211,14 +211,14 @@
 			);
 			dependencies = (
 			);
-			name = FastTwitterTestingApp;
+			name = SpeedTweetRead;
 			productName = FastTwitterTestingApp;
-			productReference = 9B93B0011B47BAE10043ADA4 /* FastTwitterTestingApp.app */;
+			productReference = 9B93B0011B47BAE10043ADA4 /* SpeedTweetRead.app */;
 			productType = "com.apple.product-type.application";
 		};
-		9B93B0181B47BAE10043ADA4 /* FastTwitterTestingAppTests */ = {
+		9B93B0181B47BAE10043ADA4 /* SpeedTweetReadTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9B93B0261B47BAE10043ADA4 /* Build configuration list for PBXNativeTarget "FastTwitterTestingAppTests" */;
+			buildConfigurationList = 9B93B0261B47BAE10043ADA4 /* Build configuration list for PBXNativeTarget "SpeedTweetReadTests" */;
 			buildPhases = (
 				9B93B0151B47BAE10043ADA4 /* Sources */,
 				9B93B0161B47BAE10043ADA4 /* Frameworks */,
@@ -229,9 +229,9 @@
 			dependencies = (
 				9B93B01B1B47BAE10043ADA4 /* PBXTargetDependency */,
 			);
-			name = FastTwitterTestingAppTests;
+			name = SpeedTweetReadTests;
 			productName = FastTwitterTestingAppTests;
-			productReference = 9B93B0191B47BAE10043ADA4 /* FastTwitterTestingAppTests.xctest */;
+			productReference = 9B93B0191B47BAE10043ADA4 /* SpeedTweetReadTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -252,7 +252,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 9B93AFFC1B47BAE10043ADA4 /* Build configuration list for PBXProject "FastTwitterTestingApp" */;
+			buildConfigurationList = 9B93AFFC1B47BAE10043ADA4 /* Build configuration list for PBXProject "SpeedTweetRead" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -265,8 +265,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				9B93B0001B47BAE10043ADA4 /* FastTwitterTestingApp */,
-				9B93B0181B47BAE10043ADA4 /* FastTwitterTestingAppTests */,
+				9B93B0001B47BAE10043ADA4 /* SpeedTweetRead */,
+				9B93B0181B47BAE10043ADA4 /* SpeedTweetReadTests */,
 			);
 		};
 /* End PBXProject section */
@@ -339,7 +339,7 @@
 /* Begin PBXTargetDependency section */
 		9B93B01B1B47BAE10043ADA4 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 9B93B0001B47BAE10043ADA4 /* FastTwitterTestingApp */;
+			target = 9B93B0001B47BAE10043ADA4 /* SpeedTweetRead */;
 			targetProxy = 9B93B01A1B47BAE10043ADA4 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -455,7 +455,7 @@
 				);
 				INFOPLIST_FILE = FastTwitterTestingApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = SpeedTweetRead;
 			};
 			name = Debug;
 		};
@@ -469,7 +469,7 @@
 				);
 				INFOPLIST_FILE = FastTwitterTestingApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = SpeedTweetRead;
 			};
 			name = Release;
 		};
@@ -488,8 +488,8 @@
 				);
 				INFOPLIST_FILE = FastTwitterTestingAppTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FastTwitterTestingApp.app/FastTwitterTestingApp";
+				PRODUCT_NAME = SpeedTweetReadTests;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SpeedTweetRead.app/SpeedTweetRead";
 			};
 			name = Debug;
 		};
@@ -504,15 +504,15 @@
 				);
 				INFOPLIST_FILE = FastTwitterTestingAppTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FastTwitterTestingApp.app/FastTwitterTestingApp";
+				PRODUCT_NAME = SpeedTweetReadTests;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SpeedTweetRead.app/SpeedTweetRead";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		9B93AFFC1B47BAE10043ADA4 /* Build configuration list for PBXProject "FastTwitterTestingApp" */ = {
+		9B93AFFC1B47BAE10043ADA4 /* Build configuration list for PBXProject "SpeedTweetRead" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9B93B0211B47BAE10043ADA4 /* Debug */,
@@ -521,7 +521,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		9B93B0231B47BAE10043ADA4 /* Build configuration list for PBXNativeTarget "FastTwitterTestingApp" */ = {
+		9B93B0231B47BAE10043ADA4 /* Build configuration list for PBXNativeTarget "SpeedTweetRead" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9B93B0241B47BAE10043ADA4 /* Debug */,
@@ -530,7 +530,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		9B93B0261B47BAE10043ADA4 /* Build configuration list for PBXNativeTarget "FastTwitterTestingAppTests" */ = {
+		9B93B0261B47BAE10043ADA4 /* Build configuration list for PBXNativeTarget "SpeedTweetReadTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9B93B0271B47BAE10043ADA4 /* Debug */,

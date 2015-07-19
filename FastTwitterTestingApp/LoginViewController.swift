@@ -22,9 +22,18 @@ class LoginViewController: UIViewController {
         
         self.view.addSubview(logInButton)
         logInButton.sendActionsForControlEvents(UIControlEvents.TouchUpInside)
+        
+        self.setNeedsStatusBarAppearanceUpdate()
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        
     }
     
 
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return UIStatusBarStyle.LightContent
+    }
 
 
 }
