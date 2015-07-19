@@ -7,8 +7,15 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
     let alreadyReadTweets : AlreadyReadTweets = AlreadyReadTweets()
     let tweetTableReuseIdentifier = "TweetCell"
     var tweets: [TWTRTweet] = []
-    let tweetIDs = ["616504006790111232","20","510908133917487104"]
+    var isAutoScrolling = false {
+        didSet {
+            self.setAutoScrollBarButtonImage()
+        }
+    }
 
+    @IBOutlet weak var autoScrollBarButton: UIBarButtonItem!
+    var ffdBarButton : UIBarButtonItem? = nil
+    var pauseBarButton : UIBarButtonItem? = nil
     
     override func viewDidLoad() {
         TWTRTweetView.appearance().theme = .Dark
@@ -17,15 +24,54 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
         self.onLoadedTweets(serviceProxy.relevantTweets(previouslyDownloadedTweets),error : nil)
         serviceProxy.downloadLatestTweets(onLoadedTweets)
         
+        ffdBarButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FastForward, target: self, action: "autoScroll:")
+        pauseBarButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Pause, target: self, action:  "autoScroll:")
+        
         NSNotificationCenter.defaultCenter().addObserver(
             self,
             selector: "onApplicationDidBecomeActive:",
             name: UIApplicationDidBecomeActiveNotification,
             object: nil)
+
+    }
+    
+
+    func scrollByOnePointOnTimer() {
+        tableView.setContentOffset(CGPoint(
+            x:tableView.contentOffset.x,
+            y: tableView.contentOffset.y + 1),//add one point, more than than makes it appear to jump
+            animated: false)//need to switch animation off for smooth scrolling
+        
+        if isAutoScrolling{
+            self.autoScrollAfterInterval()
+            
+            if tableView.contentOffset.y > tableView.contentSize.height - 500{
+                isAutoScrolling = false
+            }
+        }
+    
     }
     
     @objc func onApplicationDidBecomeActive(notification: NSNotification){
         serviceProxy.downloadLatestTweets(onLoadedTweets)
+    }
+    
+    func setAutoScrollBarButtonImage(){
+        navigationItem.rightBarButtonItems = isAutoScrolling ? [pauseBarButton!] : [ffdBarButton!]
+    }
+  
+    @IBAction func autoScroll(sender: AnyObject) {
+        isAutoScrolling = !isAutoScrolling
+        
+        self.autoScrollAfterInterval()
+    }
+    
+    func autoScrollAfterInterval(){
+        if !isAutoScrolling{
+            return
+        }
+        
+         NSTimer.scheduledTimerWithTimeInterval(0.011, target: self, selector: "scrollByOnePointOnTimer", userInfo: nil, repeats: false)
     }
     
     func setupTableView(){
@@ -112,7 +158,10 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
     }
     
     func tweetView(tweetView: TWTRTweetView!, didSelectTweet tweet: TWTRTweet!){
-
+        isAutoScrolling = false
+        setAutoScrollBarButtonImage()
+        
+        
         let URL = "https://twitter.com/support/status/\(tweet.tweetID)"
         let URLInApp = "twitter://status?id=\(tweet.tweetID)"
         
@@ -124,8 +173,5 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
         
         UIApplication.sharedApplication().openURL(NSURL(string: "twitter://timeline")!)
     }
-    
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        
-    }
+
 }

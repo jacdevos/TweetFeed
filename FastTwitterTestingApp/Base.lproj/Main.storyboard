@@ -66,9 +66,15 @@
             <objects>
                 <viewController id="jpS-Mg-sdD" customClass="TweetsTableViewController" customModule="SpeedTweetRead" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" title="News" id="aZi-Me-HpQ">
-                        <barButtonItem key="leftBarButtonItem" systemItem="camera" id="Mbj-gK-Zo6"/>
-                        <barButtonItem key="rightBarButtonItem" systemItem="fastForward" id="3Uw-Em-at1"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="fastForward" id="3Uw-Em-at1">
+                            <connections>
+                                <action selector="autoScroll:" destination="jpS-Mg-sdD" id="aQe-yS-ib6"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="autoScrollBarButton" destination="3Uw-Em-at1" id="Dgo-df-fat"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QtZ-X7-Hak" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
