@@ -28,6 +28,9 @@
 		9B93B03A1B47DD5C0043ADA4 /* TwitterCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B93B02D1B47BBBC0043ADA4 /* TwitterCore.framework */; };
 		9B93B03B1B47DD5C0043ADA4 /* TwitterKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B93B02B1B47BBBC0043ADA4 /* TwitterKit.framework */; };
 		9B93B03C1B47DD5C0043ADA4 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B93B02A1B47BBBC0043ADA4 /* Fabric.framework */; };
+		9BF904E41B5C1C5800B09D5A /* TweetTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BF904E31B5C1C5800B09D5A /* TweetTableViewCell.swift */; };
+		9BF904E71B5C205B00B09D5A /* NSOutputStreamExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BF904E61B5C205B00B09D5A /* NSOutputStreamExtention.swift */; };
+		9BF904E91B5C21E700B09D5A /* ArrayExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BF904E81B5C21E700B09D5A /* ArrayExtention.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +65,9 @@
 		9B93B0331B47C03B0043ADA4 /* TweetsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TweetsViewController.xib; sourceTree = "<group>"; };
 		9B93B0361B47CBE10043ADA4 /* TweetsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetsTableViewController.swift; sourceTree = "<group>"; };
 		9B93B0371B47CBE10043ADA4 /* TweetsTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TweetsTableViewController.xib; sourceTree = "<group>"; };
+		9BF904E31B5C1C5800B09D5A /* TweetTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetTableViewCell.swift; sourceTree = "<group>"; };
+		9BF904E61B5C205B00B09D5A /* NSOutputStreamExtention.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSOutputStreamExtention.swift; sourceTree = "<group>"; };
+		9BF904E81B5C21E700B09D5A /* ArrayExtention.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtention.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +121,7 @@
 				9B93B0121B47BAE10043ADA4 /* LaunchScreen.xib */,
 				9B93B0331B47C03B0043ADA4 /* TweetsViewController.xib */,
 				9B93B0371B47CBE10043ADA4 /* TweetsTableViewController.xib */,
+				9BF904E31B5C1C5800B09D5A /* TweetTableViewCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -122,6 +129,7 @@
 		9B680B661B5AC96900E92874 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				9B680B6B1B5AF04900E92874 /* AlreadyReadTweets.swift */,
 				9B93B0081B47BAE10043ADA4 /* FastTwitterTestingApp.xcdatamodeld */,
 			);
 			name = Model;
@@ -131,7 +139,6 @@
 			isa = PBXGroup;
 			children = (
 				9B680B681B5ACB2900E92874 /* TwitterServiceProxy.swift */,
-				9B680B6B1B5AF04900E92874 /* AlreadyReadTweets.swift */,
 			);
 			name = ServiceProxy;
 			sourceTree = "<group>";
@@ -157,6 +164,7 @@
 		9B93B0031B47BAE10043ADA4 /* FastTwitterTestingApp */ = {
 			isa = PBXGroup;
 			children = (
+				9BF904E51B5C203F00B09D5A /* Utils */,
 				9B680B671B5ACAEC00E92874 /* ServiceProxy */,
 				9B680B661B5AC96900E92874 /* Model */,
 				9B680B651B5AC91F00E92874 /* View */,
@@ -193,6 +201,15 @@
 				9B93B01E1B47BAE10043ADA4 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		9BF904E51B5C203F00B09D5A /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				9BF904E61B5C205B00B09D5A /* NSOutputStreamExtention.swift */,
+				9BF904E81B5C21E700B09D5A /* ArrayExtention.swift */,
+			);
+			name = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -315,6 +332,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9BF904E71B5C205B00B09D5A /* NSOutputStreamExtention.swift in Sources */,
 				9B93B0341B47C03B0043ADA4 /* TweetsViewController.swift in Sources */,
 				9B680B6C1B5AF04900E92874 /* AlreadyReadTweets.swift in Sources */,
 				9B93B0381B47CBE10043ADA4 /* TweetsTableViewController.swift in Sources */,
@@ -322,6 +340,8 @@
 				9B93B00C1B47BAE10043ADA4 /* LoginViewController.swift in Sources */,
 				9B93B00A1B47BAE10043ADA4 /* FastTwitterTestingApp.xcdatamodeld in Sources */,
 				9B93B0071B47BAE10043ADA4 /* AppDelegate.swift in Sources */,
+				9BF904E91B5C21E700B09D5A /* ArrayExtention.swift in Sources */,
+				9BF904E41B5C1C5800B09D5A /* TweetTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

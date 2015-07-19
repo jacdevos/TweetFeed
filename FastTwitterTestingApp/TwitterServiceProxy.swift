@@ -1,6 +1,8 @@
 import TwitterKit
 typealias TwitterServiceResponse = ([TWTRTweet]?, NSError?) -> Void
 typealias TwitterServiceDataResponse = (NSData?, NSError?) -> Void
+
+//TODO split this class into its various responsibilities
 class TwitterServiceProxy {
     var tweets: [TWTRTweet] = []
     
@@ -16,8 +18,10 @@ class TwitterServiceProxy {
             if (twt.retweetCount > 1){
                 tweetsWithRetweets.append(twt)
             }
-            //println(twt.retweetCount)
         }
+        
+        
+        
         return tweetsWithRetweets
     }
     

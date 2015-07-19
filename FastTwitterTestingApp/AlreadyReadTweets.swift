@@ -1,42 +1,12 @@
 import Foundation
 import TwitterKit
-extension NSOutputStream {
-    
-    /// Write String to outputStream
-    ///
-    /// :param: string                The string to write.
-    /// :param: encoding              The NSStringEncoding to use when writing the string. This will default to UTF8.
-    /// :param: allowLossyConversion  Whether to permit lossy conversion when writing the string.
-    ///
-    /// :returns:                     Return total number of bytes written upon success. Return -1 upon failure.
-    
-    func write(string: String, encoding: NSStringEncoding = NSUTF8StringEncoding, allowLossyConversion: Bool = true) -> Int {
-        if let data = string.dataUsingEncoding(encoding, allowLossyConversion: allowLossyConversion) {
-            var bytes = UnsafePointer<UInt8>(data.bytes)
-            var bytesRemaining = data.length
-            var totalBytesWritten = 0
-            
-            while bytesRemaining > 0 {
-                let bytesWritten = self.write(bytes, maxLength: bytesRemaining)
-                if bytesWritten < 0 {
-                    return -1
-                }
-                
-                bytesRemaining -= bytesWritten
-                bytes += bytesWritten
-                totalBytesWritten += bytesWritten
-            }
-            
-            return totalBytesWritten
-        }
-        
-        return -1
-    }
-    
-}
+
 
 class AlreadyReadTweets{
-    var alreadyReadTweets : Set<String>
+    var alreadyReadTweets : Set<String> //the tweets that have crossed the whole screen
+    
+    var currentlyReadingTweets : Array<TWTRTweet> = []//the tweets that are currently on screen
+    
     init() {
         alreadyReadTweets = []
         let contents = String(contentsOfFile: self.pathForDocumentsFile("readtweetids3.txt"), encoding: NSUTF8StringEncoding, error: nil)
@@ -48,12 +18,16 @@ class AlreadyReadTweets{
                 }
             }
         }
-        
-        //println(alreadyReadTweets)
+    }
+    
+    func markAsReading(tweet : TWTRTweet){
+        currentlyReadingTweets.insert(tweet, atIndex: 0)
+       
     }
     
     func markAsRead(tweet : TWTRTweet){
         alreadyReadTweets.insert(tweet.tweetID)
+        currentlyReadingTweets.removeObject(tweet)
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
             

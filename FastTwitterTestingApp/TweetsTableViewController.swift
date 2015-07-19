@@ -20,7 +20,7 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
     func setupTweets(){
         var previouslyDownloadedTweets = serviceProxy.tweetsLoadedFromFile( "tweets.twt")
         self.onLoadedTweets(serviceProxy.relevantTweets(previouslyDownloadedTweets),error : nil)
-
+        serviceProxy.downloadLatestTweets(onLoadedTweets)
     }
     
     override func viewDidLoad() {
@@ -39,48 +39,8 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
 
     }
     
-
-    func scrollByOnePointOnTimer() {
-        tableView.setContentOffset(CGPoint(
-            x:tableView.contentOffset.x,
-            y: tableView.contentOffset.y + 1),//add one point, more than than makes it appear to jump
-            animated: false)//need to switch animation off for smooth scrolling
-        
-        if isAutoScrolling{
-            self.autoScrollAfterInterval()
-            
-            if tableView.contentOffset.y > tableView.contentSize.height - 500{
-                isAutoScrolling = false
-            }
-        }
-    
-    }
-    
     @objc func onApplicationDidBecomeActive(notification: NSNotification){
         serviceProxy.downloadLatestTweets(onLoadedTweets)
-        
-        if tweets.count > 0{
-            let indexPath = NSIndexPath(forRow: 0, inSection: 0)
-            self.tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: UITableViewScrollPosition.Top, animated: false)
-        }
-    }
-    
-    func setAutoScrollBarButtonImage(){
-        navigationItem.rightBarButtonItems = isAutoScrolling ? [pauseBarButton!] : [ffdBarButton!]
-    }
-  
-    @IBAction func autoScroll(sender: AnyObject) {
-        isAutoScrolling = !isAutoScrolling
-        
-        self.autoScrollAfterInterval()
-    }
-    
-    func autoScrollAfterInterval(){
-        if !isAutoScrolling{
-            return
-        }
-        
-         NSTimer.scheduledTimerWithTimeInterval(0.011, target: self, selector: "scrollByOnePointOnTimer", userInfo: nil, repeats: false)
     }
     
     func setupTableView(){
@@ -92,13 +52,11 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
         
         tableView.allowsSelection = true
         
-        
         tableView.rowHeight = UITableViewAutomaticDimension // Explicitly set on iOS 8 if using automatic row height calculation
         tableView.allowsSelection = false
-        tableView.registerClass(TWTRTweetTableViewCell.self, forCellReuseIdentifier: tweetTableReuseIdentifier)
+        tableView.registerClass(TweetTableViewCell.self, forCellReuseIdentifier: tweetTableReuseIdentifier)
         tableView.backgroundColor = UIColor.darkGrayColor()
     }
-    
     
     func onLoadedTweets(tweets : [TWTRTweet]?, error : NSError?){
         if let err = error{
@@ -107,7 +65,7 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
 
         if let loadedTweets = tweets{
             
-            let unreadTweets = loadedTweets.filter(){
+            var unreadTweets = loadedTweets.filter(){
                 if let tweetID = ($0 as TWTRTweet).tweetID as String! {
                     return !self.alreadyReadTweets.alreadyReadTweets.contains(tweetID)
                 } else {
@@ -115,12 +73,29 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
                 }
             }
             
+            //move active tweets to the top
+            for activeTweet in self.alreadyReadTweets.currentlyReadingTweets{
+                unreadTweets.removeObject(activeTweet)//remove from arb position if it is in main list
+                for twt in unreadTweets{
+                    if (twt.tweetID == activeTweet.tweetID){
+                        unreadTweets.removeObject(twt)
+                        unreadTweets.insert(activeTweet, atIndex: 0)
+                    }
+                }
+                
+            }
+            self.alreadyReadTweets.currentlyReadingTweets = []
+            
             //TODO just append from active one
             let oldCount = self.tweets.count
             self.tweets = unreadTweets
             self.tableView.reloadData()
+            
+            if loadedTweets.count > 0{
+                let indexPath = NSIndexPath(forRow: 0, inSection: 0)
+                self.tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: UITableViewScrollPosition.Top, animated: false)
+            }
         }
-        
     }
 
     
@@ -130,7 +105,6 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        println(indexPath.row)
         
         if (indexPath.row > tweets.count - 1){
             return UITableViewCell()
@@ -138,9 +112,14 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
         
         let tweet = tweets[indexPath.row]
         
-        self.alreadyReadTweets.markAsRead(tweet)
+        self.alreadyReadTweets.markAsReading(tweet)
         
-        let cell = tableView.dequeueReusableCellWithIdentifier(tweetTableReuseIdentifier, forIndexPath: indexPath) as? TWTRTweetTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(tweetTableReuseIdentifier, forIndexPath: indexPath) as? TweetTableViewCell
+        let tweetFromReusedCell = cell?.tweet
+        
+        if let unloadedTweet = tweetFromReusedCell{
+            self.alreadyReadTweets.markAsRead(unloadedTweet)
+        }
         
         if let cellChecked = cell{
             cellChecked.configureWithTweet(tweet)
@@ -158,14 +137,16 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
             return 1
         }
         let tweet = tweets[indexPath.row]
-        return TWTRTweetTableViewCell.heightForTweet(tweet, width: CGRectGetWidth(self.view.bounds))
+        return TweetTableViewCell.heightForTweet(tweet, width: CGRectGetWidth(self.view.bounds))
     }
     
     func tweetView(tweetView: TWTRTweetView!, didSelectTweet tweet: TWTRTweet!){
         isAutoScrolling = false
-        setAutoScrollBarButtonImage()
-        
-        
+        self.openTweetDeeplink(tweet)
+    }
+  
+    // MARK: deeplink
+    func openTweetDeeplink(tweet: TWTRTweet!){
         let URL = "https://twitter.com/support/status/\(tweet.tweetID)"
         let URLInApp = "twitter://status?id=\(tweet.tweetID)"
         
@@ -176,6 +157,42 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
         }
         
         UIApplication.sharedApplication().openURL(NSURL(string: "twitter://timeline")!)
+    }
+    
+    
+    // MARK: autoscroll
+    func scrollByOnePointOnTimer() {
+        tableView.setContentOffset(CGPoint(
+            x:tableView.contentOffset.x,
+            y: tableView.contentOffset.y + 1),//add one point, more than than makes it appear to jump
+            animated: false)//need to switch animation off for smooth scrolling
+        
+        if isAutoScrolling{
+            self.autoScrollAfterInterval()
+            
+            if tableView.contentOffset.y > tableView.contentSize.height - 500{
+                isAutoScrolling = false
+            }
+        }
+        
+    }
+    
+    func setAutoScrollBarButtonImage(){
+        navigationItem.rightBarButtonItems = isAutoScrolling ? [pauseBarButton!] : [ffdBarButton!]
+    }
+    
+    @IBAction func autoScroll(sender: AnyObject) {
+        isAutoScrolling = !isAutoScrolling
+        
+        self.autoScrollAfterInterval()
+    }
+    
+    func autoScrollAfterInterval(){
+        if !isAutoScrolling{
+            return
+        }
+        
+        NSTimer.scheduledTimerWithTimeInterval(0.011, target: self, selector: "scrollByOnePointOnTimer", userInfo: nil, repeats: false)
     }
 
 }
