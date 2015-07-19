@@ -11,6 +11,7 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
 
     
     override func viewDidLoad() {
+        TWTRTweetView.appearance().theme = .Dark
         self.setupTableView()
         var previouslyDownloadedTweets = serviceProxy.tweetsLoadedFromFile( "tweets.twt")
         self.onLoadedTweets(serviceProxy.relevantTweets(previouslyDownloadedTweets),error : nil)
@@ -82,7 +83,6 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
         if let cellChecked = cell{
             cellChecked.configureWithTweet(tweet)
             cellChecked.tweetView.delegate = self
-            cellChecked.tweetView.theme = TWTRTweetViewTheme.Dark
             cellChecked.separatorInset = UIEdgeInsetsZero
             cellChecked.layoutMargins = UIEdgeInsetsZero
             return cellChecked
