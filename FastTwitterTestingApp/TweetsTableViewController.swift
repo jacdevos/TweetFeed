@@ -24,7 +24,9 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
         tableView.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
         tableView.separatorInset = UIEdgeInsetsZero
         tableView.layoutMargins = UIEdgeInsetsZero
-        //tableView.separatorEffect = UIBlurEffect();
+        
+        tableView.allowsSelection = true
+        
         
         tableView.rowHeight = UITableViewAutomaticDimension // Explicitly set on iOS 8 if using automatic row height calculation
         tableView.allowsSelection = false
@@ -97,5 +99,23 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
         }
         let tweet = tweets[indexPath.row]
         return TWTRTweetTableViewCell.heightForTweet(tweet, width: CGRectGetWidth(self.view.bounds))
+    }
+    
+    func tweetView(tweetView: TWTRTweetView!, didSelectTweet tweet: TWTRTweet!){
+
+        let URL = "https://twitter.com/support/status/\(tweet.tweetID)"
+        let URLInApp = "twitter://status?id=\(tweet.tweetID)"
+        
+        if UIApplication.sharedApplication().canOpenURL(NSURL(string: URLInApp)!) {
+            UIApplication.sharedApplication().openURL(NSURL(string: URLInApp)!)
+        } else {
+            UIApplication.sharedApplication().openURL(NSURL(string: URL)!)
+        }
+        
+        UIApplication.sharedApplication().openURL(NSURL(string: "twitter://timeline")!)
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
     }
 }
