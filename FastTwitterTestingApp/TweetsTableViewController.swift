@@ -141,7 +141,7 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
     }
     
     func tweetView(tweetView: TWTRTweetView!, didSelectTweet tweet: TWTRTweet!){
-        isAutoScrolling = false
+        //isAutoScrolling = false
         self.openTweetDeeplink(tweet)
     }
   
