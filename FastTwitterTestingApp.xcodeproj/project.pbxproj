@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		9B680B691B5ACB2900E92874 /* TwitterServiceProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B680B681B5ACB2900E92874 /* TwitterServiceProxy.swift */; };
 		9B680B6A1B5AD26900E92874 /* TwitterServiceProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B680B681B5ACB2900E92874 /* TwitterServiceProxy.swift */; };
+		9B680B6C1B5AF04900E92874 /* AlreadyReadTweets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B680B6B1B5AF04900E92874 /* AlreadyReadTweets.swift */; };
 		9B93B0071B47BAE10043ADA4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B93B0061B47BAE10043ADA4 /* AppDelegate.swift */; };
 		9B93B00A1B47BAE10043ADA4 /* FastTwitterTestingApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9B93B0081B47BAE10043ADA4 /* FastTwitterTestingApp.xcdatamodeld */; };
 		9B93B00C1B47BAE10043ADA4 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B93B00B1B47BAE10043ADA4 /* LoginViewController.swift */; };
@@ -41,6 +42,7 @@
 
 /* Begin PBXFileReference section */
 		9B680B681B5ACB2900E92874 /* TwitterServiceProxy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterServiceProxy.swift; sourceTree = "<group>"; };
+		9B680B6B1B5AF04900E92874 /* AlreadyReadTweets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlreadyReadTweets.swift; sourceTree = "<group>"; };
 		9B93B0011B47BAE10043ADA4 /* FastTwitterTestingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FastTwitterTestingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B93B0051B47BAE10043ADA4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9B93B0061B47BAE10043ADA4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -129,6 +131,7 @@
 			isa = PBXGroup;
 			children = (
 				9B680B681B5ACB2900E92874 /* TwitterServiceProxy.swift */,
+				9B680B6B1B5AF04900E92874 /* AlreadyReadTweets.swift */,
 			);
 			name = ServiceProxy;
 			sourceTree = "<group>";
@@ -313,6 +316,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9B93B0341B47C03B0043ADA4 /* TweetsViewController.swift in Sources */,
+				9B680B6C1B5AF04900E92874 /* AlreadyReadTweets.swift in Sources */,
 				9B93B0381B47CBE10043ADA4 /* TweetsTableViewController.swift in Sources */,
 				9B680B691B5ACB2900E92874 /* TwitterServiceProxy.swift in Sources */,
 				9B93B00C1B47BAE10043ADA4 /* LoginViewController.swift in Sources */,

@@ -16,7 +16,7 @@ class TwitterServiceProxy {
             if (twt.retweetCount > 1){
                 tweetsWithRetweets.append(twt)
             }
-            println(twt.retweetCount)
+            //println(twt.retweetCount)
         }
         return tweetsWithRetweets
     }
@@ -63,11 +63,33 @@ class TwitterServiceProxy {
     }
     
     func downloadLatestTweets(callback : TwitterServiceResponse){
-        
-        self.downloadLatestTweetData{ data, error in
+
+        self.downloadLatestTweetData{ dataFromService, error in
             //todo handle error
-            let tweetsFromData = self.deserializeTweetsFromData(data!)
-            callback(self.relevantTweets(tweetsFromData),nil)
+            if let dataFromSvc = dataFromService{
+                self.creatDownloadedFile(dataFromSvc, fileName: "tweets.twt")
+                callback(self.relevantTweets(self.tweetsLoadedFromFile( "tweets.twt")),nil)
+            }
         }
+    }
+    
+    func creatDownloadedFile (data : NSData, fileName : String){
+       data.writeToFile(self.pathForCacheFile(fileName), atomically: true)
+    }
+    
+    func tweetsLoadedFromFile (fileName : String) -> [TWTRTweet]{
+        let data = NSData(contentsOfFile: self.pathForCacheFile(fileName))
+        if data == nil{
+            return []
+        }
+        
+        return self.deserializeTweetsFromData(data!)
+    }
+    
+    func pathForCacheFile (fileName : String)  -> String{
+        let dirs : [String] = (NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.CachesDirectory, NSSearchPathDomainMask.AllDomainsMask, true) as? [String])!
+        let dir = dirs[0] //documents directory
+        let path = dir.stringByAppendingPathComponent(fileName);
+        return path
     }
 }
