@@ -7,6 +7,7 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
     let alreadyReadTweets : AlreadyReadTweets = AlreadyReadTweets()
     let tweetTableReuseIdentifier = "TweetCell"
     var tweets: [TWTRTweet] = []
+    var tempLoadedCells : [TweetTableViewCell] = []
     var isAutoScrolling = false {
         didSet {
             self.setAutoScrollBarButtonImage()
@@ -43,6 +44,7 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
         serviceProxy.downloadLatestTweets(onLoadedTweets)
     }
     
+    
     func setupTableView(){
         tableView.estimatedRowHeight = 150
         tableView.separatorColor = UIColor.grayColor()
@@ -62,6 +64,12 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
         if let err = error{
             println("Error downloading tweets \(err)")
         }
+        
+        
+        //clear old cell data, so old data does not affect the markAsRead logic
+        for tweetCell in self.tempLoadedCells{
+            tweetCell.tweet = nil
+        }
 
         if let loadedTweets = tweets{
             
@@ -75,23 +83,23 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
             
             //move active tweets to the top
             for activeTweet in self.alreadyReadTweets.currentlyReadingTweets{
-                unreadTweets.removeObject(activeTweet)//remove from arb position if it is in main list
+                //unreadTweets.removeObject(activeTweet)//remove from arb position if it is in main list
                 for twt in unreadTweets{
                     if (twt.tweetID == activeTweet.tweetID){
-                        unreadTweets.removeObject(twt)
+                        unreadTweets.removeObject(twt)//remove from arb position if it is in main list
                         unreadTweets.insert(activeTweet, atIndex: 0)
                     }
                 }
                 
             }
-            self.alreadyReadTweets.currentlyReadingTweets = []
+
+
             
-            //TODO just append from active one
             let oldCount = self.tweets.count
             self.tweets = unreadTweets
             self.tableView.reloadData()
             
-            if loadedTweets.count > 0{
+            if self.tweets.count > 0{
                 let indexPath = NSIndexPath(forRow: 0, inSection: 0)
                 self.tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: UITableViewScrollPosition.Top, animated: false)
             }
@@ -130,6 +138,12 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
         }
         return UITableViewCell()
         
+    }
+    
+    override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        if let tweetCell = cell as? TweetTableViewCell{
+            self.tempLoadedCells.append(tweetCell)
+        }
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -192,7 +206,9 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
             return
         }
         
-        NSTimer.scheduledTimerWithTimeInterval(0.011, target: self, selector: "scrollByOnePointOnTimer", userInfo: nil, repeats: false)
+        var scrollSpeed = 0.014 //>0.01 is fast, 0.05 very slow
+        
+        NSTimer.scheduledTimerWithTimeInterval(scrollSpeed, target: self, selector: "scrollByOnePointOnTimer", userInfo: nil, repeats: false)
     }
 
 }
