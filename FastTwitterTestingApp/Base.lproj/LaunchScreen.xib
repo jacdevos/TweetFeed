@@ -16,19 +16,7 @@
                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tweet" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="slH-Yy-zzz">
-                    <rect key="frame" x="20" y="140" width="441" height="43"/>
-                    <fontDescription key="fontDescription" type="italicSystem" pointSize="36"/>
-                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Feed" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="0oL-VC-SDD">
-                    <rect key="frame" x="20" y="140" width="441" height="43"/>
-                    <fontDescription key="fontDescription" type="italicSystem" pointSize="36"/>
-                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Speed " textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="kId-c2-rCX">
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TweetFeed" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="slH-Yy-zzz">
                     <rect key="frame" x="20" y="140" width="441" height="43"/>
                     <fontDescription key="fontDescription" type="italicSystem" pointSize="36"/>
                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -37,43 +25,30 @@
             </subviews>
             <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="slH-Yy-zzz" firstAttribute="top" secondItem="kId-c2-rCX" secondAttribute="bottom" constant="20" id="9ik-iN-OB1"/>
+                <constraint firstAttribute="centerX" secondItem="slH-Yy-zzz" secondAttribute="centerX" id="7u6-PA-kDc"/>
                 <constraint firstAttribute="centerY" secondItem="slH-Yy-zzz" secondAttribute="centerY" id="G6y-oZ-LlF"/>
-                <constraint firstAttribute="centerX" secondItem="kId-c2-rCX" secondAttribute="centerX" id="Koa-jz-hwk"/>
                 <constraint firstAttribute="bottom" secondItem="8ie-xW-0ye" secondAttribute="bottom" constant="20" id="Kzo-t9-V3l"/>
                 <constraint firstItem="8ie-xW-0ye" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" symbolic="YES" id="MfP-vx-nX0"/>
-                <constraint firstItem="0oL-VC-SDD" firstAttribute="top" secondItem="slH-Yy-zzz" secondAttribute="bottom" constant="20" id="MpK-gq-Pj8"/>
-                <constraint firstItem="0oL-VC-SDD" firstAttribute="centerX" secondItem="slH-Yy-zzz" secondAttribute="centerX" constant="1" id="Xg3-T8-TDg"/>
                 <constraint firstAttribute="centerX" secondItem="8ie-xW-0ye" secondAttribute="centerX" id="ZEH-qu-HZ9"/>
-                <constraint firstItem="kId-c2-rCX" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" symbolic="YES" id="fvb-Df-36g"/>
-                <constraint firstItem="slH-Yy-zzz" firstAttribute="centerX" secondItem="kId-c2-rCX" secondAttribute="centerX" constant="-1" id="g2j-gl-GOp"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <variation key="default">
                 <mask key="subviews">
                     <exclude reference="slH-Yy-zzz"/>
-                    <exclude reference="0oL-VC-SDD"/>
                 </mask>
                 <mask key="constraints">
-                    <exclude reference="9ik-iN-OB1"/>
+                    <exclude reference="7u6-PA-kDc"/>
                     <exclude reference="G6y-oZ-LlF"/>
-                    <exclude reference="g2j-gl-GOp"/>
-                    <exclude reference="MpK-gq-Pj8"/>
-                    <exclude reference="Xg3-T8-TDg"/>
                 </mask>
             </variation>
             <variation key="widthClass=compact">
                 <mask key="subviews">
                     <include reference="slH-Yy-zzz"/>
-                    <include reference="0oL-VC-SDD"/>
                 </mask>
                 <mask key="constraints">
-                    <include reference="9ik-iN-OB1"/>
+                    <include reference="7u6-PA-kDc"/>
                     <include reference="G6y-oZ-LlF"/>
-                    <include reference="g2j-gl-GOp"/>
-                    <include reference="MpK-gq-Pj8"/>
-                    <include reference="Xg3-T8-TDg"/>
                 </mask>
             </variation>
             <point key="canvasLocation" x="548" y="455"/>
