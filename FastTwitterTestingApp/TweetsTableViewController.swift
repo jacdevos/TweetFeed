@@ -3,6 +3,8 @@ import UIKit
 import TwitterKit
 
 class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
+    let iOS7 = floor(NSFoundationVersionNumber) <= floor(NSFoundationVersionNumber_iOS_7_1)
+
     let serviceProxy : TwitterServiceProxy = TwitterServiceProxy()
     let alreadyReadTweets : AlreadyReadTweets = AlreadyReadTweets()
     let tweetTableReuseIdentifier = "TweetCell"
@@ -50,8 +52,10 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
         tableView.separatorColor = UIColor.grayColor()
         tableView.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
         tableView.separatorInset = UIEdgeInsetsZero
-        //tableView.layoutMargins = UIEdgeInsetsZero
         
+        if !iOS7{
+          tableView.layoutMargins = UIEdgeInsetsZero
+        }
         tableView.allowsSelection = true
         
         tableView.rowHeight = UITableViewAutomaticDimension // Explicitly set on iOS 8 if using automatic row height calculation
@@ -134,7 +138,9 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
             cellChecked.configureWithTweet(tweet)
             cellChecked.tweetView.delegate = self
             cellChecked.separatorInset = UIEdgeInsetsZero
-            //cellChecked.layoutMargins = UIEdgeInsetsZero
+            if !iOS7{
+                cellChecked.layoutMargins = UIEdgeInsetsZero
+            }
             return cellChecked
         }
         return UITableViewCell()
