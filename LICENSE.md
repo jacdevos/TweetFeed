@@ -1,10 +1,10 @@
-TweedFeed by Jacques de Vos
-Copyright (C) Jacques Pinard de Vos
-Jacques Pinard de Vos can be contacted at: jacdevos@gmail.com
+TweedFeed by Jacques de Vos  
+Copyright (C) Jacques Pinard de Vos  
+Jacques Pinard de Vos can be contacted at: jacdevos@gmail.com  
 
-Licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License (the "License"); you may not use this file and project except in compliance with the License.
+Licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License (the "License"); you may not use this file and project except in compliance with the License.  
 
-You may obtain a copy of the License at
+You may obtain a copy of the License at  
 http://creativecommons.org/licenses/by-nc-nd/4.0
 
 Unless required by applicable law or agreed to in writing, software
