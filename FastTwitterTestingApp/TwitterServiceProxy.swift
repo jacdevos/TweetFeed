@@ -31,11 +31,16 @@ class TwitterServiceProxy {
         
         let nsarray : NSArray = json as! NSArray
         
-        let tweetsUntypedArray = TWTRTweet.tweetsWithJSONArray(Array(nsarray))
         var tweets : [TWTRTweet] = []
-        for twt in tweetsUntypedArray{
-            tweets.append(twt as! TWTRTweet)
+        for tweetJSON in nsarray{
+            let tweetJSONDic : [NSObject : AnyObject]! = tweetJSON as! [NSObject : AnyObject]
+            let tweet = TWTRTweet(JSONDictionary: tweetJSONDic)
+            
+            if let nonOptionalTweet = tweet{
+                tweets.append(nonOptionalTweet)
+            }
         }
+
         return tweets
     }
     
