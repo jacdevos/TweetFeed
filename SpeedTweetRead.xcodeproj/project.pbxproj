@@ -259,6 +259,7 @@
 				TargetAttributes = {
 					9B93B0001B47BAE10043ADA4 = {
 						CreatedOnToolsVersion = 6.3.2;
+						DevelopmentTeam = 8MDZR45CDF;
 					};
 					9B93B0181B47BAE10043ADA4 = {
 						CreatedOnToolsVersion = 6.3.2;
@@ -465,13 +466,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/FastTwitterTestingApp",
 				);
 				INFOPLIST_FILE = FastTwitterTestingApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = SpeedTweetRead;
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -479,13 +484,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/FastTwitterTestingApp",
 				);
 				INFOPLIST_FILE = FastTwitterTestingApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = SpeedTweetRead;
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

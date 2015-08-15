@@ -3,6 +3,12 @@ import TwitterKit
 
 class TwitterServiceProxyTests: XCTestCase {
     
+    //need to download into files, with dates as names (use largest number to limit)
+    
+    //purge older than 1 week files
+    
+    
+    
     func testDownloadLastestTweetData(){
         let expectAsync = self.expectationWithDescription("testDownloadLastestTweetData")
         let proxy : TwitterServiceProxy = TwitterServiceProxy()

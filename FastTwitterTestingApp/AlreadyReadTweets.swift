@@ -1,6 +1,7 @@
 import Foundation
 import TwitterKit
 
+//TODO: create a file per day, purge files older than 1 week
 
 class AlreadyReadTweets{
     var alreadyReadTweets : Set<String> //the tweets that have crossed the whole screen

@@ -50,7 +50,7 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
         tableView.separatorColor = UIColor.grayColor()
         tableView.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
         tableView.separatorInset = UIEdgeInsetsZero
-        tableView.layoutMargins = UIEdgeInsetsZero
+        //tableView.layoutMargins = UIEdgeInsetsZero
         
         tableView.allowsSelection = true
         
@@ -69,6 +69,7 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
         //clear old cell data, so old data does not affect the markAsRead logic
         for tweetCell in self.tempLoadedCells{
             tweetCell.tweet = nil
+            println("position \(tweetCell.frame.origin.y)")
         }
 
         if let loadedTweets = tweets{
@@ -133,12 +134,14 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
             cellChecked.configureWithTweet(tweet)
             cellChecked.tweetView.delegate = self
             cellChecked.separatorInset = UIEdgeInsetsZero
-            cellChecked.layoutMargins = UIEdgeInsetsZero
+            //cellChecked.layoutMargins = UIEdgeInsetsZero
             return cellChecked
         }
         return UITableViewCell()
         
     }
+    
+    
     
     override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         if let tweetCell = cell as? TweetTableViewCell{

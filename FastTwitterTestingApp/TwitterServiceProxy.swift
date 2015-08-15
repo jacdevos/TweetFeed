@@ -19,9 +19,6 @@ class TwitterServiceProxy {
                 tweetsWithRetweets.append(twt)
             }
         }
-        
-        
-        
         return tweetsWithRetweets
     }
     
