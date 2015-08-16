@@ -27,6 +27,7 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
     
     override func viewDidLoad() {
         TWTRTweetView.appearance().theme = .Dark
+        
         self.setupTableView()
         self.setupTweets()
         
@@ -66,6 +67,14 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
     func onLoadedTweets(tweets : [TWTRTweet]?, error : NSError?){
         if let err = error{
             println("Error downloading tweets \(err)")
+
+            if err.localizedDescription.rangeOfString("401") != nil{
+                //unauthorised
+                 Twitter.sharedInstance().logOut()
+                self.dismissViewControllerAnimated(true, completion: nil)
+                    
+            }
+
         }
         
         
@@ -132,6 +141,7 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
         }
         
         if let cellChecked = cell{
+            
             cellChecked.configureWithTweet(tweet)
             cellChecked.tweetView.delegate = self
             cellChecked.separatorInset = UIEdgeInsetsZero
@@ -157,7 +167,9 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
             return 1
         }
         let tweet = tweets[indexPath.row]
-        return TweetTableViewCell.heightForTweet(tweet, width: CGRectGetWidth(self.view.bounds))
+        return TweetTableViewCell.heightForTweet(tweet, width: CGRectGetWidth(self.view.bounds), showingActions: true)
+        //return TweetTableViewCell.heightForTweet(tweet, width: CGRectGetWidth(self.view.bounds) - 20)
+        
     }
     
     func tweetView(tweetView: TWTRTweetView!, didSelectTweet tweet: TWTRTweet!){

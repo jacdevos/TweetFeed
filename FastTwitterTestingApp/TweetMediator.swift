@@ -7,7 +7,10 @@ class TweetMediator {
     static func getLatestTweets(callback : TweetsLoaded){
         
         TweetDownloader.downloadHomeTimelineTweets{ dataFromService, error in
-            //todo handle error
+            if let err = error{
+                callback(nil,error)
+            }
+            
             if let dataFromSvc = dataFromService{
                 TweetPersistance.saveTweetsForData(dataFromSvc)
                 //var str = NSString(data: dataFromSvc, encoding: NSUTF8StringEncoding)

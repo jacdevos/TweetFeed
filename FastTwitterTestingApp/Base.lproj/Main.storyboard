@@ -20,7 +20,7 @@
                     </view>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <connections>
-                        <segue destination="OkY-lB-Z9l" kind="showDetail" identifier="login" id="bDh-Yp-HQm"/>
+                        <segue destination="OkY-lB-Z9l" kind="presentation" identifier="login" id="bDh-Yp-HQm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>

@@ -21,6 +21,7 @@ class TweetDownloader {
             }
             else {
                 println("Error calling twitter: \(connectionError)")
+
                 callback(nil, connectionError)
             }
         }
