@@ -32,9 +32,7 @@ class TweetMediator {
     }
     
     func setupTweets(){
-
         resetToUnreadTweets(TweetRelevanceSorter.relevantTweets(TweetPersistance.getAll()))
-
     }
     
     func getLatestTweets(callback : TweetsLoaded){
@@ -55,6 +53,4 @@ class TweetMediator {
             }
         }
     }
-    
-    
 }
