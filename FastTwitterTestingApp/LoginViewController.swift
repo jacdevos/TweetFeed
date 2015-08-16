@@ -28,12 +28,9 @@ class LoginViewController: UIViewController {
     override func viewDidAppear(animated: Bool) {
         
     }
-    
 
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
         return UIStatusBarStyle.LightContent
     }
-
-
 }
 

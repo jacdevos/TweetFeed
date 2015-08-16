@@ -9,11 +9,7 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
     let tweetTableReuseIdentifier = "TweetCell"
     var tweets: [TWTRTweet] = []
     var tempLoadedCells : [TweetTableViewCell] = []
-    var isAutoScrolling = false {
-        didSet {
-            self.setAutoScrollBarButtonImage()
-        }
-    }
+    var autoScroller : AutoScroller?
 
     @IBOutlet weak var autoScrollBarButton: UIBarButtonItem!
     var ffdBarButton : UIBarButtonItem? = nil
@@ -28,6 +24,7 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
     override func viewDidLoad() {
         TWTRTweetView.appearance().theme = .Dark
         
+        autoScroller = AutoScroller(tableView: tableView!, onAutoScrollingToggled: self.setAutoScrollBarButtonImage)
         self.setupTableView()
         self.setupTweets()
         
@@ -154,8 +151,6 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
         
     }
     
-    
-    
     override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         if let tweetCell = cell as? TweetTableViewCell{
             self.tempLoadedCells.append(tweetCell)
@@ -175,44 +170,18 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
     func tweetView(tweetView: TWTRTweetView!, didSelectTweet tweet: TWTRTweet!){
         TwitterDeepLink.openTweetDeeplink(tweet)
     }
-  
+
 
     
-    // MARK: autoscroll
-    func scrollByOnePointOnTimer() {
-        tableView.setContentOffset(CGPoint(
-            x:tableView.contentOffset.x,
-            y: tableView.contentOffset.y + 1),//add one point, more than than makes it appear to jump
-            animated: false)//need to switch animation off for smooth scrolling
-        
-        if isAutoScrolling{
-            self.autoScrollAfterInterval()
-            
-            if tableView.contentOffset.y > tableView.contentSize.height - 500{
-                isAutoScrolling = false
-            }
-        }
-        
-    }
-    
     func setAutoScrollBarButtonImage(){
-        navigationItem.rightBarButtonItems = isAutoScrolling ? [pauseBarButton!] : [ffdBarButton!]
+        navigationItem.rightBarButtonItems =  autoScroller!.isAutoScrolling ? [pauseBarButton!] : [ffdBarButton!]
+        
     }
     
     @IBAction func autoScroll(sender: AnyObject) {
-        isAutoScrolling = !isAutoScrolling
+        autoScroller!.toggleAutoScroll()
         
-        self.autoScrollAfterInterval()
     }
-    
-    func autoScrollAfterInterval(){
-        if !isAutoScrolling{
-            return
-        }
-        
-        var scrollSpeed = 0.014 //>0.01 is fast, 0.05 very slow
-        
-        NSTimer.scheduledTimerWithTimeInterval(scrollSpeed, target: self, selector: "scrollByOnePointOnTimer", userInfo: nil, repeats: false)
-    }
+
 
 }
