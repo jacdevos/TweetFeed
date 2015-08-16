@@ -5,7 +5,7 @@ import TwitterKit
 class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
     let iOS7 = floor(NSFoundationVersionNumber) <= floor(NSFoundationVersionNumber_iOS_7_1)
 
-    let serviceProxy : TwitterServiceProxy = TwitterServiceProxy()
+    let serviceProxy : TweetDownloader = TweetDownloader()
     let alreadyReadTweets : TweetReadingState = TweetReadingState()
     let tweetTableReuseIdentifier = "TweetCell"
     var tweets: [TWTRTweet] = []
@@ -21,9 +21,9 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
     var pauseBarButton : UIBarButtonItem? = nil
     
     func setupTweets(){
-        var previouslyDownloadedTweets = serviceProxy.tweetsLoadedFromFile( "tweets.twt")
+        var previouslyDownloadedTweets = TweetDownloader.tweetsLoadedFromFile( "tweets.twt")
         self.onLoadedTweets(TweetRelevanceSorter.relevantTweets(previouslyDownloadedTweets),error : nil)
-        serviceProxy.downloadLatestTweets(onLoadedTweets)
+        TweetDownloader.downloadLatestTweets(onLoadedTweets)
     }
     
     override func viewDidLoad() {
@@ -43,7 +43,7 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
     }
     
     @objc func onApplicationDidBecomeActive(notification: NSNotification){
-        serviceProxy.downloadLatestTweets(onLoadedTweets)
+        TweetDownloader.downloadLatestTweets(onLoadedTweets)
     }
     
     

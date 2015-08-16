@@ -2,13 +2,9 @@ import TwitterKit
 typealias TwitterServiceResponse = ([TWTRTweet]?, NSError?) -> Void
 typealias TwitterServiceDataResponse = (NSData?, NSError?) -> Void
 
-//TODO split this class into its various responsibilities
-class TwitterServiceProxy {
-    var tweets: [TWTRTweet] = []
-    
-
-    
-    func deserializeTweetsFromData(data: NSData) -> [TWTRTweet] {
+class TweetDownloader {
+  
+    static func deserializeTweetsFromData(data: NSData) -> [TWTRTweet] {
         var jsonError : NSError?
         var json : AnyObject? = nil
         json = NSJSONSerialization.JSONObjectWithData(data,
@@ -30,7 +26,7 @@ class TwitterServiceProxy {
         return tweets
     }
     
-    func downloadLatestTweetData(callback : TwitterServiceDataResponse){
+    static func downloadLatestTweetData(callback : TwitterServiceDataResponse){
         let statusesShowEndpoint = "https://api.twitter.com/1.1/statuses/home_timeline.json"
         let params = ["count":"200","exclude_replies":"false","include_entities":"false"]
         var clientError : NSError?
@@ -54,7 +50,7 @@ class TwitterServiceProxy {
         }
     }
     
-    func downloadLatestTweets(callback : TwitterServiceResponse){
+    static func downloadLatestTweets(callback : TwitterServiceResponse){
 
         self.downloadLatestTweetData{ dataFromService, error in
             //todo handle error
@@ -68,11 +64,11 @@ class TwitterServiceProxy {
         }
     }
     
-    func creatDownloadedFile (data : NSData, fileName : String){
+    static func creatDownloadedFile (data : NSData, fileName : String){
        data.writeToFile(self.pathForCacheFile(fileName), atomically: true)
     }
     
-    func tweetsLoadedFromFile (fileName : String) -> [TWTRTweet]{
+    static func tweetsLoadedFromFile (fileName : String) -> [TWTRTweet]{
         let data = NSData(contentsOfFile: self.pathForCacheFile(fileName))
         if data == nil{
             return []
@@ -81,7 +77,7 @@ class TwitterServiceProxy {
         return self.deserializeTweetsFromData(data!)
     }
     
-    func pathForCacheFile (fileName : String)  -> String{
+    static func pathForCacheFile (fileName : String)  -> String{
         let dirs : [String] = (NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.CachesDirectory, NSSearchPathDomainMask.AllDomainsMask, true) as? [String])!
         let dir = dirs[0] //documents directory
         let path = dir.stringByAppendingPathComponent(fileName);

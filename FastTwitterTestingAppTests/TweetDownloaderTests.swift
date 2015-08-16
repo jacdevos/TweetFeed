@@ -1,7 +1,7 @@
 import XCTest
 import TwitterKit
 
-class TwitterServiceProxyTests: XCTestCase {
+class TweetDownloaderTests: XCTestCase {
     
     //need to download into files, with dates as names (use largest number to limit)
     
@@ -11,10 +11,10 @@ class TwitterServiceProxyTests: XCTestCase {
     
     func testDownloadLastestTweetData(){
         let expectAsync = self.expectationWithDescription("testDownloadLastestTweetData")
-        let proxy : TwitterServiceProxy = TwitterServiceProxy()
+        let proxy : TweetDownloader = TweetDownloader()
         var downloadedData :NSData?
         
-        proxy.downloadLatestTweetData { (data, error) -> Void in
+        TweetDownloader.downloadLatestTweetData { (data, error) -> Void in
             downloadedData = data
             expectAsync.fulfill()
         }
@@ -27,10 +27,10 @@ class TwitterServiceProxyTests: XCTestCase {
     
     func testDownloadLastestTweets(){
         let expectAsync = self.expectationWithDescription("testStatusses")
-        let proxy : TwitterServiceProxy = TwitterServiceProxy()
+        let proxy : TweetDownloader = TweetDownloader()
         var downloadedTweets :[TWTRTweet]?
         
-        proxy.downloadLatestTweets { (tweets :[TWTRTweet]?, error : NSError?) -> Void in
+        TweetDownloader.downloadLatestTweets { (tweets :[TWTRTweet]?, error : NSError?) -> Void in
             downloadedTweets = tweets
             expectAsync.fulfill()
         }
