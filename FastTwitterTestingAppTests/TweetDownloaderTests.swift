@@ -24,7 +24,7 @@ class TweetDownloaderTests: XCTestCase {
         let proxy : TweetDownloader = TweetDownloader()
         var downloadedTweets :[TWTRTweet]?
         
-        TweetRepository.getLatestTweets { (tweets :[TWTRTweet]?, error : NSError?) -> Void in
+        TweetMediator.getLatestTweets { (tweets :[TWTRTweet]?, error : NSError?) -> Void in
             downloadedTweets = tweets
             expectAsync.fulfill()
         }

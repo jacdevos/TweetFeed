@@ -20,9 +20,9 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
     var pauseBarButton : UIBarButtonItem? = nil
     
     func setupTweets(){
-        var previouslyDownloadedTweets = TweetRepository.tweetsLoadedFromFile( "tweets.twt")
+        var previouslyDownloadedTweets = TweetMediator.getPreviouslyDownloadedTweets()
         self.onLoadedTweets(TweetRelevanceSorter.relevantTweets(previouslyDownloadedTweets),error : nil)
-        TweetRepository.getLatestTweets(onLoadedTweets)
+        TweetMediator.getLatestTweets(onLoadedTweets)
     }
     
     override func viewDidLoad() {
@@ -42,7 +42,7 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
     }
     
     @objc func onApplicationDidBecomeActive(notification: NSNotification){
-        TweetRepository.getLatestTweets(onLoadedTweets)
+        TweetMediator.getLatestTweets(onLoadedTweets)
     }
     
     
