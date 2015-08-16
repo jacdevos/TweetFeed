@@ -1,19 +1,19 @@
 import TwitterKit
 class TweetMediator {
     static func getPreviouslyDownloadedTweets() -> [TWTRTweet]{
-        return TweetRepository.getTweets()
+        return TweetPersistance.getAll()
     }
-    
     
     static func getLatestTweets(callback : TweetsLoaded){
         
-        TweetDownloader.downloadLatestTweetData{ dataFromService, error in
+        TweetDownloader.downloadHomeTimelineTweets{ dataFromService, error in
             //todo handle error
             if let dataFromSvc = dataFromService{
-                TweetRepository.persistTweetsForData(dataFromSvc)
+                TweetPersistance.saveTweetsForData(dataFromSvc)
                 //var str = NSString(data: dataFromSvc, encoding: NSUTF8StringEncoding)
                 //println(str)
-                var sorted = TweetRelevanceSorter.relevantTweets(TweetRepository.getTweets())
+                var tweetsFromPersistance = TweetPersistance.getAll()
+                var sorted = TweetRelevanceSorter.relevantTweets(tweetsFromPersistance)
                 callback(sorted,nil)
             }
         }

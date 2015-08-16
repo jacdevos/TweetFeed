@@ -1,21 +1,17 @@
 import TwitterKit
 typealias TweetsLoaded = ([TWTRTweet]?, NSError?) -> Void
 
-class TweetRepository {
-    
-
-    
-    static func persistTweetsForData(tweetData : NSData){
+class TweetPersistance {
+    static func saveTweetsForData(tweetData : NSData){
         creatDownloadedFile(tweetData, fileName: "tweets.twt")
     }
     
-    static func getTweets() -> [TWTRTweet]{
+    static func getAll() -> [TWTRTweet]{
         return tweetsLoadedFromFile( "tweets.twt")
     }
     
-    
-    
     private static func creatDownloadedFile (data : NSData, fileName : String){
+        //TODO: just deserialize to check that data is valid
         data.writeToFile(self.pathForCacheFile(fileName), atomically: true)
     }
     

@@ -2,7 +2,7 @@ import TwitterKit
 typealias TweetsDownloadedCallback = (NSData?, NSError?) -> Void
 
 class TweetDownloader {
-    static func downloadLatestTweetData(callback : TweetsDownloadedCallback){
+    static func downloadHomeTimelineTweets(callback : TweetsDownloadedCallback){
         let statusesShowEndpoint = "https://api.twitter.com/1.1/statuses/home_timeline.json"
         let params = ["count":"200","exclude_replies":"false","include_entities":"false"]
         var clientError : NSError?

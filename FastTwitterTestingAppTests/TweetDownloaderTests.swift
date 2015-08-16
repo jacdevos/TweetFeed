@@ -8,7 +8,7 @@ class TweetDownloaderTests: XCTestCase {
         let proxy : TweetDownloader = TweetDownloader()
         var downloadedData :NSData?
         
-        TweetDownloader.downloadLatestTweetData { (data, error) -> Void in
+        TweetDownloader.downloadHomeTimelineTweets { (data, error) -> Void in
             downloadedData = data
             expectAsync.fulfill()
         }

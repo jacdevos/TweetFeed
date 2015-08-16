@@ -72,7 +72,7 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
         //clear old cell data, so old data does not affect the markAsRead logic
         for tweetCell in self.tempLoadedCells{
             tweetCell.tweet = nil
-            println("position \(tweetCell.frame.origin.y)")
+            //println("position \(tweetCell.frame.origin.y)")
         }
 
         if let loadedTweets = tweets{
