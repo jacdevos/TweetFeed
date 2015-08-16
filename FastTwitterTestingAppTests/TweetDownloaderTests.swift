@@ -18,20 +18,5 @@ class TweetDownloaderTests: XCTestCase {
         
         XCTAssertNotNil(downloadedData, "unable to download latest tweet data")
     }
-    
-    func testDownloadLastestTweets(){
-        let expectAsync = self.expectationWithDescription("testStatusses")
-        let proxy : TweetDownloader = TweetDownloader()
-        var downloadedTweets :[TWTRTweet]?
-        
-        TweetMediator.getLatestTweets { (tweets :[TWTRTweet]?, error : NSError?) -> Void in
-            downloadedTweets = tweets
-            expectAsync.fulfill()
-        }
-        
-        self.waitForExpectationsWithTimeout(60, handler: { (error: NSError?) -> Void in
-        })
-        
-        XCTAssertGreaterThan(downloadedTweets!.count, 0, "No tweets downloaded and serialized")
-    }
+
 }

@@ -1,5 +1,4 @@
 import TwitterKit
-typealias TweetsLoaded = ([TWTRTweet]?, NSError?) -> Void
 
 class TweetPersistance {
     static func saveTweetsForData(tweetData : NSData){
