@@ -12,7 +12,6 @@ class LoginViewController: UIViewController {
                 println("signed in as \(session.userName)");
                 let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
                 appDelegate.twitterSession = session
-                //todo store session globally
                 self.performSegueWithIdentifier("login", sender: self)
             } else {
                 println("error: \(error.localizedDescription)");

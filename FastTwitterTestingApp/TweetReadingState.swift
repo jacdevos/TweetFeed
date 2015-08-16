@@ -1,6 +1,7 @@
 import Foundation
 import TwitterKit
 
+
 //TODO: create a file per day, purge files older than 1 week
 
 class TweetReadingState{

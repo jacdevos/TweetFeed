@@ -5,7 +5,6 @@ import TwitterKit
 class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
     let iOS7 = floor(NSFoundationVersionNumber) <= floor(NSFoundationVersionNumber_iOS_7_1)
 
-    let serviceProxy : TweetDownloader = TweetDownloader()
     let alreadyReadTweets : TweetReadingState = TweetReadingState()
     let tweetTableReuseIdentifier = "TweetCell"
     var tweets: [TWTRTweet] = []
@@ -21,9 +20,9 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
     var pauseBarButton : UIBarButtonItem? = nil
     
     func setupTweets(){
-        var previouslyDownloadedTweets = TweetDownloader.tweetsLoadedFromFile( "tweets.twt")
+        var previouslyDownloadedTweets = TweetRepository.tweetsLoadedFromFile( "tweets.twt")
         self.onLoadedTweets(TweetRelevanceSorter.relevantTweets(previouslyDownloadedTweets),error : nil)
-        TweetDownloader.downloadLatestTweets(onLoadedTweets)
+        TweetRepository.getLatestTweets(onLoadedTweets)
     }
     
     override func viewDidLoad() {
@@ -43,7 +42,7 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
     }
     
     @objc func onApplicationDidBecomeActive(notification: NSNotification){
-        TweetDownloader.downloadLatestTweets(onLoadedTweets)
+        TweetRepository.getLatestTweets(onLoadedTweets)
     }
     
     
@@ -97,8 +96,6 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
                 }
                 
             }
-
-
             
             let oldCount = self.tweets.count
             self.tweets = unreadTweets
@@ -164,24 +161,10 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
     }
     
     func tweetView(tweetView: TWTRTweetView!, didSelectTweet tweet: TWTRTweet!){
-        //isAutoScrolling = false
-        self.openTweetDeeplink(tweet)
+        TwitterDeepLink.openTweetDeeplink(tweet)
     }
   
-    // MARK: deeplink
-    func openTweetDeeplink(tweet: TWTRTweet!){
-        let URL = "https://twitter.com/support/status/\(tweet.tweetID)"
-        let URLInApp = "twitter://status?id=\(tweet.tweetID)"
-        
-        if UIApplication.sharedApplication().canOpenURL(NSURL(string: URLInApp)!) {
-            UIApplication.sharedApplication().openURL(NSURL(string: URLInApp)!)
-        } else {
-            UIApplication.sharedApplication().openURL(NSURL(string: URL)!)
-        }
-        
-        UIApplication.sharedApplication().openURL(NSURL(string: "twitter://timeline")!)
-    }
-    
+
     
     // MARK: autoscroll
     func scrollByOnePointOnTimer() {
