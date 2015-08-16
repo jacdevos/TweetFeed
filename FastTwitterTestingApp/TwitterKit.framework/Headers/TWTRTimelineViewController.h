@@ -48,6 +48,11 @@
  */
 @property (nonatomic, strong) id<TWTRTimelineDataSource> dataSource;
 
+/**
+ *  Whether action buttons (favorite, share) should be shown on the TWTRTweetTableViewCells inside the tableview.
+ */
+@property (nonatomic, assign) BOOL showTweetActions;
+
 - (instancetype)initWithStyle:(UITableViewStyle)style __attribute__((unavailable("Use -initWithDataSource: instead")));
 
 @end

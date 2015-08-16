@@ -3,5 +3,6 @@ framework module TwitterCore {
     
     export *
     module * { export * }
-}
 
+    link framework "CoreData"
+}

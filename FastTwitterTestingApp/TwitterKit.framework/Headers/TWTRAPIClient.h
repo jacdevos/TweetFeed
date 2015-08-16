@@ -63,6 +63,20 @@ typedef void (^TWTRNetworkCompletion)(NSURLResponse * __twtr_nullable response, 
 typedef void (^TWTRJSONRequestCompletion)(NSURLResponse * __twtr_nullable response, id __twtr_nullable responseObject, NSError * __twtr_nullable error);
 
 /**
+ *  Completion block called when a Tweet action (favorite/retweet) is performed.
+ *
+ *  @param response Metadata associated with the response to a URL load request.
+ *  @param tweet    The Tweet object representing the new state of this Tweet from
+ *                  the perspective of the currently-logged in user.
+ *  @param error    Error object describing the error that occurred. This will be either a 
+ *                  network error or an NSError with an errorCode corresponding to 
+ *                  TWTRAPIErrorCodeAlreadyFavorited or TWTRAPIErrorCodeAlreadyRetweeted
+ *                  for an attempted action that has already been taken from the servers
+ *                  point of view for this logged-in user.
+ */
+typedef void (^TWTRTweetActionCompletion)(TWTRTweet * __twtr_nullable tweet, NSError * __twtr_nullable error);
+
+/**
  *  Client for consuming the Twitter REST API. Provides methods for common API requests, as well as the ability to create and send custom requests.
  */
 @interface TWTRAPIClient : NSObject
@@ -107,18 +121,18 @@ typedef void (^TWTRJSONRequestCompletion)(NSURLResponse * __twtr_nullable respon
 /**
  *  Loads a Twitter User.
  *
- *  @param userIDString The Twitter user ID of the desired user.
+ *  @param userID       (required) The Twitter user ID of the desired user.
  *  @param completion   Completion block to be called on response. Called on main queue.
  */
-- (void)loadUserWithID:(NSString *)userIDString completion:(TWTRLoadUserCompletion)completion;
+- (void)loadUserWithID:(NSString *)userID completion:(TWTRLoadUserCompletion)completion;
 
 /**
  *  Loads a single Tweet from the network or cache.
  *
- *  @param tweetIDString The ID of the desired Tweet.
- *  @param completion    Completion bock to be called on response. Called on main queue.
+ *  @param tweetID      (required) The ID of the desired Tweet.
+ *  @param completion   Completion bock to be called on response. Called on main queue.
  */
-- (void)loadTweetWithID:(NSString *)tweetIDString completion:(TWTRLoadTweetCompletion)completion;
+- (void)loadTweetWithID:(NSString *)tweetID completion:(TWTRLoadTweetCompletion)completion;
 
 /**
  *  Loads a series of Tweets in a batch. The completion block will be passed an array of zero or more
@@ -126,7 +140,7 @@ typedef void (^TWTRJSONRequestCompletion)(NSURLResponse * __twtr_nullable respon
  *  number of requested IDs. If any Tweets fail to load, the IDs of the Tweets that did not load will
  *  be provided in the userInfo dictionary property of the error parameter under `TWTRTweetsNotLoadedKey`.
  *
- *  @param tweetIDStrings An array of Tweet IDs.
+ *  @param tweetIDStrings (required) An array of Tweet IDs.
  *  @param completion     Completion block to be called on response. Called on main queue.
  */
 - (void)loadTweetsWithIDs:(NSArray *)tweetIDStrings completion:(TWTRLoadTweetsCompletion)completion;

@@ -57,9 +57,28 @@
 /**
  *  The share action for a Tweet was cancelled.
  *
- *  @param tweetView The tweet view handling the share action.
- *  @param tweet     The tweet model object represented.
+ *  @param tweetView The Tweet view handling the share action.
+ *  @param tweet     The Tweet model object represented.
  */
 - (void)tweetView:(TWTRTweetView *)tweetView cancelledShareTweet:(TWTRTweet *)tweet;
+
+/**
+ *  The Tweet view favorite button was tapped and the action was completed with
+ *  the Twitter API.
+ *
+ *  @param tweetView The Tweet view showing this Tweet object.
+ *  @param tweet     The Tweet model that was just favorited.
+ */
+- (void)tweetView:(TWTRTweetView *)tweetView didFavoriteTweet:(TWTRTweet *)tweet;
+
+/**
+ *  The Tweet view unfavorite button was tapped and the action was completed with 
+ *  the Twitter API.
+ *
+ *  @param tweetView The Tweet view showing this Tweet object.
+ *  @param tweet     The Tweet model object that was just unfavorited.
+ */
+- (void)tweetView:(TWTRTweetView *)tweetView didUnfavoriteTweet:(TWTRTweet *)tweet;
+
 
 @end
