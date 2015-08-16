@@ -6,21 +6,7 @@ typealias TwitterServiceDataResponse = (NSData?, NSError?) -> Void
 class TwitterServiceProxy {
     var tweets: [TWTRTweet] = []
     
-    func relevantTweets(unorderedTweets : [TWTRTweet]) -> [TWTRTweet]{
-        var unordered = unorderedTweets
-        unordered.sort { (x, y) -> Bool in
-            return x.retweetCount > y.retweetCount
-        }
-        
-        var tweetsWithRetweets : [TWTRTweet] = []
-        for twt in unordered{
-            //must have at least 2 retweets
-            if (twt.retweetCount > 1){
-                tweetsWithRetweets.append(twt)
-            }
-        }
-        return tweetsWithRetweets
-    }
+
     
     func deserializeTweetsFromData(data: NSData) -> [TWTRTweet] {
         var jsonError : NSError?
@@ -46,7 +32,7 @@ class TwitterServiceProxy {
     
     func downloadLatestTweetData(callback : TwitterServiceDataResponse){
         let statusesShowEndpoint = "https://api.twitter.com/1.1/statuses/home_timeline.json"
-        let params = ["count":"200","exclude_replies":"true"]
+        let params = ["count":"200","exclude_replies":"false","include_entities":"false"]
         var clientError : NSError?
         
         let request = Twitter.sharedInstance().APIClient.URLRequestWithMethod(
@@ -74,7 +60,10 @@ class TwitterServiceProxy {
             //todo handle error
             if let dataFromSvc = dataFromService{
                 self.creatDownloadedFile(dataFromSvc, fileName: "tweets.twt")
-                callback(self.relevantTweets(self.tweetsLoadedFromFile( "tweets.twt")),nil)
+                var str = NSString(data: dataFromSvc, encoding: NSUTF8StringEncoding)
+                println(str)
+                var sorted = TweetRelevanceSorter.relevantTweets(self.tweetsLoadedFromFile( "tweets.twt"))
+                callback(sorted,nil)
             }
         }
     }

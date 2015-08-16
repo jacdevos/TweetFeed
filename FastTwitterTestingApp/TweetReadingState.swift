@@ -3,7 +3,7 @@ import TwitterKit
 
 //TODO: create a file per day, purge files older than 1 week
 
-class AlreadyReadTweets{
+class TweetReadingState{
     var alreadyReadTweets : Set<String> //the tweets that have crossed the whole screen
     
     var currentlyReadingTweets : Array<TWTRTweet> = []//the tweets that are currently on screen

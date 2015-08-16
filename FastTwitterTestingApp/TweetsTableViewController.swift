@@ -6,7 +6,7 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
     let iOS7 = floor(NSFoundationVersionNumber) <= floor(NSFoundationVersionNumber_iOS_7_1)
 
     let serviceProxy : TwitterServiceProxy = TwitterServiceProxy()
-    let alreadyReadTweets : AlreadyReadTweets = AlreadyReadTweets()
+    let alreadyReadTweets : TweetReadingState = TweetReadingState()
     let tweetTableReuseIdentifier = "TweetCell"
     var tweets: [TWTRTweet] = []
     var tempLoadedCells : [TweetTableViewCell] = []
@@ -22,7 +22,7 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
     
     func setupTweets(){
         var previouslyDownloadedTweets = serviceProxy.tweetsLoadedFromFile( "tweets.twt")
-        self.onLoadedTweets(serviceProxy.relevantTweets(previouslyDownloadedTweets),error : nil)
+        self.onLoadedTweets(TweetRelevanceSorter.relevantTweets(previouslyDownloadedTweets),error : nil)
         serviceProxy.downloadLatestTweets(onLoadedTweets)
     }
     
