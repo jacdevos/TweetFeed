@@ -1,8 +1,6 @@
 import XCTest
 
 class MediatorTests: XCTestCase {
-
-    
     func testDownloadLastestTweets(){
         let expectAsync = self.expectationWithDescription("testStatusses")
         let proxy : TweetDownloader = TweetDownloader()
@@ -16,7 +14,5 @@ class MediatorTests: XCTestCase {
         
         XCTAssertGreaterThan(mediator.tweets.count, 0, "No tweets downloaded and serialized")
     }
-
-
 }
 

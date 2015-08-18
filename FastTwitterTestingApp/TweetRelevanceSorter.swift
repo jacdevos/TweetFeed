@@ -1,21 +1,26 @@
 import TwitterKit
 class TweetRelevanceSorter {
-    static func rankAndFilter(unorderedTweets : [TWTRTweet]) -> [TWTRTweet]{
-        var unordered = unorderedTweets
-        unordered.sort { (x, y) -> Bool in
-            return x.retweetCount > y.retweetCount
-        }
     
-        return filterOnlyTweetsWithRetweets(unordered)
+    static func rankAndFilter(unorderedTweets : [TWTRTweet]) -> [TWTRTweet]{
+        return filterOnlyTweetsWithRetweets(sortByRetweets(unorderedTweets))
     }
     
-    static func filterOnlyTweetsWithRetweets(input : [TWTRTweet]) -> [TWTRTweet]{
+    static func sortByRetweets(tweets : [TWTRTweet]) -> [TWTRTweet]{
+        var tweetsToSort = tweets
+        tweetsToSort.sort { (x, y) -> Bool in
+            return x.retweetCount > y.retweetCount
+        }
+        return tweetsToSort
+    }
+    
+    static func filterOnlyTweetsWithRetweets(tweets : [TWTRTweet]) -> [TWTRTweet]{
         var tweetsWithRetweets : [TWTRTweet] = []
-        for twt in input{
+        for twt in tweets{
             if (twt.retweetCount > 0){
                 tweetsWithRetweets.append(twt)
             }
         }
         return tweetsWithRetweets
     }
+    
 }
