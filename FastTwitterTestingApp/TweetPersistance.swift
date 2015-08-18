@@ -10,7 +10,6 @@ class TweetPersistance {
     }
     
     private static func creatDownloadedFile (data : NSData, fileName : String){
-        //TODO: just deserialize to check that data is valid
         data.writeToFile(self.pathForCacheFile(fileName), atomically: true)
     }
     
@@ -19,7 +18,6 @@ class TweetPersistance {
         if data == nil{
             return []
         }
-        
         return self.deserializeTweetsFromData(data!)
     }
     

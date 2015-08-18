@@ -8,23 +8,22 @@ class TweetDownloader {
         var clientError : NSError?
         
         let request = Twitter.sharedInstance().APIClient.URLRequestWithMethod(
-            "GET", URL: statusesShowEndpoint, parameters: params,
+            "GET",
+            URL: statusesShowEndpoint,
+            parameters: params,
             error: &clientError)
         
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
         
         Twitter.sharedInstance().APIClient.sendTwitterRequest(request) { (response, data, connectionError) -> Void in
             UIApplication.sharedApplication().networkActivityIndicatorVisible = false
-            
             if (connectionError == nil) {
                 callback(data,nil)
             }
             else {
                 println("Error calling twitter: \(connectionError)")
-
                 callback(nil, connectionError)
             }
         }
     }
-
 }

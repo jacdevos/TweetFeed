@@ -24,7 +24,6 @@ class TweetMediator {
                     unreadTweets.insert(activeTweet, atIndex: 0)
                 }
             }
-            
         }
         
         let oldCount = self.tweets.count
@@ -36,7 +35,6 @@ class TweetMediator {
     }
     
     func getLatestTweets(callback : TweetsLoaded){
-        
         TweetDownloader.downloadHomeTimelineTweets{ dataFromService, error in
             if let err = error{
                 callback(error)
@@ -44,8 +42,7 @@ class TweetMediator {
             
             if let dataFromSvc = dataFromService{
                 TweetPersistance.saveTweetsForData(dataFromSvc)
-                //var str = NSString(data: dataFromSvc, encoding: NSUTF8StringEncoding)
-                //println(str)
+                //println( NSString(data: dataFromSvc, encoding: NSUTF8StringEncoding))
                 var tweetsFromPersistance = TweetPersistance.getAll()
                 var sorted = TweetRelevanceSorter.rankAndFilter(tweetsFromPersistance)
                 self.resetToUnreadTweets(sorted)

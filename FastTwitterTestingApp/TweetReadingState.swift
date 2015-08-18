@@ -39,7 +39,6 @@ class TweetReadingState{
                 println("Unable to open file")
             }
         }
-
     }
     
     func pathForDocumentsFile (fileName : String)  -> String{
@@ -48,7 +47,4 @@ class TweetReadingState{
         let path = dir.stringByAppendingPathComponent(fileName);
         return path
     }
-    
-    
-    
 }
