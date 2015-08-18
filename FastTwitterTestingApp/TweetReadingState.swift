@@ -41,6 +41,32 @@ class TweetReadingState{
         }
     }
     
+    func removeTweetsThatHaveBeenRead(tweets : [TWTRTweet]) -> [TWTRTweet]{
+        var unreadTweets = tweets.filter(){
+            if let tweetID = ($0 as TWTRTweet).tweetID as String! {
+                return !self.alreadyReadTweets.contains(tweetID)
+            } else {
+                return false
+            }
+        }
+        return unreadTweets
+    }
+    
+    func moveActiveTweetsToTop(tweets : [TWTRTweet]) -> [TWTRTweet]{
+        var tweetsSortedByIsActive = tweets
+        
+        for activeTweet in self.currentlyReadingTweets{
+            //unreadTweets.removeObject(activeTweet)//remove from arb position if it is in main list
+            for twt in tweetsSortedByIsActive{
+                if (twt.tweetID == activeTweet.tweetID){
+                    tweetsSortedByIsActive.removeObject(twt)//remove from arb position if it is in main list
+                    tweetsSortedByIsActive.insert(activeTweet, atIndex: 0)
+                }
+            }
+        }
+        return tweetsSortedByIsActive
+    }
+    
     func pathForDocumentsFile (fileName : String)  -> String{
         let dirs : [String] = (NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true) as? [String])!
         let dir = dirs[0] //documents directory

@@ -6,32 +6,11 @@ class TweetMediator {
     var tweets: [TWTRTweet] = []
     let alreadyReadTweets : TweetReadingState = TweetReadingState()
     
-    func resetToUnreadTweets(loadedTweets : [TWTRTweet]){
-        var unreadTweets = loadedTweets.filter(){
-            if let tweetID = ($0 as TWTRTweet).tweetID as String! {
-                return !self.alreadyReadTweets.alreadyReadTweets.contains(tweetID)
-            } else {
-                return false
-            }
-        }
-        
-        //move active tweets to the top
-        for activeTweet in self.alreadyReadTweets.currentlyReadingTweets{
-            //unreadTweets.removeObject(activeTweet)//remove from arb position if it is in main list
-            for twt in unreadTweets{
-                if (twt.tweetID == activeTweet.tweetID){
-                    unreadTweets.removeObject(twt)//remove from arb position if it is in main list
-                    unreadTweets.insert(activeTweet, atIndex: 0)
-                }
-            }
-        }
-        
-        let oldCount = self.tweets.count
-        self.tweets = unreadTweets
-    }
-    
     func setupTweets(){
-        resetToUnreadTweets(TweetRelevanceSorter.rankAndFilter(TweetPersistance.getAll()))
+        let loadedTweets = TweetPersistance.getAll()
+        let ranked =  TweetRelevanceSorter.rankAndFilter(loadedTweets)
+        let rankedUnread = alreadyReadTweets.removeTweetsThatHaveBeenRead(ranked)
+        self.tweets = alreadyReadTweets.moveActiveTweetsToTop(rankedUnread)
     }
     
     func getLatestTweets(callback : TweetsLoaded){
@@ -43,9 +22,7 @@ class TweetMediator {
             if let dataFromSvc = dataFromService{
                 TweetPersistance.saveTweetsForData(dataFromSvc)
                 //println( NSString(data: dataFromSvc, encoding: NSUTF8StringEncoding))
-                var tweetsFromPersistance = TweetPersistance.getAll()
-                var sorted = TweetRelevanceSorter.rankAndFilter(tweetsFromPersistance)
-                self.resetToUnreadTweets(sorted)
+                self.setupTweets()
                 callback(nil)
             }
         }
