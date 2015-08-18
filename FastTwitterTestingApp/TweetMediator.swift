@@ -1,7 +1,7 @@
 import TwitterKit
 typealias TweetsLoaded = (NSError?) -> Void
 
-//This guy is at the centre, coordinating with all the other objects to do the magic
+//This guy is at the centre, coordinating with all the other objects to do download, store, get and rank tweets
 class TweetMediator {
     var tweets: [TWTRTweet] = []
     let alreadyReadTweets : TweetReadingState = TweetReadingState()
@@ -32,7 +32,7 @@ class TweetMediator {
     }
     
     func setupTweets(){
-        resetToUnreadTweets(TweetRelevanceSorter.relevantTweets(TweetPersistance.getAll()))
+        resetToUnreadTweets(TweetRelevanceSorter.rankAndFilter(TweetPersistance.getAll()))
     }
     
     func getLatestTweets(callback : TweetsLoaded){
@@ -47,7 +47,7 @@ class TweetMediator {
                 //var str = NSString(data: dataFromSvc, encoding: NSUTF8StringEncoding)
                 //println(str)
                 var tweetsFromPersistance = TweetPersistance.getAll()
-                var sorted = TweetRelevanceSorter.relevantTweets(tweetsFromPersistance)
+                var sorted = TweetRelevanceSorter.rankAndFilter(tweetsFromPersistance)
                 self.resetToUnreadTweets(sorted)
                 callback(nil)
             }
