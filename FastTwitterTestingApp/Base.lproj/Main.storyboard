@@ -35,7 +35,7 @@
                     <navigationItem key="navigationItem" id="aZi-Me-HpQ">
                         <barButtonItem key="leftBarButtonItem" image="UserIcon" id="6AS-cq-4w3">
                             <connections>
-                                <segue destination="qy6-C4-WYy" kind="show" id="HLe-O2-l0u"/>
+                                <action selector="openPreferences:" destination="jpS-Mg-sdD" id="PG8-Sq-dRP"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="fastForward" id="3Uw-Em-at1">
@@ -46,6 +46,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="autoScrollBarButton" destination="3Uw-Em-at1" id="Dgo-df-fat"/>
+                        <segue destination="qy6-C4-WYy" kind="show" identifier="preferences" id="Lkh-DP-Yy4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QtZ-X7-Hak" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -55,8 +56,8 @@
         <!--Settings-->
         <scene sceneID="OJl-j7-Q9A">
             <objects>
-                <tableViewController title="Settings" id="qy6-C4-WYy" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="iJM-gG-LJk">
+                <tableViewController title="Settings" clearsSelectionOnViewWillAppear="NO" id="qy6-C4-WYy" customClass="SettingsTableViewController" customModule="SpeedTweetRead" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="iJM-gG-LJk">
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <sections>
@@ -67,9 +68,13 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wxF-sG-XqS" id="IxK-e2-poV">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Rjm-Zd-8bC">
+                                                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="-1" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Rjm-Zd-8bC">
                                                     <rect key="frame" x="0.0" y="-15" width="118" height="31"/>
                                                     <color key="minimumTrackTintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="maximumTrackTintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <connections>
+                                                        <action selector="prioritySliderChanged:" destination="qy6-C4-WYy" eventType="valueChanged" id="stv-9Q-FDW"/>
+                                                    </connections>
                                                 </slider>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NEWS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jyo-hM-U3u">
                                                     <rect key="frame" x="-42" y="-21" width="42" height="21"/>
@@ -136,9 +141,13 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="I9k-Of-SyS" id="xRc-ph-UHg">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="M3c-c0-Cyv">
+                                                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="-1" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="M3c-c0-Cyv">
                                                     <rect key="frame" x="0.0" y="-15" width="118" height="31"/>
                                                     <color key="minimumTrackTintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="maximumTrackTintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <connections>
+                                                        <action selector="speedSlideChanged:" destination="qy6-C4-WYy" eventType="valueChanged" id="1Gl-8O-A6d"/>
+                                                    </connections>
                                                 </slider>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SLOW" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="74v-Tz-dDO">
                                                     <rect key="frame" x="-42" y="-21" width="42" height="21"/>
@@ -204,10 +213,18 @@
                             <outlet property="delegate" destination="qy6-C4-WYy" id="Wsi-v9-un0"/>
                         </connections>
                     </tableView>
+                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="mdq-sn-1Fr">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </refreshControl>
+                    <connections>
+                        <outlet property="prioritySlider" destination="Rjm-Zd-8bC" id="zGj-6I-wUd"/>
+                        <outlet property="speedSlider" destination="M3c-c0-Cyv" id="r0V-pA-2Qh"/>
+                        <outlet property="speedSliderChanged" destination="M3c-c0-Cyv" id="fBw-iB-AGr"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MZY-bi-ErL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2080.5" y="1036"/>
+            <point key="canvasLocation" x="2005.5" y="1056"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="HWy-AL-iji">

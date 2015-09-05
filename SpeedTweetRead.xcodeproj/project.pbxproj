@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9B3BB62F1B9B45E400784F81 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3BB62E1B9B45E400784F81 /* Settings.swift */; settings = {ASSET_TAGS = (); }; };
+		9B3BB6311B9B4AF400784F81 /* UserPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3BB6301B9B4AF400784F81 /* UserPreferences.swift */; settings = {ASSET_TAGS = (); }; };
+		9B3BB6321B9B4AF400784F81 /* UserPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3BB6301B9B4AF400784F81 /* UserPreferences.swift */; settings = {ASSET_TAGS = (); }; };
 		9B680B691B5ACB2900E92874 /* TweetDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B680B681B5ACB2900E92874 /* TweetDownloader.swift */; };
 		9B680B6A1B5AD26900E92874 /* TweetDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B680B681B5ACB2900E92874 /* TweetDownloader.swift */; };
 		9B680B6C1B5AF04900E92874 /* TweetReadingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B680B6B1B5AF04900E92874 /* TweetReadingState.swift */; };
@@ -57,6 +60,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9B3BB62E1B9B45E400784F81 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		9B3BB6301B9B4AF400784F81 /* UserPreferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserPreferences.swift; sourceTree = "<group>"; };
 		9B680B681B5ACB2900E92874 /* TweetDownloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetDownloader.swift; sourceTree = "<group>"; };
 		9B680B6B1B5AF04900E92874 /* TweetReadingState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetReadingState.swift; sourceTree = "<group>"; };
 		9B93B0011B47BAE10043ADA4 /* SpeedTweetRead.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpeedTweetRead.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -128,6 +133,7 @@
 				9B93B00B1B47BAE10043ADA4 /* LoginViewController.swift */,
 				9BF0D4D31B80F020005F2F92 /* AutoScroller.swift */,
 				9BF0D4CD1B80AAB2005F2F92 /* TwitterDeepLink.swift */,
+				9B3BB62E1B9B45E400784F81 /* Settings.swift */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -149,6 +155,7 @@
 				9B680B681B5ACB2900E92874 /* TweetDownloader.swift */,
 				9BF0D4CA1B80A582005F2F92 /* TweetCache.swift */,
 				9B680B6B1B5AF04900E92874 /* TweetReadingState.swift */,
+				9B3BB6301B9B4AF400784F81 /* UserPreferences.swift */,
 			);
 			name = Logic;
 			sourceTree = "<group>";
@@ -348,11 +355,13 @@
 				9BF904E71B5C205B00B09D5A /* NSOutputStreamExtention.swift in Sources */,
 				9BF0D4CB1B80A582005F2F92 /* TweetCache.swift in Sources */,
 				9BDF96091B9AE00100D7EE22 /* RankedTweet.swift in Sources */,
+				9B3BB62F1B9B45E400784F81 /* Settings.swift in Sources */,
 				9B680B6C1B5AF04900E92874 /* TweetReadingState.swift in Sources */,
 				9BF0D4D41B80F020005F2F92 /* AutoScroller.swift in Sources */,
 				9B93B0381B47CBE10043ADA4 /* TweetsTableViewController.swift in Sources */,
 				9BF0D4CE1B80AAB2005F2F92 /* TwitterDeepLink.swift in Sources */,
 				9B680B691B5ACB2900E92874 /* TweetDownloader.swift in Sources */,
+				9B3BB6311B9B4AF400784F81 /* UserPreferences.swift in Sources */,
 				9B93B00C1B47BAE10043ADA4 /* LoginViewController.swift in Sources */,
 				9B93B0071B47BAE10043ADA4 /* AppDelegate.swift in Sources */,
 				9BF904E91B5C21E700B09D5A /* ArrayExtention.swift in Sources */,
@@ -374,6 +383,7 @@
 				9BF0D4CF1B80AAB2005F2F92 /* TwitterDeepLink.swift in Sources */,
 				9BF62BDA1B80A15C0058293B /* NSOutputStreamExtention.swift in Sources */,
 				9BF62BD81B80A1550058293B /* TweetReadingState.swift in Sources */,
+				9B3BB6321B9B4AF400784F81 /* UserPreferences.swift in Sources */,
 				9BF62BDB1B80A15F0058293B /* TweetsTableViewController.swift in Sources */,
 				9BF0D4D71B83B3B0005F2F92 /* RankedTweetTests.swift in Sources */,
 				9BF62BD41B809D140058293B /* MediatorTests.swift in Sources */,

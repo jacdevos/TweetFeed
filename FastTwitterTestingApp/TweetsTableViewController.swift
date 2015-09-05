@@ -146,4 +146,8 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
     @IBAction func autoScroll(sender: AnyObject) {
         autoScroller!.toggleAutoScroll()
     }
+    
+    @IBAction func openPreferences(sender: UIBarButtonItem) {
+        self.performSegueWithIdentifier("preferences", sender: self)
+    }
 }
