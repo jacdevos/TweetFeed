@@ -47,7 +47,7 @@ class TweetCache {
         for tweetJSON in nsarray{
             let tweetJSONDic : [NSObject : AnyObject]! = tweetJSON as! [NSObject : AnyObject]
 
-            if let tweet = Tweet(JSONDictionary: tweetJSONDic){
+            if let tweet = Tweet(JSONDictionary: tweetJSONDic, priorityBalance : Double(UserPreferences.instance.priorityBalance)){
                 tweets.append(tweet)
             }
         }

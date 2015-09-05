@@ -15,8 +15,19 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
         TWTRTweetView.appearance().theme = .Dark
         self.setupAutoScroll()
         self.setupTableView()
-        self.setupTweets()
+        mediator.getLatestTweets(onLoadedTweets)
         NSNotificationCenter.defaultCenter().addObserver(self,selector: "onApplicationDidBecomeActive:",name: UIApplicationDidBecomeActiveNotification,object: nil)
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        mediator.setupTweets()
+        autoScroller!.isScrollVisible = true
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        autoScroller!.isScrollVisible = false
     }
     
     @objc func onApplicationDidBecomeActive(notification: NSNotification){
@@ -27,11 +38,6 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
         autoScroller = AutoScroller(tableView: tableView!, onAutoScrollingToggled: self.setAutoScrollBarButtonImage)
         ffdBarButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FastForward, target: self, action: "autoScroll:")
         pauseBarButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Pause, target: self, action:  "autoScroll:")
-    }
-    
-    func setupTweets(){
-        mediator.setupTweets()
-        mediator.getLatestTweets(onLoadedTweets)
     }
 
     func setupTableView(){

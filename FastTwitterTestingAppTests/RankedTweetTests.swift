@@ -78,6 +78,6 @@ class TweetRelevanceSorterTests: XCTestCase {
     }
     
     func createTweet(id : String = "1", retweets : Int = 0, favourites : Int = 0, followersCount : Int = 0, priority : Double = 0) -> Tweet{
-        return Tweet(JSONDictionary: ["retweet_count":retweets, "favorite_count":favourites,"id_str":id, "user":["followers_count":followersCount]],newsOrFriendsPrioritySetting : priority)
+        return Tweet(JSONDictionary: ["retweet_count":retweets, "favorite_count":favourites,"id_str":id, "user":["followers_count":followersCount]],priorityBalance : priority)
     }
 }

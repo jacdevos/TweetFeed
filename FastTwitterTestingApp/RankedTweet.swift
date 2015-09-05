@@ -1,11 +1,11 @@
 import TwitterKit
 class Tweet: TWTRTweet {
     var userFollowersCount : Int64 = 0 //default
-    var newsOrFriendsPrioritySetting : Double = 0
-    init!(JSONDictionary dictionary: [NSObject : AnyObject]!, newsOrFriendsPrioritySetting : Double = 0){
+    var priorityBalance : Double = 0
+    init!(JSONDictionary dictionary: [NSObject : AnyObject]!, priorityBalance : Double = 0){
         super.init(JSONDictionary: dictionary)
         setUserFollowersCountFromJson(JSONDictionary: dictionary)
-        self.newsOrFriendsPrioritySetting = newsOrFriendsPrioritySetting
+        self.priorityBalance = priorityBalance
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -26,9 +26,9 @@ class Tweet: TWTRTweet {
         //let favourNewsExponent = 0 //sharply favours news, since user with many followers will not be penalised much
         let defaultExponent = 1/1.5 //nice balance
         
-        let exponent = self.newsOrFriendsPrioritySetting < 0
-            ? defaultExponent + self.newsOrFriendsPrioritySetting * defaultExponent
-            : defaultExponent + self.newsOrFriendsPrioritySetting * (1 - defaultExponent)
+        let exponent = self.priorityBalance < 0
+            ? defaultExponent + self.priorityBalance * defaultExponent
+            : defaultExponent + self.priorityBalance * (1 - defaultExponent)
         
         return pow(Double(followers),exponent)
         
