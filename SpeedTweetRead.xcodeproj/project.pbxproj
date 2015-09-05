@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9B296CE71B9AF36700830A84 /* TweetEntityExtentionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B296CE61B9AF36700830A84 /* TweetEntityExtentionsTests.swift */; settings = {ASSET_TAGS = (); }; };
 		9B680B691B5ACB2900E92874 /* TweetDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B680B681B5ACB2900E92874 /* TweetDownloader.swift */; };
 		9B680B6A1B5AD26900E92874 /* TweetDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B680B681B5ACB2900E92874 /* TweetDownloader.swift */; };
 		9B680B6C1B5AF04900E92874 /* TweetReadingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B680B6B1B5AF04900E92874 /* TweetReadingState.swift */; };
@@ -59,6 +60,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9B296CE61B9AF36700830A84 /* TweetEntityExtentionsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetEntityExtentionsTests.swift; sourceTree = "<group>"; };
 		9B680B681B5ACB2900E92874 /* TweetDownloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetDownloader.swift; sourceTree = "<group>"; };
 		9B680B6B1B5AF04900E92874 /* TweetReadingState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetReadingState.swift; sourceTree = "<group>"; };
 		9B93B0011B47BAE10043ADA4 /* SpeedTweetRead.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpeedTweetRead.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -205,6 +207,7 @@
 				9BF0D4D61B83B3B0005F2F92 /* TweetRelevanceSorterTests.swift */,
 				9B93B01F1B47BAE10043ADA4 /* TweetDownloaderTests.swift */,
 				9BF62BD31B809D140058293B /* MediatorTests.swift */,
+				9B296CE61B9AF36700830A84 /* TweetEntityExtentionsTests.swift */,
 				9B93B01D1B47BAE10043ADA4 /* Supporting Files */,
 			);
 			path = FastTwitterTestingAppTests;
@@ -382,6 +385,7 @@
 				9BF62BDB1B80A15F0058293B /* TweetsTableViewController.swift in Sources */,
 				9BF0D4D71B83B3B0005F2F92 /* TweetRelevanceSorterTests.swift in Sources */,
 				9BF62BD71B80A1520058293B /* TweetRelevanceSorter.swift in Sources */,
+				9B296CE71B9AF36700830A84 /* TweetEntityExtentionsTests.swift in Sources */,
 				9BF62BD41B809D140058293B /* MediatorTests.swift in Sources */,
 				9BF0D4CC1B80A582005F2F92 /* TweetCache.swift in Sources */,
 			);

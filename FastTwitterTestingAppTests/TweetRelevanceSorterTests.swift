@@ -25,7 +25,7 @@ class TweetRelevanceSorterTests: XCTestCase {
         
     }
     
-    func createTweet(id : String, retweets : Int) -> Tweet{
-        return Tweet(JSONDictionary: ["retweet_count":retweets,"id_str":id])
+    func createTweet(id : String, retweets : Int, followersCount : Int = 10) -> Tweet{
+        return Tweet(JSONDictionary: ["retweet_count":retweets,"id_str":id, "user":["followers_count":100]])
     }
 }
