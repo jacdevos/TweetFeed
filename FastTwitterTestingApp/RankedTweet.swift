@@ -14,11 +14,13 @@ class Tweet: TWTRTweet {
     //Used to compare the importance of tweets.
     //the higher, the better the rank
     func rank() -> Double{
-        if (self.retweetCount == 0){
-            return 0;
-        }
         
-        return Double(self.retweetCount)
+        let undecayedRank = Double(self.retweetCount) + Double(self.favoriteCount)
+        
+        let followers = max(userFollowersCount, 1)
+        let rankFollowerDecayDivisor = pow(Double(followers),1/1.5) //pow(x,1/2) is the square root of x, we want it to decay slighly less, so
+        
+        return undecayedRank / rankFollowerDecayDivisor
     }
     
     static func rankAndFilter(unorderedTweets : [Tweet]) -> [Tweet]{
