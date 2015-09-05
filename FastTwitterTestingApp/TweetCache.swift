@@ -1,6 +1,6 @@
 import TwitterKit
 
-class TweetPersistance {
+class TweetCache {
     static func saveTweetsForData(tweetData : NSData){
         creatDownloadedFile(tweetData, fileName: "tweets.twt")
     }

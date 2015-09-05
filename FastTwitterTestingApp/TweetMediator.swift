@@ -7,7 +7,7 @@ class TweetMediator {
     let alreadyReadTweets : TweetReadingState = TweetReadingState()
     
     func setupTweets(){
-        let loadedTweets = TweetPersistance.getAll()
+        let loadedTweets = TweetCache.getAll()
         let ranked =  TweetRelevanceSorter.rankAndFilter(loadedTweets)
         let rankedUnread = alreadyReadTweets.removeTweetsThatHaveBeenRead(ranked)
         self.tweets = alreadyReadTweets.moveActiveTweetsToTop(rankedUnread)
@@ -20,7 +20,7 @@ class TweetMediator {
             }
             
             if let dataFromSvc = dataFromService{
-                TweetPersistance.saveTweetsForData(dataFromSvc)
+                TweetCache.saveTweetsForData(dataFromSvc)
                 //println( NSString(data: dataFromSvc, encoding: NSUTF8StringEncoding))
                 self.setupTweets()
                 callback(nil)

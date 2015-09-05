@@ -26,8 +26,8 @@
 		9B93B03C1B47DD5C0043ADA4 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B93B02A1B47BBBC0043ADA4 /* Fabric.framework */; };
 		9BDF96091B9AE00100D7EE22 /* Tweet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BDF96081B9AE00100D7EE22 /* Tweet.swift */; settings = {ASSET_TAGS = (); }; };
 		9BDF960A1B9AE00100D7EE22 /* Tweet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BDF96081B9AE00100D7EE22 /* Tweet.swift */; settings = {ASSET_TAGS = (); }; };
-		9BF0D4CB1B80A582005F2F92 /* TweetPersistance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BF0D4CA1B80A582005F2F92 /* TweetPersistance.swift */; };
-		9BF0D4CC1B80A582005F2F92 /* TweetPersistance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BF0D4CA1B80A582005F2F92 /* TweetPersistance.swift */; };
+		9BF0D4CB1B80A582005F2F92 /* TweetCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BF0D4CA1B80A582005F2F92 /* TweetCache.swift */; };
+		9BF0D4CC1B80A582005F2F92 /* TweetCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BF0D4CA1B80A582005F2F92 /* TweetCache.swift */; };
 		9BF0D4CE1B80AAB2005F2F92 /* TwitterDeepLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BF0D4CD1B80AAB2005F2F92 /* TwitterDeepLink.swift */; };
 		9BF0D4CF1B80AAB2005F2F92 /* TwitterDeepLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BF0D4CD1B80AAB2005F2F92 /* TwitterDeepLink.swift */; };
 		9BF0D4D11B80B574005F2F92 /* TweetMediator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BF0D4D01B80B574005F2F92 /* TweetMediator.swift */; };
@@ -77,7 +77,7 @@
 		9B93B02D1B47BBBC0043ADA4 /* TwitterCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TwitterCore.framework; sourceTree = "<group>"; };
 		9B93B0361B47CBE10043ADA4 /* TweetsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetsTableViewController.swift; sourceTree = "<group>"; };
 		9BDF96081B9AE00100D7EE22 /* Tweet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tweet.swift; sourceTree = "<group>"; };
-		9BF0D4CA1B80A582005F2F92 /* TweetPersistance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetPersistance.swift; sourceTree = "<group>"; };
+		9BF0D4CA1B80A582005F2F92 /* TweetCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetCache.swift; sourceTree = "<group>"; };
 		9BF0D4CD1B80AAB2005F2F92 /* TwitterDeepLink.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterDeepLink.swift; sourceTree = "<group>"; };
 		9BF0D4D01B80B574005F2F92 /* TweetMediator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetMediator.swift; sourceTree = "<group>"; };
 		9BF0D4D31B80F020005F2F92 /* AutoScroller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoScroller.swift; sourceTree = "<group>"; };
@@ -148,7 +148,7 @@
 			children = (
 				9BF0D4D01B80B574005F2F92 /* TweetMediator.swift */,
 				9B680B681B5ACB2900E92874 /* TweetDownloader.swift */,
-				9BF0D4CA1B80A582005F2F92 /* TweetPersistance.swift */,
+				9BF0D4CA1B80A582005F2F92 /* TweetCache.swift */,
 				9B680B6B1B5AF04900E92874 /* TweetReadingState.swift */,
 				9BF62BD51B809E640058293B /* TweetRelevanceSorter.swift */,
 				9BF0D4CD1B80AAB2005F2F92 /* TwitterDeepLink.swift */,
@@ -350,7 +350,7 @@
 			files = (
 				9BF0D4D11B80B574005F2F92 /* TweetMediator.swift in Sources */,
 				9BF904E71B5C205B00B09D5A /* NSOutputStreamExtention.swift in Sources */,
-				9BF0D4CB1B80A582005F2F92 /* TweetPersistance.swift in Sources */,
+				9BF0D4CB1B80A582005F2F92 /* TweetCache.swift in Sources */,
 				9BDF96091B9AE00100D7EE22 /* Tweet.swift in Sources */,
 				9B680B6C1B5AF04900E92874 /* TweetReadingState.swift in Sources */,
 				9BF0D4D41B80F020005F2F92 /* AutoScroller.swift in Sources */,
@@ -383,7 +383,7 @@
 				9BF0D4D71B83B3B0005F2F92 /* TweetRelevanceSorterTests.swift in Sources */,
 				9BF62BD71B80A1520058293B /* TweetRelevanceSorter.swift in Sources */,
 				9BF62BD41B809D140058293B /* MediatorTests.swift in Sources */,
-				9BF0D4CC1B80A582005F2F92 /* TweetPersistance.swift in Sources */,
+				9BF0D4CC1B80A582005F2F92 /* TweetCache.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
