@@ -46,12 +46,9 @@ class TweetPersistance {
         var tweets : [Tweet] = []
         for tweetJSON in nsarray{
             let tweetJSONDic : [NSObject : AnyObject]! = tweetJSON as! [NSObject : AnyObject]
-            let tweet = Tweet(JSONDictionary: tweetJSONDic)
-            let userFollowersCount  = tweetJSONDic["user"]!["followers_count"]!! as! NSNumber
-            let userFollowersCountInt : Int64 = userFollowersCount.longLongValue
 
-            if let nonOptionalTweet = tweet{
-                tweets.append(nonOptionalTweet)
+            if let tweet = Tweet(JSONDictionary: tweetJSONDic){
+                tweets.append(tweet)
             }
         }
         
