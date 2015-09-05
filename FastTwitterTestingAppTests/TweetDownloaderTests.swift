@@ -5,7 +5,6 @@ class TweetDownloaderTests: XCTestCase {
     
     func testDownloadLastestTweetData(){
         let expectAsync = self.expectationWithDescription("testDownloadLastestTweetData")
-        let proxy : TweetDownloader = TweetDownloader()
         var downloadedData :NSData?
         
         TweetDownloader.downloadHomeTimelineTweets { (data, error) -> Void in

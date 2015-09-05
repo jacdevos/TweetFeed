@@ -22,7 +22,7 @@ class TweetPersistance {
     }
     
     private static func pathForCacheFile (fileName : String)  -> String{
-        let dirs : [String] = (NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.CachesDirectory, NSSearchPathDomainMask.AllDomainsMask, true) as? [String])!
+        let dirs : [String] = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.CachesDirectory, NSSearchPathDomainMask.AllDomainsMask, true)
         let dir = dirs[0] //documents directory
         
         let url = NSURL(fileURLWithPath: dir, isDirectory: true).URLByAppendingPathComponent(fileName);
