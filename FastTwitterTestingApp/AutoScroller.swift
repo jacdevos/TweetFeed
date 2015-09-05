@@ -2,6 +2,8 @@ import UIKit
 
 
 class AutoScroller : NSObject{
+    private static let defaultScrollSpeed : Float = 0.014 //>0.01 is fast, 0.05 very slow
+    
     var isAutoScrolling = false {
         didSet {
             //TODO event self.setAutoScrollBarButtonImage()
@@ -43,9 +45,16 @@ class AutoScroller : NSObject{
         if !isAutoScrolling{
             return
         }
-        
-        let scrollSpeed = 0.014 //>0.01 is fast, 0.05 very slow
 
-        NSTimer.scheduledTimerWithTimeInterval(scrollSpeed, target: self, selector:"scrollByOnePointOnTimer", userInfo: nil, repeats: false)
+        NSTimer.scheduledTimerWithTimeInterval(Double(scrollSpeed()), target: self, selector:"scrollByOnePointOnTimer", userInfo: nil, repeats: false)
+    }
+    
+    func scrollSpeed() -> Float{
+        let scrollSpeedUserAdjustment
+            = UserPreferences.instance.autoScrollSpeed > 0
+                ? -UserPreferences.instance.autoScrollSpeed * 0.01
+                : -UserPreferences.instance.autoScrollSpeed * 0.02
+        
+        return AutoScroller.defaultScrollSpeed + scrollSpeedUserAdjustment
     }
 }

@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8151.3"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -58,14 +59,17 @@
             <objects>
                 <tableViewController title="Settings" clearsSelectionOnViewWillAppear="NO" id="qy6-C4-WYy" customClass="SettingsTableViewController" customModule="SpeedTweetRead" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="iJM-gG-LJk">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <sections>
                             <tableViewSection headerTitle="PRIORITY " id="lN5-gF-VJC">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="wxF-sG-XqS">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="wxF-sG-XqS">
+                                        <rect key="frame" x="0.0" y="113.5" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wxF-sG-XqS" id="IxK-e2-poV">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="-1" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Rjm-Zd-8bC">
@@ -73,7 +77,7 @@
                                                     <color key="minimumTrackTintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <color key="maximumTrackTintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <connections>
-                                                        <action selector="prioritySliderChanged:" destination="qy6-C4-WYy" eventType="valueChanged" id="stv-9Q-FDW"/>
+                                                        <action selector="prioritySliderChanged:" destination="qy6-C4-WYy" eventType="valueChanged" id="yrM-ws-Bcp"/>
                                                     </connections>
                                                 </slider>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NEWS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jyo-hM-U3u">
@@ -105,13 +109,13 @@
                                                     <exclude reference="9u1-Fp-P6o"/>
                                                 </mask>
                                                 <mask key="constraints">
-                                                    <exclude reference="NVO-S8-9Bj"/>
                                                     <exclude reference="FEq-WP-qlI"/>
                                                     <exclude reference="OQd-EV-XRY"/>
                                                     <exclude reference="V2v-P8-dhc"/>
                                                     <exclude reference="X9g-XT-cJ5"/>
                                                     <exclude reference="IIZ-w0-09K"/>
                                                     <exclude reference="Ld0-gT-3ZR"/>
+                                                    <exclude reference="NVO-S8-9Bj"/>
                                                 </mask>
                                             </variation>
                                             <variation key="widthClass=compact">
@@ -121,13 +125,13 @@
                                                     <include reference="9u1-Fp-P6o"/>
                                                 </mask>
                                                 <mask key="constraints">
-                                                    <include reference="NVO-S8-9Bj"/>
                                                     <include reference="FEq-WP-qlI"/>
                                                     <include reference="OQd-EV-XRY"/>
                                                     <include reference="V2v-P8-dhc"/>
                                                     <include reference="X9g-XT-cJ5"/>
                                                     <include reference="IIZ-w0-09K"/>
                                                     <include reference="Ld0-gT-3ZR"/>
+                                                    <include reference="NVO-S8-9Bj"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
@@ -136,9 +140,11 @@
                             </tableViewSection>
                             <tableViewSection headerTitle="READ SPEED" id="PFo-4J-95A">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="I9k-Of-SyS">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="I9k-Of-SyS">
+                                        <rect key="frame" x="0.0" y="207.5" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="I9k-Of-SyS" id="xRc-ph-UHg">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="-1" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="M3c-c0-Cyv">
@@ -146,7 +152,7 @@
                                                     <color key="minimumTrackTintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <color key="maximumTrackTintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <connections>
-                                                        <action selector="speedSlideChanged:" destination="qy6-C4-WYy" eventType="valueChanged" id="1Gl-8O-A6d"/>
+                                                        <action selector="speedSlideChanged:" destination="qy6-C4-WYy" eventType="valueChanged" id="jNH-BH-xSn"/>
                                                     </connections>
                                                 </slider>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SLOW" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="74v-Tz-dDO">
@@ -178,11 +184,11 @@
                                                     <exclude reference="wos-1Z-WK3"/>
                                                 </mask>
                                                 <mask key="constraints">
-                                                    <exclude reference="ZnV-qY-QVr"/>
                                                     <exclude reference="8jZ-8M-Akf"/>
                                                     <exclude reference="B05-88-IIk"/>
                                                     <exclude reference="Pth-e3-fbM"/>
                                                     <exclude reference="RkK-I6-HIO"/>
+                                                    <exclude reference="ZnV-qY-QVr"/>
                                                     <exclude reference="WJs-G1-GD7"/>
                                                     <exclude reference="ou3-8y-WBa"/>
                                                 </mask>
@@ -194,11 +200,11 @@
                                                     <include reference="wos-1Z-WK3"/>
                                                 </mask>
                                                 <mask key="constraints">
-                                                    <include reference="ZnV-qY-QVr"/>
                                                     <include reference="8jZ-8M-Akf"/>
                                                     <include reference="B05-88-IIk"/>
                                                     <include reference="Pth-e3-fbM"/>
                                                     <include reference="RkK-I6-HIO"/>
+                                                    <include reference="ZnV-qY-QVr"/>
                                                     <include reference="WJs-G1-GD7"/>
                                                     <include reference="ou3-8y-WBa"/>
                                                 </mask>
@@ -217,14 +223,13 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </refreshControl>
                     <connections>
-                        <outlet property="prioritySlider" destination="Rjm-Zd-8bC" id="zGj-6I-wUd"/>
-                        <outlet property="speedSlider" destination="M3c-c0-Cyv" id="r0V-pA-2Qh"/>
-                        <outlet property="speedSliderChanged" destination="M3c-c0-Cyv" id="fBw-iB-AGr"/>
+                        <outlet property="prioritySlider" destination="Rjm-Zd-8bC" id="4AC-h7-W3L"/>
+                        <outlet property="speedSlider" destination="M3c-c0-Cyv" id="ZlM-Yt-yat"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MZY-bi-ErL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2005.5" y="1056"/>
+            <point key="canvasLocation" x="2019" y="1061"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="HWy-AL-iji">

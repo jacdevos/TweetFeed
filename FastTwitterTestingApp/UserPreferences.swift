@@ -1,10 +1,10 @@
 import UIKit
 
-class UserPreferences {
+class UserPreferences : NSObject {
 
     static let instance = UserPreferences()
     
-    private init() {
+    override init() {
         NSUserDefaults.standardUserDefaults().registerDefaults(["autoScrollSpeed":0.0,"priorityBalance":0.0])
     }
     
