@@ -111,8 +111,8 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
         return UITableViewCell()
     }
     
-    func configureCell(cell : TweetTableViewCell, tweet : TWTRTweet){
-        cell.configureWithTweet(tweet)
+    func configureCell(cell : TweetTableViewCell, tweet : Tweet){
+        cell.configWithTweet(tweet)
         cell.tweetView.delegate = self
         cell.separatorInset = UIEdgeInsetsZero
 

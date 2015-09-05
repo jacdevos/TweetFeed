@@ -3,7 +3,7 @@ import TwitterKit
 
 //extends TWTRTweetTableViewCell to allow access to state
 class TweetTableViewCell: TWTRTweetTableViewCell {
-    var tweet : TWTRTweet? = nil
+    var tweet : Tweet? = nil
     
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
@@ -18,6 +18,11 @@ class TweetTableViewCell: TWTRTweetTableViewCell {
     }
 
     override func configureWithTweet(tweet: TWTRTweet!){
+        super.configureWithTweet(tweet)
+        self.tweet = tweet as! Tweet?
+    }
+    
+    func configWithTweet(tweet: Tweet!){
         super.configureWithTweet(tweet)
         self.tweet = tweet
     }

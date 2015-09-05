@@ -4,7 +4,7 @@ import TwitterKit
 class TweetReadingState{
     var alreadyReadTweets : Set<String> //the tweets that have crossed the whole screen
     
-    var currentlyReadingTweets : Array<TWTRTweet> = []//the tweets that are currently on screen; not persisted in file
+    var currentlyReadingTweets : Array<Tweet> = []//the tweets that are currently on screen; not persisted in file
     
     init() {
         alreadyReadTweets = []
@@ -19,12 +19,12 @@ class TweetReadingState{
         }
     }
     
-    func markAsReading(tweet : TWTRTweet){
+    func markAsReading(tweet : Tweet){
         currentlyReadingTweets.insert(tweet, atIndex: 0)
        
     }
     
-    func markAsRead(tweet : TWTRTweet){
+    func markAsRead(tweet : Tweet){
         alreadyReadTweets.insert(tweet.tweetID)
         currentlyReadingTweets.removeObject(tweet)
         
@@ -41,9 +41,9 @@ class TweetReadingState{
         }
     }
     
-    func removeTweetsThatHaveBeenRead(tweets : [TWTRTweet]) -> [TWTRTweet]{
+    func removeTweetsThatHaveBeenRead(tweets : [Tweet]) -> [Tweet]{
         let unreadTweets = tweets.filter(){
-            if let tweetID = ($0 as TWTRTweet).tweetID as String! {
+            if let tweetID = ($0 as Tweet).tweetID as String! {
                 return !self.alreadyReadTweets.contains(tweetID)
             } else {
                 return false
@@ -52,7 +52,7 @@ class TweetReadingState{
         return unreadTweets
     }
     
-    func moveActiveTweetsToTop(tweets : [TWTRTweet]) -> [TWTRTweet]{
+    func moveActiveTweetsToTop(tweets : [Tweet]) -> [Tweet]{
         var tweetsSortedByIsActive = tweets
         
         for activeTweet in self.currentlyReadingTweets{

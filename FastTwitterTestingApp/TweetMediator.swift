@@ -3,7 +3,7 @@ typealias TweetsLoaded = (NSError?) -> Void
 
 //This guy is at the centre, coordinating with all the other objects to do download, store, get and rank tweets
 class TweetMediator {
-    var tweets: [TWTRTweet] = []
+    var tweets: [Tweet] = []
     let alreadyReadTweets : TweetReadingState = TweetReadingState()
     
     func setupTweets(){
