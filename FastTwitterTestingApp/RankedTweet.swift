@@ -1,26 +1,37 @@
 import TwitterKit
 class Tweet: TWTRTweet {
     var userFollowersCount : Int64 = 0 //default
-    override init!(JSONDictionary dictionary: [NSObject : AnyObject]!){
+    var newsOrFriendsPrioritySetting : Double = 0
+    init!(JSONDictionary dictionary: [NSObject : AnyObject]!, newsOrFriendsPrioritySetting : Double = 0){
         super.init(JSONDictionary: dictionary)
         setUserFollowersCountFromJson(JSONDictionary: dictionary)
+        self.newsOrFriendsPrioritySetting = newsOrFriendsPrioritySetting
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
-    
     //Used to compare the importance of tweets.
     //the higher, the better the rank
     func rank() -> Double{
-        
         let undecayedRank = Double(self.retweetCount) + Double(self.favoriteCount)
-        
+        return undecayedRank / rankDecayDivisor()
+    }
+    
+    private func rankDecayDivisor() -> Double{
         let followers = max(userFollowersCount, 1)
-        let rankFollowerDecayDivisor = pow(Double(followers),1/1.5) //pow(x,1/2) is the square root of x, we want it to decay slighly less, so
         
-        return undecayedRank / rankFollowerDecayDivisor
+        //let favoursFriendExponent = 1//sharply favours friends, since the rank linearly reduces as follower increase
+        //let favourNewsExponent = 0 //sharply favours news, since user with many followers will not be penalised much
+        let defaultExponent = 1/1.5 //nice balance
+        
+        let exponent = self.newsOrFriendsPrioritySetting < 0
+            ? defaultExponent + self.newsOrFriendsPrioritySetting * defaultExponent
+            : defaultExponent + self.newsOrFriendsPrioritySetting * (1 - defaultExponent)
+        
+        return pow(Double(followers),exponent)
+        
     }
     
     static func rankAndFilter(unorderedTweets : [Tweet]) -> [Tweet]{
