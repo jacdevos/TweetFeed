@@ -268,7 +268,9 @@
 		9B93AFF91B47BAE10043ADA4 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0630;
+				LastSwiftMigration = 0700;
+				LastSwiftUpdateCheck = 0700;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = nReality;
 				TargetAttributes = {
 					9B93B0001B47BAE10043ADA4 = {
@@ -430,6 +432,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -504,6 +507,7 @@
 				INFOPLIST_FILE = FastTwitterTestingApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.nreality.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = SpeedTweetRead;
 				PROVISIONING_PROFILE = "";
 			};
@@ -523,6 +527,7 @@
 				INFOPLIST_FILE = FastTwitterTestingApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.nreality.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = SpeedTweetRead;
 				PROVISIONING_PROFILE = "";
 			};
@@ -543,6 +548,7 @@
 				);
 				INFOPLIST_FILE = FastTwitterTestingAppTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.nreality.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = SpeedTweetReadTests;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SpeedTweetRead.app/SpeedTweetRead";
 			};
@@ -559,6 +565,7 @@
 				);
 				INFOPLIST_FILE = FastTwitterTestingAppTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.nreality.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = SpeedTweetReadTests;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SpeedTweetRead.app/SpeedTweetRead";
 			};

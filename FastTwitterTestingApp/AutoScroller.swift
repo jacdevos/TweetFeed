@@ -44,7 +44,7 @@ class AutoScroller : NSObject{
             return
         }
         
-        var scrollSpeed = 0.014 //>0.01 is fast, 0.05 very slow
+        let scrollSpeed = 0.014 //>0.01 is fast, 0.05 very slow
 
         NSTimer.scheduledTimerWithTimeInterval(scrollSpeed, target: self, selector:"scrollByOnePointOnTimer", userInfo: nil, repeats: false)
     }

@@ -8,7 +8,7 @@ class TweetReadingState{
     
     init() {
         alreadyReadTweets = []
-        let contents = String(contentsOfFile: self.pathForDocumentsFile("readtweetids3.txt"), encoding: NSUTF8StringEncoding, error: nil)
+        let contents = try? String(contentsOfFile: self.pathForDocumentsFile("readtweetids3.txt"), encoding: NSUTF8StringEncoding)
         if let fileContents = contents{
             let lines = fileContents.componentsSeparatedByString("\n") as [NSString]
             for line in lines{
@@ -36,13 +36,13 @@ class TweetReadingState{
                 
                 outputStream.close()
             } else {
-                println("Unable to open file")
+                print("Unable to open file")
             }
         }
     }
     
     func removeTweetsThatHaveBeenRead(tweets : [TWTRTweet]) -> [TWTRTweet]{
-        var unreadTweets = tweets.filter(){
+        let unreadTweets = tweets.filter(){
             if let tweetID = ($0 as TWTRTweet).tweetID as String! {
                 return !self.alreadyReadTweets.contains(tweetID)
             } else {
@@ -70,7 +70,8 @@ class TweetReadingState{
     func pathForDocumentsFile (fileName : String)  -> String{
         let dirs : [String] = (NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true) as? [String])!
         let dir = dirs[0] //documents directory
-        let path = dir.stringByAppendingPathComponent(fileName);
-        return path
+        
+        let url = NSURL(fileURLWithPath: dir, isDirectory: true).URLByAppendingPathComponent(fileName);
+        return url.path!
     }
 }

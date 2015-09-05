@@ -4,13 +4,13 @@ class TweetRelevanceSorterTests: XCTestCase {
     
     func testIncludeIfTweetHasRetweets() {
         let tweets : [TWTRTweet] = [createTweet("1", retweets: 1)]
-        var sorted = TweetRelevanceSorter.rankAndFilter(tweets)
+        let sorted = TweetRelevanceSorter.rankAndFilter(tweets)
         XCTAssertEqual(sorted.count, 1)
     }
     
     func testExcludeIfTweetHas0Retweets() {
         let tweets : [TWTRTweet] = [createTweet("1", retweets: 0)]
-        var sorted = TweetRelevanceSorter.rankAndFilter(tweets)
+        let sorted = TweetRelevanceSorter.rankAndFilter(tweets)
         XCTAssertEqual(sorted.count, 0)
     }
     

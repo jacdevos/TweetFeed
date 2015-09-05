@@ -24,16 +24,22 @@ class TweetPersistance {
     private static func pathForCacheFile (fileName : String)  -> String{
         let dirs : [String] = (NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.CachesDirectory, NSSearchPathDomainMask.AllDomainsMask, true) as? [String])!
         let dir = dirs[0] //documents directory
-        let path = dir.stringByAppendingPathComponent(fileName);
-        return path
+        
+        let url = NSURL(fileURLWithPath: dir, isDirectory: true).URLByAppendingPathComponent(fileName);
+        return url.path!
     }
     
     private static func deserializeTweetsFromData(data: NSData) -> [TWTRTweet] {
         var jsonError : NSError?
         var json : AnyObject? = nil
-        json = NSJSONSerialization.JSONObjectWithData(data,
-            options: nil,
-            error: &jsonError)
+        do {
+            json = try NSJSONSerialization.JSONObjectWithData(data,
+                options: [])
+        } catch let error as NSError {
+            jsonError = error
+            print(jsonError)
+            json = nil
+        }
         
         let nsarray : NSArray = json as! NSArray
         

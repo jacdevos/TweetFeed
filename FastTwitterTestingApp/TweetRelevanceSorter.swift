@@ -7,7 +7,7 @@ class TweetRelevanceSorter {
     
     static func sortByRetweets(tweets : [TWTRTweet]) -> [TWTRTweet]{
         var tweetsToSort = tweets
-        tweetsToSort.sort { (x, y) -> Bool in
+        tweetsToSort.sortInPlace { (x, y) -> Bool in
             return x.retweetCount > y.retweetCount
         }
         return tweetsToSort

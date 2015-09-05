@@ -9,12 +9,12 @@ class LoginViewController: UIViewController {
             (session: TWTRSession!, error: NSError!) in
             
             if (session != nil) {
-                println("signed in as \(session.userName)");
+                print("signed in as \(session.userName)");
                 let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
                 appDelegate.twitterSession = session
                 self.performSegueWithIdentifier("login", sender: self)
             } else {
-                println("error: \(error.localizedDescription)");
+                print("error: \(error.localizedDescription)");
             }
         })
         logInButton.center = self.view.center

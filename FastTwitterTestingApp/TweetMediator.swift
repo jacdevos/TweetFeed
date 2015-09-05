@@ -15,7 +15,7 @@ class TweetMediator {
     
     func getLatestTweets(callback : TweetsLoaded){
         TweetDownloader.downloadHomeTimelineTweets{ dataFromService, error in
-            if let err = error{
+            if let _ = error{
                 callback(error)
             }
             

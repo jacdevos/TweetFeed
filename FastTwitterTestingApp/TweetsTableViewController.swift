@@ -3,7 +3,6 @@ import UIKit
 import TwitterKit
 
 class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
-    let iOS7 = floor(NSFoundationVersionNumber) <= floor(NSFoundationVersionNumber_iOS_7_1)
     let mediator = TweetMediator()
     let tweetTableReuseIdentifier = "TweetCell"
     var tempLoadedCells : [TweetTableViewCell] = []
@@ -40,8 +39,9 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
         tableView.separatorColor = UIColor.grayColor()
         tableView.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
         tableView.separatorInset = UIEdgeInsetsZero
-        if !iOS7{
-          tableView.layoutMargins = UIEdgeInsetsZero
+
+        if #available(iOS 8.0, *) {
+            tableView.layoutMargins = UIEdgeInsetsZero
         }
         tableView.allowsSelection = true
         tableView.rowHeight = UITableViewAutomaticDimension // Explicitly set on iOS 8 if using automatic row height calculation
@@ -52,7 +52,7 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
     
     func onLoadedTweets(error : NSError?){
         if let err = error{
-            println("Error downloading tweets \(err)")
+            print("Error downloading tweets \(err)")
             handleAuthorisationError(err)
             return;
         }
@@ -115,9 +115,10 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
         cell.configureWithTweet(tweet)
         cell.tweetView.delegate = self
         cell.separatorInset = UIEdgeInsetsZero
-        if !iOS7{
-            cell.layoutMargins = UIEdgeInsetsZero
-        }
+
+            if #available(iOS 8.0, *) {
+                cell.layoutMargins = UIEdgeInsetsZero
+            }
     }
     
     override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {

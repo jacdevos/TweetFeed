@@ -12,6 +12,6 @@ class TwitterDeepLink {
             UIApplication.sharedApplication().openURL(NSURL(string: URL)!)
         }
         
-        UIApplication.sharedApplication().openURL(NSURL(string: "twitter://timeline")!)
+        //UIApplication.sharedApplication().openURL(NSURL(string: "twitter://timeline")!)
     }
 }
