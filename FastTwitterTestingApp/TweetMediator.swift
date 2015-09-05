@@ -8,7 +8,7 @@ class TweetMediator {
     
     func setupTweets(){
         let loadedTweets = TweetCache.getAll()
-        let ranked =  TweetRelevanceSorter.rankAndFilter(loadedTweets)
+        let ranked =  Tweet.rankAndFilter(loadedTweets)
         let rankedUnread = alreadyReadTweets.removeTweetsThatHaveBeenRead(ranked)
         self.tweets = alreadyReadTweets.moveActiveTweetsToTop(rankedUnread)
     }
