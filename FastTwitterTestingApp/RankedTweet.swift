@@ -34,7 +34,7 @@ class Tweet: TWTRTweet {
         
     }
     
-    static func rankAndFilter(unorderedTweets : [Tweet]) -> [Tweet]{
+    static func rankAndFilter(unorderedTweets : Set<Tweet>) -> [Tweet]{
         return unorderedTweets
             .sort { $0.rank() > $1.rank() }
             .filter{ $0.rank() != 0 }
@@ -49,4 +49,23 @@ class Tweet: TWTRTweet {
             }
         }
     }
+    
+    
+    //customer override of Equatable and Hashable, so that we can use Set and Dictionary effectively
+    override var hashValue: Int {
+        return self.tweetID.hashValue
+    }
+    override var hash: Int {
+        return self.hashValue
+    }
+    override func isEqual(object: AnyObject?) -> Bool {
+        if let object = object as? Tweet {
+            return self.tweetID == object.tweetID
+        } else {
+            return false
+        }
+    }
+}
+func == (lhs: Tweet, rhs: Tweet) -> Bool {
+    return (lhs.tweetID == rhs.tweetID)
 }

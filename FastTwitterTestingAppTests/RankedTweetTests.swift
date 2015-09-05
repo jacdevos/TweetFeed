@@ -52,21 +52,21 @@ class TweetRelevanceSorterTests: XCTestCase {
     func testRankedListShouldIncludeRankedTweets() {
         let tweets : [Tweet] = [createTweet("1", retweets: 1)]
         XCTAssertTrue(tweets[0].rank() > 0)
-        let sorted = Tweet.rankAndFilter(tweets)
+        let sorted = Tweet.rankAndFilter(Set(tweets))
         XCTAssertEqual(sorted.count, 1)
     }
     
     func testRankedListShouldExclude0RankedTweets() {
         let tweets : [Tweet] = [createTweet("1", retweets: 0)]
         XCTAssertTrue(tweets[0].rank() == 0)
-        let sorted = Tweet.rankAndFilter(tweets)
+        let sorted = Tweet.rankAndFilter(Set(tweets))
         XCTAssertEqual(sorted.count, 0)
     }
     
     func testRankedListShouldSortFromHighestToLowestRank() {
         let tweets : [Tweet] =
         [createTweet("1", retweets: 1),createTweet("2", retweets: 3),createTweet("3", retweets: 2)]
-        var sorted = Tweet.rankAndFilter(tweets)
+        var sorted = Tweet.rankAndFilter(Set(tweets))
         XCTAssertEqual(sorted.count, 3)
         XCTAssertEqual(sorted[0].tweetID, "2")
         XCTAssertEqual(sorted[1].tweetID, "3")

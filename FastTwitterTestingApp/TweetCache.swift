@@ -5,7 +5,7 @@ class TweetCache {
         creatDownloadedFile(tweetData, fileName: "tweets.twt")
     }
     
-    static func getAll() -> [Tweet]{
+    static func getAll() -> Set<Tweet>{
         return tweetsLoadedFromFile( "tweets.twt")
     }
     
@@ -13,7 +13,7 @@ class TweetCache {
         data.writeToFile(self.pathForCacheFile(fileName), atomically: true)
     }
     
-    private static func tweetsLoadedFromFile (fileName : String) -> [Tweet]{
+    private static func tweetsLoadedFromFile (fileName : String) -> Set<Tweet>{
         let data = NSData(contentsOfFile: self.pathForCacheFile(fileName))
         if data == nil{
             return []
@@ -29,7 +29,7 @@ class TweetCache {
         return url.path!
     }
     
-    private static func deserializeTweetsFromData(data: NSData) -> [Tweet] {
+    private static func deserializeTweetsFromData(data: NSData) -> Set<Tweet> {
         var jsonError : NSError?
         var json : AnyObject? = nil
         do {
@@ -43,12 +43,12 @@ class TweetCache {
         
         let nsarray : NSArray = json as! NSArray
         
-        var tweets : [Tweet] = []
+        var tweets : Set<Tweet> = []
         for tweetJSON in nsarray{
             let tweetJSONDic : [NSObject : AnyObject]! = tweetJSON as! [NSObject : AnyObject]
 
             if let tweet = Tweet(JSONDictionary: tweetJSONDic, priorityBalance : Double(UserPreferences.instance.priorityBalance)){
-                tweets.append(tweet)
+                tweets.insert(tweet)
             }
         }
         
