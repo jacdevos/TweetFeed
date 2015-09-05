@@ -3,19 +3,19 @@ import TwitterKit
 class TweetRelevanceSorterTests: XCTestCase {
     
     func testIncludeIfTweetHasRetweets() {
-        let tweets : [TWTRTweet] = [createTweet("1", retweets: 1)]
+        let tweets : [Tweet] = [createTweet("1", retweets: 1)]
         let sorted = TweetRelevanceSorter.rankAndFilter(tweets)
         XCTAssertEqual(sorted.count, 1)
     }
     
     func testExcludeIfTweetHas0Retweets() {
-        let tweets : [TWTRTweet] = [createTweet("1", retweets: 0)]
+        let tweets : [Tweet] = [createTweet("1", retweets: 0)]
         let sorted = TweetRelevanceSorter.rankAndFilter(tweets)
         XCTAssertEqual(sorted.count, 0)
     }
     
     func testSortByRetweets() {
-        let tweets : [TWTRTweet] =
+        let tweets : [Tweet] =
             [createTweet("1", retweets: 1),createTweet("3", retweets: 3),createTweet("2", retweets: 2)]
         var sorted = TweetRelevanceSorter.rankAndFilter(tweets)
         XCTAssertEqual(sorted.count, 3)
@@ -25,7 +25,7 @@ class TweetRelevanceSorterTests: XCTestCase {
         
     }
     
-    func createTweet(id : String, retweets : Int) -> TWTRTweet{
-        return TWTRTweet(JSONDictionary: ["retweet_count":retweets,"id_str":id])
+    func createTweet(id : String, retweets : Int) -> Tweet{
+        return Tweet(JSONDictionary: ["retweet_count":retweets,"id_str":id])
     }
 }

@@ -5,7 +5,7 @@ class TweetPersistance {
         creatDownloadedFile(tweetData, fileName: "tweets.twt")
     }
     
-    static func getAll() -> [TWTRTweet]{
+    static func getAll() -> [Tweet]{
         return tweetsLoadedFromFile( "tweets.twt")
     }
     
@@ -13,7 +13,7 @@ class TweetPersistance {
         data.writeToFile(self.pathForCacheFile(fileName), atomically: true)
     }
     
-    private static func tweetsLoadedFromFile (fileName : String) -> [TWTRTweet]{
+    private static func tweetsLoadedFromFile (fileName : String) -> [Tweet]{
         let data = NSData(contentsOfFile: self.pathForCacheFile(fileName))
         if data == nil{
             return []
@@ -29,7 +29,7 @@ class TweetPersistance {
         return url.path!
     }
     
-    private static func deserializeTweetsFromData(data: NSData) -> [TWTRTweet] {
+    private static func deserializeTweetsFromData(data: NSData) -> [Tweet] {
         var jsonError : NSError?
         var json : AnyObject? = nil
         do {
