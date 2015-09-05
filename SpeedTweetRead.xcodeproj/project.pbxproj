@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9B3BB62F1B9B45E400784F81 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3BB62E1B9B45E400784F81 /* Settings.swift */; settings = {ASSET_TAGS = (); }; };
+		9B3BB62F1B9B45E400784F81 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3BB62E1B9B45E400784F81 /* SettingsTableViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		9B3BB6311B9B4AF400784F81 /* UserPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3BB6301B9B4AF400784F81 /* UserPreferences.swift */; settings = {ASSET_TAGS = (); }; };
 		9B3BB6321B9B4AF400784F81 /* UserPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3BB6301B9B4AF400784F81 /* UserPreferences.swift */; settings = {ASSET_TAGS = (); }; };
 		9B680B691B5ACB2900E92874 /* TweetDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B680B681B5ACB2900E92874 /* TweetDownloader.swift */; };
@@ -60,7 +60,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		9B3BB62E1B9B45E400784F81 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		9B3BB62E1B9B45E400784F81 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		9B3BB6301B9B4AF400784F81 /* UserPreferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserPreferences.swift; sourceTree = "<group>"; };
 		9B680B681B5ACB2900E92874 /* TweetDownloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetDownloader.swift; sourceTree = "<group>"; };
 		9B680B6B1B5AF04900E92874 /* TweetReadingState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetReadingState.swift; sourceTree = "<group>"; };
@@ -131,9 +131,9 @@
 			children = (
 				9B93B0361B47CBE10043ADA4 /* TweetsTableViewController.swift */,
 				9B93B00B1B47BAE10043ADA4 /* LoginViewController.swift */,
+				9B3BB62E1B9B45E400784F81 /* SettingsTableViewController.swift */,
 				9BF0D4D31B80F020005F2F92 /* AutoScroller.swift */,
 				9BF0D4CD1B80AAB2005F2F92 /* TwitterDeepLink.swift */,
-				9B3BB62E1B9B45E400784F81 /* Settings.swift */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -355,7 +355,7 @@
 				9BF904E71B5C205B00B09D5A /* NSOutputStreamExtention.swift in Sources */,
 				9BF0D4CB1B80A582005F2F92 /* TweetCache.swift in Sources */,
 				9BDF96091B9AE00100D7EE22 /* RankedTweet.swift in Sources */,
-				9B3BB62F1B9B45E400784F81 /* Settings.swift in Sources */,
+				9B3BB62F1B9B45E400784F81 /* SettingsTableViewController.swift in Sources */,
 				9B680B6C1B5AF04900E92874 /* TweetReadingState.swift in Sources */,
 				9BF0D4D41B80F020005F2F92 /* AutoScroller.swift in Sources */,
 				9B93B0381B47CBE10043ADA4 /* TweetsTableViewController.swift in Sources */,

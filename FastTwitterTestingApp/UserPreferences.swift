@@ -11,6 +11,9 @@ class UserPreferences {
     //-1 slow up tp 1 fast
     var autoScrollSpeed:Float {
         set {
+            if (newValue > 1 || newValue < -1){
+                return;
+            }
             NSUserDefaults.standardUserDefaults().setFloat(newValue, forKey : "autoScrollSpeed")
             NSUserDefaults.standardUserDefaults().synchronize()
         }
@@ -22,13 +25,13 @@ class UserPreferences {
     //-1 being bias to News up to 1 which biasses people with few followers
     var priorityBalance:Float {
         set {
+            if (newValue > 1 || newValue < -1){
+                return;
+            }
             NSUserDefaults.standardUserDefaults().setFloat(newValue, forKey : "priorityBalance")
             NSUserDefaults.standardUserDefaults().synchronize()
         }
         get {
-            NSUserDefaults.standardUserDefaults()
-            
-            
             return NSUserDefaults.standardUserDefaults().floatForKey("priorityBalance")
         }
     }
