@@ -3,12 +3,13 @@ import TwitterKit
 
 class TweetReadingState{
     var alreadyReadTweets : Set<String> //the tweets that have crossed the whole screen
+    let filename = "readtweetids5.txt";
     
     var currentlyReadingTweets : Array<Tweet> = []//the tweets that are currently on screen; not persisted in file
     
     init() {
         alreadyReadTweets = []
-        let contents = try? String(contentsOfFile: self.pathForDocumentsFile("readtweetids3.txt"), encoding: NSUTF8StringEncoding)
+        let contents = try? String(contentsOfFile: self.pathForDocumentsFile(filename), encoding: NSUTF8StringEncoding)
         if let fileContents = contents{
             let lines = fileContents.componentsSeparatedByString("\n") as [NSString]
             for line in lines{
@@ -30,7 +31,7 @@ class TweetReadingState{
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
             
-            if let outputStream = NSOutputStream(toFileAtPath: self.pathForDocumentsFile("readtweetids3.txt"), append: true) {
+            if let outputStream = NSOutputStream(toFileAtPath: self.pathForDocumentsFile(self.filename), append: true) {
                 outputStream.open()
                 outputStream.write(tweet.tweetID + "\n")
                 

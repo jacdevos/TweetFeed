@@ -15,13 +15,14 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
         TWTRTweetView.appearance().theme = .Dark
         self.setupAutoScroll()
         self.setupTableView()
-        mediator.getLatestTweets(onLoadedTweets)
+        mediator.getLatestTweets(onLoadedTweetsFirstTime)
         NSNotificationCenter.defaultCenter().addObserver(self,selector: "onApplicationDidBecomeActive:",name: UIApplicationDidBecomeActiveNotification,object: nil)
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         mediator.setupTweets()
+        self.reloadTweets()
         autoScroller!.isScrollVisible = true
     }
     
@@ -31,7 +32,10 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
     }
     
     @objc func onApplicationDidBecomeActive(notification: NSNotification){
-        mediator.getLatestTweets(onLoadedTweets)
+        
+        mediator.setupTweets()
+        self.reloadTweets()
+        mediator.getLatestTweets(onLoadedTweetsFirstTime)
     }
     
     func setupAutoScroll(){
@@ -62,6 +66,15 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
             handleAuthorisationError(err)
             return;
         }
+        //ADD NEW UNREAD RANK BELOW
+    }
+    
+    func onLoadedTweetsFirstTime(error : NSError?){
+        onLoadedTweets(error)
+        reloadTweets()
+    }
+    
+    func reloadTweets(){
         cleanOldreuseCellsSoThatTheyDontAffectMarkAsReadLogic()
         self.tableView.reloadData()
         if self.mediator.tweets.count > 0{
