@@ -5,18 +5,17 @@ class LoginViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let logInButton = TWTRLogInButton(logInCompletion: {
-            (session: TWTRSession!, error: NSError!) in
-            
-            if (session != nil) {
+        let logInButton = TWTRLogInButton { (session, error) -> Void in
+            if let session = session {
                 print("signed in as \(session.userName)");
                 let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
                 appDelegate.twitterSession = session
                 self.performSegueWithIdentifier("login", sender: self)
             } else {
-                print("error: \(error.localizedDescription)");
+                print("error: \(error!.localizedDescription)");
             }
-        })
+        }
+
         logInButton.center = self.view.center
         
         self.view.addSubview(logInButton)

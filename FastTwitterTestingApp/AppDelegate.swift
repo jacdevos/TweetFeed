@@ -11,7 +11,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        Fabric.with([Twitter()])
+        Twitter.sharedInstance().startWithConsumerKey("CUdwBwT5afPSN7QfqAzNvEjtt", consumerSecret: "1wP8OkfpkCPv7w57q6HBYJ8ZhKpIHVna0qI7TlkPc3IbOKsTN6")
+        Fabric.with([Twitter.sharedInstance()])
         return true
     }
 
