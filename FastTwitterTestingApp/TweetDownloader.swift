@@ -2,6 +2,10 @@ import TwitterKit
 typealias TweetsDownloadedCallback = (NSData?, NSError?) -> Void
 
 class TweetDownloader {
+    
+    //TODO get more than 200! make 4 calls to get up to 800.
+    //use the last calls' indicators to avoid repitition?
+    
     static func downloadHomeTimelineTweets(callback : TweetsDownloadedCallback){
         let statusesShowEndpoint = "https://api.twitter.com/1.1/statuses/home_timeline.json"
         let params = ["count":"200","exclude_replies":"false"]
@@ -17,6 +21,7 @@ class TweetDownloader {
         
         Twitter.sharedInstance().APIClient.sendTwitterRequest(request) { (response, data, connectionError) -> Void in
             UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+            
             if (connectionError == nil) {
                 callback(data,nil)
             }

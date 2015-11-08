@@ -7,7 +7,7 @@ class TweetMediator {
     let alreadyReadTweets : TweetReadingState = TweetReadingState()
 
     //Set up tweets list with active tweets at the top.
-    //Reason: so that we get the feeling of continuation when restarting app
+    //Reason: so that we get the FEELING of continuation when restarting app - starting where you last left off
     func setupTweets(){
         let rankedUnread = calculateRankedUnreadTweets()
         self.tweets = alreadyReadTweets.moveActiveTweetsToTop(rankedUnread)
