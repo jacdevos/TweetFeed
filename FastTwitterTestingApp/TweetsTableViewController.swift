@@ -15,14 +15,13 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
         TWTRTweetView.appearance().theme = .Dark
         self.setupAutoScroll()
         self.setupTableView()
-        mediator.getLatestTweets(onLoadedTweetsFirstTime)
+        mediator.getLatestTweets(onLoadedTweets)
         NSNotificationCenter.defaultCenter().addObserver(self,selector: "onApplicationDidBecomeActive:",name: UIApplicationDidBecomeActiveNotification,object: nil)
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        mediator.setupTweets()
-        self.reloadTweets()
+        mediator.resetTweetsBelowActive(onLoadedTweets)
         autoScroller!.isScrollVisible = true
     }
     
@@ -32,10 +31,7 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
     }
     
     @objc func onApplicationDidBecomeActive(notification: NSNotification){
-        
-        mediator.setupTweets()
-        self.reloadTweets()
-        mediator.getLatestTweets(onLoadedTweetsFirstTime)
+        mediator.getLatestTweets(onLoadedTweets)
     }
     
     func setupAutoScroll(){
@@ -60,18 +56,23 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
         tableView.backgroundColor = UIColor.darkGrayColor()
     }
     
-    func onLoadedTweets(error : NSError?){
+    func onLoadedTweets(error : NSError?, deletedIndexes: Range<Int>?, insertedIndexes: Range<Int>?){
         if let err = error{
             print("Error downloading tweets \(err)")
             handleAuthorisationError(err)
             return;
         }
+        self.tableView.beginUpdates()
+
+        if let deleted = deletedIndexes{
+            self.tableView.deleteRowsAtIndexPaths(Array(deleted).map{NSIndexPath(forRow: $0, inSection: 0)}, withRowAnimation: .None)
+        }
+        if let inserted = insertedIndexes{
+            self.tableView.insertRowsAtIndexPaths(Array(inserted).map{NSIndexPath(forRow: $0, inSection: 0)}, withRowAnimation: .None)
+        }
+        
+        self.tableView.endUpdates()
         //ADD NEW UNREAD RANK BELOW
-    }
-    
-    func onLoadedTweetsFirstTime(error : NSError?){
-        onLoadedTweets(error)
-        reloadTweets()
     }
     
     func reloadTweets(){

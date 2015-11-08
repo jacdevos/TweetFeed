@@ -3,7 +3,7 @@ import TwitterKit
 
 class TweetReadingState{
     var alreadyReadTweets : Set<String> //the tweets that have crossed the whole screen
-    let filename = "readtweetids5.txt";
+    let filename = "readtweetids8.txt";
     
     var currentlyReadingTweets : Array<Tweet> = []//the tweets that are currently on screen; not persisted in file
     
@@ -43,13 +43,17 @@ class TweetReadingState{
     }
     
     func removeTweetsThatHaveBeenRead(tweets : [Tweet]) -> [Tweet]{
-        let unreadTweets = tweets.filter(){
+        return tweets.filter(){
             if let tweetID = ($0 as Tweet).tweetID as String! {
                 return !self.alreadyReadTweets.contains(tweetID)
             } else {
                 return false
             }
         }
+    }
+    
+    func removeActiveTweets(tweets : [Tweet]) -> [Tweet]{
+        let unreadTweets = tweets.filter(){!self.currentlyReadingTweets.contains($0)}
         return unreadTweets
     }
     

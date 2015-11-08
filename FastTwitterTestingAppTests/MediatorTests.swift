@@ -6,10 +6,9 @@ class MediatorTests: XCTestCase {
         //let proxy : TweetDownloader = TweetDownloader()
         let mediator = TweetMediator()
         
-        mediator.getLatestTweets { (error : NSError?) -> Void in
-            expectAsync.fulfill()
+        mediator.getLatestTweets { (error, deletedIndexes, insertedIndexes) -> Void in
+             expectAsync.fulfill()
         }
-        
         self.waitForExpectationsWithTimeout(60, handler: { (error: NSError?) -> Void in })
         
         XCTAssertGreaterThan(mediator.tweets.count, 0, "No tweets downloaded and serialized")
