@@ -42,18 +42,23 @@ class TweetMediator {
 
     func getLatestTweets(callback : TweetsLoaded){
         TweetDownloader.downloadHomeTimelineTweets{ dataFromService, error in
-            if let _ = error{
-                callback(error)
+            let result : (NSData?, NSError?) = (dataFromService, error)
+            
+            switch(result){
+                case (nil,nil):
+                    callback(NSError(domain: "TweetMediator", code: 0, userInfo: [NSLocalizedDescriptionKey:"No data from twitter timeline."]))
+                case (nil,_):
+                    callback(error)
+                case (_,nil):
+                    TweetCache.saveTweets(dataFromService!)
+                    //println( NSString(data: dataFromSvc, encoding: NSUTF8StringEncoding))
+                    self.resetTweetsBelowActive()
+                    callback(nil)
+                default:
+                    callback(NSError(domain: "TweetMediator", code: 0, userInfo: [NSLocalizedDescriptionKey:"Unexpected error"]))
             }
             
-            if let dataFromSvc = dataFromService{
-                TweetCache.saveTweets(dataFromSvc)
-                //println( NSString(data: dataFromSvc, encoding: NSUTF8StringEncoding))
-                self.resetTweetsBelowActive()
-                callback(nil)
-            }else{
-                callback(NSError(domain: "TweetMediator", code: 0, userInfo: [NSLocalizedDescriptionKey:"No data from twitter timeline."]))
-            }
+
         }
     }
 }
