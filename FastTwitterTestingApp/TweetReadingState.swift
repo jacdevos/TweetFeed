@@ -4,7 +4,7 @@ import TwitterKit
 class TweetReadingState{
     private var alreadyReadTweets : Set<String> //the tweets that have crossed the whole screen
     private let filename = "readtweetids8.txt";
-    private var currentlyReadingTweets : Array<Tweet> = []//the tweets that are currently on screen; not persisted in file
+    var activeTweets : Array<Tweet> = []//the tweets that are currently on screen; not persisted in file
     
     init() {
         alreadyReadTweets = []
@@ -20,12 +20,12 @@ class TweetReadingState{
     }
     
     func markAsReading(tweet : Tweet){
-        currentlyReadingTweets.insert(tweet, atIndex: 0)
+        activeTweets.insert(tweet, atIndex: 0)
     }
     
     func markAsRead(tweet : Tweet){
         alreadyReadTweets.insert(tweet.tweetID)
-        currentlyReadingTweets.removeObject(tweet)
+        activeTweets.removeObject(tweet)
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
             
@@ -51,14 +51,14 @@ class TweetReadingState{
     }
     
     func tweetsThatAreNotCurrentlyActive(tweets : [Tweet]) -> [Tweet]{
-        let unreadTweets = tweets.filter(){!self.currentlyReadingTweets.contains($0)}
+        let unreadTweets = tweets.filter(){!self.activeTweets.contains($0)}
         return unreadTweets
     }
     
     func tweetsWithActiveTweetsAtTheTop(tweets : [Tweet]) -> [Tweet]{
         var tweetsSortedByIsActive = tweets
         
-        for activeTweet in self.currentlyReadingTweets{
+        for activeTweet in self.activeTweets{
             //unreadTweets.removeObject(activeTweet)//remove from arb position if it is in main list
             for twt in tweetsSortedByIsActive{
                 if (twt.tweetID == activeTweet.tweetID){

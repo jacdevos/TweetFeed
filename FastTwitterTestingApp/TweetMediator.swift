@@ -41,7 +41,7 @@ class TweetMediator {
     }
     
     func getIndexOfLastActive()->Int{
-        let actives = alreadyReadTweets.currentlyReadingTweets
+        let actives = alreadyReadTweets.activeTweets
         var maxActiveIndex = 0
         
         for active in actives{
