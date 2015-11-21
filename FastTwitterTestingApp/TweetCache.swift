@@ -6,6 +6,8 @@ class TweetCache {
     }
     
     static func getAll() -> Set<Tweet>{
+        //delete old ones
+
         return tweetsLoadedFromFile( "tweets.twt")
     }
     

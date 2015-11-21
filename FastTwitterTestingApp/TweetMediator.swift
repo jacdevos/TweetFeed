@@ -6,16 +6,6 @@ class TweetMediator {
     var tweets: [Tweet] = []
     let alreadyReadTweets : TweetReadingState = TweetReadingState()
 
-    //Set up tweets list with active tweets at the top.
-    //Reason: so that we get the FEELING of continuation when restarting app - starting where you last left off
-    /*
-    func setupTweets(callback : TweetsLoaded){
-        let rankedUnread = calculateRankedUnreadTweets()
-        self.tweets.appendContentsOf(alreadyReadTweets.moveActiveTweetsToTop(rankedUnread))
-         self.getLatestTweets(callback)
-    }
-*/
-    
     
     //Remove everything below active tweets, and replace with recalculated, unread items
     //Reason: we don't want to change what the user is seeing on screen, ranking should happen invisibly. 
@@ -29,7 +19,7 @@ class TweetMediator {
             self.tweets.removeRange(removeRange!)
         }
         let rankedUnread = calculateRankedUnreadTweets()
-        let rankedUnreadAndInactive = alreadyReadTweets.removeActiveTweets(rankedUnread)
+        let rankedUnreadAndInactive = alreadyReadTweets.tweetsThatAreNotCurrentlyActive(rankedUnread)
         
         var addRange : Range<Int>? = nil
         if rankedUnreadAndInactive.count > 0{
@@ -45,7 +35,7 @@ class TweetMediator {
     func calculateRankedUnreadTweets()->[Tweet]{
         let loadedTweets = TweetCache.getAll()
         let ranked =  Tweet.rankAndFilter(loadedTweets)
-        let rankedUnread = alreadyReadTweets.removeTweetsThatHaveBeenRead(ranked)
+        let rankedUnread = alreadyReadTweets.tweetsThatHaveNotBeenRead(ranked)
         
         return rankedUnread
     }

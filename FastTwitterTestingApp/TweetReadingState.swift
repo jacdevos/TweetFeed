@@ -2,10 +2,9 @@ import Foundation
 import TwitterKit
 
 class TweetReadingState{
-    var alreadyReadTweets : Set<String> //the tweets that have crossed the whole screen
-    let filename = "readtweetids8.txt";
-    
-    var currentlyReadingTweets : Array<Tweet> = []//the tweets that are currently on screen; not persisted in file
+    private var alreadyReadTweets : Set<String> //the tweets that have crossed the whole screen
+    private let filename = "readtweetids8.txt";
+    private var currentlyReadingTweets : Array<Tweet> = []//the tweets that are currently on screen; not persisted in file
     
     init() {
         alreadyReadTweets = []
@@ -22,7 +21,6 @@ class TweetReadingState{
     
     func markAsReading(tweet : Tweet){
         currentlyReadingTweets.insert(tweet, atIndex: 0)
-       
     }
     
     func markAsRead(tweet : Tweet){
@@ -42,7 +40,7 @@ class TweetReadingState{
         }
     }
     
-    func removeTweetsThatHaveBeenRead(tweets : [Tweet]) -> [Tweet]{
+    func tweetsThatHaveNotBeenRead(tweets : [Tweet]) -> [Tweet]{
         return tweets.filter(){
             if let tweetID = ($0 as Tweet).tweetID as String! {
                 return !self.alreadyReadTweets.contains(tweetID)
@@ -52,12 +50,12 @@ class TweetReadingState{
         }
     }
     
-    func removeActiveTweets(tweets : [Tweet]) -> [Tweet]{
+    func tweetsThatAreNotCurrentlyActive(tweets : [Tweet]) -> [Tweet]{
         let unreadTweets = tweets.filter(){!self.currentlyReadingTweets.contains($0)}
         return unreadTweets
     }
     
-    func moveActiveTweetsToTop(tweets : [Tweet]) -> [Tweet]{
+    func tweetsWithActiveTweetsAtTheTop(tweets : [Tweet]) -> [Tweet]{
         var tweetsSortedByIsActive = tweets
         
         for activeTweet in self.currentlyReadingTweets{
