@@ -3,6 +3,7 @@ import TwitterKit
 class TweetCache {
     static func saveTweets(tweetData : NSData){
         creatDownloadedFile(tweetData, fileName: "tweets.twt")
+        //TweetRepositoryCoachbase.sharedInstance()
     }
     
     static func getAll() -> Set<Tweet>{

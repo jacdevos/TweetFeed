@@ -6,7 +6,7 @@
 //  Copyright © 2015 nReality. All rights reserved.
 //
 
-import Cocoa
+import UIKit
 
 class TweetRepository: NSObject {
 
