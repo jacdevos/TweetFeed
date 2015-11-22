@@ -2,59 +2,53 @@ import TwitterKit
 
 class TweetCache {
     static func saveTweets(tweetData : NSData){
-        creatDownloadedFile(tweetData, fileName: "tweets.twt")
-        //TweetRepositoryCoachbase.sharedInstance()
+        deleteRepo()
+        saveTweetsToRepo(tweetData)
     }
-    
+
     static func getAll() -> Set<Tweet>{
-        //delete old ones
-
-        return tweetsLoadedFromFile( "tweets.twt")
+        let repository = try! CouchbaseRepository(dbName: "tweets")
+        let tweetDictionaries = repository.getAllDocuments()
+        return tweetsFromJSONDictionary(tweetDictionaries)
     }
     
-    private static func creatDownloadedFile (data : NSData, fileName : String){
-        data.writeToFile(self.pathForCacheFile(fileName), atomically: true)
-    }
-    
-    private static func tweetsLoadedFromFile (fileName : String) -> Set<Tweet>{
-        let data = NSData(contentsOfFile: self.pathForCacheFile(fileName))
-        if data == nil{
-            return []
-        }
-        return self.deserializeTweetsFromData(data!)
-    }
-    
-    private static func pathForCacheFile (fileName : String)  -> String{
-        let dirs : [String] = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.CachesDirectory, NSSearchPathDomainMask.AllDomainsMask, true)
-        let dir = dirs[0] //documents directory
-        
-        let url = NSURL(fileURLWithPath: dir, isDirectory: true).URLByAppendingPathComponent(fileName);
-        return url.path!
-    }
-    
-    private static func deserializeTweetsFromData(data: NSData) -> Set<Tweet> {
-        var jsonError : NSError?
-        var json : AnyObject? = nil
-        do {
-            json = try NSJSONSerialization.JSONObjectWithData(data,
-                options: [])
-        } catch let error as NSError {
-            jsonError = error
-            print(jsonError)
-            json = nil
-        }
-        
-        let nsarray : NSArray = json as! NSArray
-        
+    private static func tweetsFromJSONDictionary(JSONDictionary : [NSDictionary])->Set<Tweet>{
         var tweets : Set<Tweet> = []
-        for tweetJSON in nsarray{
-            let tweetJSONDic : [NSObject : AnyObject]! = tweetJSON as! [NSObject : AnyObject]
-
-            if let tweet = Tweet(JSONDictionary: tweetJSONDic, priorityBalance : Double(UserPreferences.instance.priorityBalance)){
+        for tweetJSONDic in JSONDictionary{
+            if let tweet = Tweet(JSONDictionary: tweetJSONDic as [NSObject : AnyObject], priorityBalance : Double(UserPreferences.instance.priorityBalance)){
                 tweets.insert(tweet)
             }
         }
-        
         return tweets
     }
+    
+    private static func deleteRepo(){
+        let repository = try! CouchbaseRepository(dbName: "tweets")
+        repository.deleteAll()
+    }
+    
+    private static func saveTweetsToRepo(tweetData : NSData){
+        let repository = try! CouchbaseRepository(dbName: "tweets")
+        let nsarray = getJSONTweetArrayFromData(tweetData)
+        for tweetJSON in nsarray{
+            let tweetJSONDic : [NSObject : AnyObject]! = tweetJSON as! [NSObject : AnyObject]
+            repository.createDocument(tweetJSONDic)
+        }
+    }
+
+    private static func getJSONTweetArrayFromData(data: NSData) -> NSArray {
+        var jsonError : NSError?
+        var json : AnyObject? = nil
+        do {
+            json = try NSJSONSerialization.JSONObjectWithData(data, options: [])
+        } catch let error as NSError {
+            jsonError = error
+            print(jsonError)
+        } catch{
+            print("Unknown error serializing JSON")
+        }
+        return json as! NSArray
+    }
+    
+
 }
