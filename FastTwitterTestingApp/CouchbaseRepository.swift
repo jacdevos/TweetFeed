@@ -7,11 +7,11 @@ class CouchbaseRepository {
     private var database : CBLDatabase? = nil
     private let manager : CBLManager
     
-    init() throws {
+    init(dbName : String) throws {
         self.manager = CBLManager.sharedInstance()
 
         do {
-             try self.database = self.manager.databaseNamed("couchbaseevents")
+             try self.database = self.manager.databaseNamed(dbName)
         } catch let error as NSError {
             print("domain: \(error._domain) code:\(error._code)")
             throw CouchbaseRepositoryError.DatabaseCouldNotBeCreated
@@ -32,16 +32,22 @@ class CouchbaseRepository {
         }
     }
     
-    func getDocumentById(documentId : String)->CBLDocument?{
-        return database!.documentWithID(documentId)
+    func getDocumentById(documentId : String)->NSDictionary?{
+        return database!.documentWithID(documentId)?.properties
     }
     
-    /*
-    func getAllDocuments(->[CBLDocument]{
-        if let db = database{
-            return db.documentWithID(documentId)
+    func getAllDocuments()->[NSDictionary]{
+        let query = database!.createAllDocumentsQuery()
+        let result = try! query.run()
+        var documentDictionaries = [NSDictionary]()
+        while let row = result.nextRow() {
+            documentDictionaries.append((row.document?.properties)!)
         }
-        
-        return nil
-    }*/
+        return documentDictionaries
+    }
+    
+    
+    func deleteAll(){
+        try! database!.deleteDatabase()
+    }
 }

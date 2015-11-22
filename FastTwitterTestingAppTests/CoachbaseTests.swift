@@ -3,6 +3,8 @@ import XCTest
 class CoachbaseTests: XCTestCase {
 
     override func setUp() {
+        let repo = try! CouchbaseRepository(dbName: "test")
+        repo.deleteAll()
         super.setUp()
     }
     
@@ -12,13 +14,14 @@ class CoachbaseTests: XCTestCase {
 
     func testCreateDocument() {
         do {
-            let repo = try CouchbaseRepository()
+            let repo = try CouchbaseRepository(dbName: "test")
+
             let dic = ["name": "Big Party","location":"My House"]
-            let documentId = repo.createDocument(dic);
-            let document = repo.getDocumentById(documentId!);
+            let documentId = repo.createDocument(dic)
+            let document = repo.getDocumentById(documentId!)
         
-            XCTAssertEqual(document!["name"] as! String, "Big Party")
-            XCTAssertEqual(document!["location"] as! String, "My House")
+            XCTAssertEqual(document!["name"] as? String, "Big Party")
+            XCTAssertEqual(document!["location"] as? String, "My House")
         } catch {
             XCTAssertTrue(false,"repo could not be created")
         }
@@ -26,13 +29,15 @@ class CoachbaseTests: XCTestCase {
     
     func testReadallDocument() {
         do {
-            let repo = try CouchbaseRepository()
+            let repo = try CouchbaseRepository(dbName: "test")
             let dic = ["name": "Big Party","location":"My House"]
-            let documentId = repo.createDocument(dic);
-            let document = repo.getDocumentById(documentId!);
+            repo.createDocument(dic);
+            let dic2 = ["name": "Big Party2","location":"My House"]
+            repo.createDocument(dic2);
+            let all = repo.getAllDocuments()
             
-            XCTAssertEqual(document!["name"] as! String, "Big Party")
-            XCTAssertEqual(document!["location"] as! String, "My House")
+            XCTAssertEqual(all[0]["name"] as? String, "Big Party")
+            XCTAssertEqual(all[1]["name"] as? String, "Big Party2")
         } catch {
             XCTAssertTrue(false,"repo could not be created")
         }

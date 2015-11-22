@@ -264,8 +264,8 @@
 				9BF0D4D61B83B3B0005F2F92 /* RankedTweetTests.swift */,
 				9B93B01F1B47BAE10043ADA4 /* TweetDownloaderTests.swift */,
 				9BF62BD31B809D140058293B /* MediatorTests.swift */,
-				9B93B01D1B47BAE10043ADA4 /* Supporting Files */,
 				9B8C73931C00DA200060B40B /* CoachbaseTests.swift */,
+				9B93B01D1B47BAE10043ADA4 /* Supporting Files */,
 			);
 			path = FastTwitterTestingAppTests;
 			sourceTree = "<group>";
