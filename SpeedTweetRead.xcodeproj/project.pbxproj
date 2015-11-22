@@ -197,16 +197,14 @@
 		9B680B661B5AC96900E92874 /* Logic */ = {
 			isa = PBXGroup;
 			children = (
-				9B8C737D1C00D7840060B40B /* TweetRepository.swift */,
 				9B8C73951C00E2300060B40B /* CouchbaseRepository.swift */,
+				9B8C737D1C00D7840060B40B /* TweetRepository.swift */,
 				9BF0D4CA1B80A582005F2F92 /* TweetCache.swift */,
 				9BDF96081B9AE00100D7EE22 /* RankedTweet.swift */,
 				9BF0D4D01B80B574005F2F92 /* TweetMediator.swift */,
 				9B680B681B5ACB2900E92874 /* TweetDownloader.swift */,
 				9B680B6B1B5AF04900E92874 /* TweetReadingState.swift */,
 				9B3BB6301B9B4AF400784F81 /* UserPreferences.swift */,
-				9B8C737A1C00D7830060B40B /* SpeedTweetRead-Bridging-Header.h */,
-				9B8C737B1C00D7830060B40B /* SpeedTweetReadTests-Bridging-Header.h */,
 			);
 			name = Logic;
 			sourceTree = "<group>";
@@ -253,6 +251,8 @@
 		9B93B0041B47BAE10043ADA4 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				9B8C737A1C00D7830060B40B /* SpeedTweetRead-Bridging-Header.h */,
+				9B8C737B1C00D7830060B40B /* SpeedTweetReadTests-Bridging-Header.h */,
 				9B93B0051B47BAE10043ADA4 /* Info.plist */,
 			);
 			name = "Supporting Files";

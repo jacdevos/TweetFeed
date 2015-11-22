@@ -14,29 +14,34 @@ class CouchbaseRepository {
              try self.database = self.manager.databaseNamed("couchbaseevents")
         } catch let error as NSError {
             print("domain: \(error._domain) code:\(error._code)")
+            throw CouchbaseRepositoryError.DatabaseCouldNotBeCreated
         }
 
     }
     
     func createDocument(dictionary : NSDictionary) -> String?{
-        if let db = database{
-            let doc = db.createDocument()
-            let docID = doc.documentID
-             do {
-                try doc.putProperties(dictionary as! [String : AnyObject])
-                print("Document created and written to database, ID = \(docID)")
-                return docID;
-             }catch let error as NSError {
-                print("domain: \(error._domain) code:\(error._code)")
-            }
+        let doc = database!.createDocument()
+        let docID = doc.documentID
+         do {
+            try doc.putProperties(dictionary as! [String : AnyObject])
+            print("Document created and written to database, ID = \(docID)")
+            return docID;
+         }catch let error as NSError {
+            print("domain: \(error._domain) code:\(error._code)")
+            return nil
         }
-        return nil
     }
     
     func getDocumentById(documentId : String)->CBLDocument?{
+        return database!.documentWithID(documentId)
+    }
+    
+    /*
+    func getAllDocuments(->[CBLDocument]{
         if let db = database{
             return db.documentWithID(documentId)
         }
+        
         return nil
-    }
+    }*/
 }
