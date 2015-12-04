@@ -1,6 +1,7 @@
 import Foundation
 import TwitterKit
 
+//TODO: need to use the Tweet repository instead of a seperate file
 class TweetReadingState{
     private var alreadyReadTweets : Set<String> //the tweets that have crossed the whole screen
     private let filename = "readtweetids8.txt";

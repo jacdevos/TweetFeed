@@ -1,9 +1,11 @@
 import TwitterKit
 
+//stor the downloaded tweets
 class TweetCache {
     static func saveTweets(tweetData : NSData){
-        deleteRepo()
+        deleteRepo()//TODO: just delete the items older than a week
         saveTweetsToRepo(tweetData)
+        //TODO newest and oldest saved tweetID
     }
 
     static func getAll() -> Set<Tweet>{

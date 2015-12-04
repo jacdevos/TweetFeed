@@ -13,6 +13,8 @@ class LoginViewController: UIViewController {
                 self.performSegueWithIdentifier("login", sender: self)
             } else {
                 print("error: \(error!.localizedDescription)");
+                
+                //UNABLE TO LOG ON TO TWITTER> MAKE SURE YOU HAVE AN INTERNET CONNECTION AND HAVE SINGED INTO TWITTER IN YOU iPHONE SETTTINGS
             }
         }
 

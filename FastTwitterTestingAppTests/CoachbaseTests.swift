@@ -27,7 +27,7 @@ class CoachbaseTests: XCTestCase {
         }
     }
     
-    func testReadallDocument() {
+    func testReadAllDocuments() {
         do {
             let repo = try CouchbaseRepository(dbName: "test")
             let dic = ["name": "Big Party","location":"My House"]

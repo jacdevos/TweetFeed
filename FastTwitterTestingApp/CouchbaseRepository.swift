@@ -16,7 +16,6 @@ class CouchbaseRepository {
             print("domain: \(error._domain) code:\(error._code)")
             throw CouchbaseRepositoryError.DatabaseCouldNotBeCreated
         }
-
     }
     
     func createDocument(dictionary : NSDictionary) -> String?{
@@ -45,7 +44,6 @@ class CouchbaseRepository {
         }
         return documentDictionaries
     }
-    
     
     func deleteAll(){
         try! database!.deleteDatabase()
