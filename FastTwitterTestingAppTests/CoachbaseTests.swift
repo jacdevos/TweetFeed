@@ -36,8 +36,11 @@ class CoachbaseTests: XCTestCase {
             repo.createDocument(dic2);
             let all = repo.getAllDocuments()
             
-            XCTAssertEqual(all[0]["name"] as? String, "Big Party")
-            XCTAssertEqual(all[1]["name"] as? String, "Big Party2")
+        
+            XCTAssertEqual(2, all.count)
+           
+            XCTAssertEqual(1,  all.filter{$0["name"] as? String == "Big Party"}.count)
+            XCTAssertEqual(1,  all.filter{$0["name"] as? String == "Big Party2"}.count)
         } catch {
             XCTAssertTrue(false,"repo could not be created")
         }
