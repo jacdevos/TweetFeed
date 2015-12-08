@@ -51,6 +51,14 @@
                BlueprintName = "SpeedTweetReadTests"
                ReferencedContainer = "container:SpeedTweetRead.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "MediatorTests">
+               </Test>
+               <Test
+                  Identifier = "TweetDownloaderTests">
+               </Test>
+            </SkippedTests>
          </TestableReference>
       </Testables>
       <MacroExpansion>
