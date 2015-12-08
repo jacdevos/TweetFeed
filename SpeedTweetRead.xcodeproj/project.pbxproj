@@ -290,6 +290,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9B93B0231B47BAE10043ADA4 /* Build configuration list for PBXNativeTarget "SpeedTweetRead" */;
 			buildPhases = (
+				9BC825621C174C11000699F3 /* Run Script-BuildNr */,
 				9B93AFFD1B47BAE10043ADA4 /* Sources */,
 				9B93AFFE1B47BAE10043ADA4 /* Frameworks */,
 				9B93AFFF1B47BAE10043ADA4 /* Resources */,
@@ -396,6 +397,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "./Fabric.framework/run e73d97cec21122d8ab154b7ab57c4e73f22c784b 8048d1cca35fa23f5fcf28f3ef7a8be90257a22e385a66668870ec7deea681c9";
+		};
+		9BC825621C174C11000699F3 /* Run Script-BuildNr */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Run Script-BuildNr";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#Update build number with number of git commits if in release mode\nif [ ${CONFIGURATION} == \"Release\" ]; then\nbuildNumber=$(git rev-list HEAD | wc -l | tr -d ' ')\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"\nfi;";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -603,7 +618,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.nreality.TweetFeed;
 				PRODUCT_NAME = SpeedTweetRead;
-				PROVISIONING_PROFILE = "293e95e0-8d6c-471e-819a-063503921943";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "FastTwitterTestingApp/SpeedTweetRead-Bridging-Header.h";
 			};
 			name = Release;
