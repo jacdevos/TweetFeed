@@ -2,7 +2,7 @@
 import UIKit
 import TwitterKit
 
-class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate, UIWebViewDelegate {
+class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
     let mediator = TweetMediator()
     let tweetTableReuseIdentifier = "TweetCell"
     var tempLoadedCells : [TweetTableViewCell] = []
@@ -14,12 +14,17 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate, U
     let webViewForTweets : UIWebView
     let webViewControllerForWebLinks = UIViewController()
     let webViewForWebLinks : UIWebView
+    var delegateForProgressForTweets  : WebViewDelegateForProgress
+    var delegateForProgressForWebLinks  : WebViewDelegateForProgress
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?){
         self.webViewForWebLinks = UIWebView(frame: self.webViewControllerForWebLinks.view.bounds)
         self.webViewForTweets = UIWebView(frame: self.webViewControllerForTweets.view.bounds)
+        delegateForProgressForTweets = WebViewDelegateForProgress()
+        delegateForProgressForWebLinks = WebViewDelegateForProgress()
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        self.webViewForWebLinks.delegate = self
+        //self.webViewForWebLinks.delegate = self
+        //self.webViewForTweets.delegate = self
         self.webViewControllerForWebLinks.view = self.webViewForWebLinks
         self.webViewControllerForTweets.view = self.webViewForTweets
     }
@@ -27,8 +32,10 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate, U
     required init?(coder aDecoder: NSCoder) {
         self.webViewForWebLinks = UIWebView(frame: self.webViewControllerForWebLinks.view.bounds)
         self.webViewForTweets = UIWebView(frame: self.webViewControllerForTweets.view.bounds)
+        delegateForProgressForWebLinks = WebViewDelegateForProgress()
+        delegateForProgressForTweets = WebViewDelegateForProgress()
         super.init(coder: aDecoder)
-        self.webViewForWebLinks.delegate = self
+        //self.webViewForWebLinks.delegate = self
         self.webViewControllerForTweets.view = self.webViewForTweets
     }
     
@@ -41,9 +48,8 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate, U
         NSNotificationCenter.defaultCenter().addObserver(self,selector: "onApplicationDidBecomeActive:",name: UIApplicationDidBecomeActiveNotification,object: nil)
         
         loginAsync()
-
-
-
+        
+        self.webViewForTweets.loadRequest(NSURLRequest(URL: NSURL(string: "https://mobile.twitter.com/home")!))
 
     }
     
@@ -200,12 +206,6 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate, U
         return TweetTableViewCell.heightForTweet(tweet, style: TWTRTweetViewStyle.Compact, width: CGRectGetWidth(self.view.bounds), showingActions: true)
     }
     
-    /* obsolete
-    
-    func tweetView(tweetView: TWTRTweetView!, didSelectTweet tweet: TWTRTweet!){
-        TwitterDeepLink.openTweetDeeplink(tweet)
-    }
-*/
 
     func tweetView(tweetView: TWTRTweetView, didTapURL url: NSURL) {
 
@@ -214,11 +214,16 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate, U
         self.webViewControllerForWebLinks.navigationItem.title = url.host
         
         self.navigationController!.pushViewController(self.webViewControllerForWebLinks, animated: true)
+        
+        let progressView = WebViewProgressView(webView: webViewForWebLinks)
+        delegateForProgressForWebLinks = WebViewDelegateForProgress()
+        delegateForProgressForWebLinks.viewController = self.webViewControllerForWebLinks
+        webViewForWebLinks.delegate = delegateForProgressForWebLinks
+        delegateForProgressForWebLinks.progressView = progressView
+        webViewForWebLinks.addSubview(progressView)
+        
     }
     
-    internal func webViewDidFinishLoad(webView: UIWebView){
-        self.webViewControllerForWebLinks.navigationItem.title = webView.request?.URL?.host
-    }
     
     func tweetView(tweetView: TWTRTweetView, shouldDisplayDetailViewController controller: TWTRTweetDetailViewController) -> Bool {
         let tweetURL = controller.tweet.permalink
@@ -226,16 +231,17 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate, U
         webViewForTweets.loadRequest(NSURLRequest(URL: tweetURL))
         self.webViewControllerForTweets.navigationItem.title = "Tweet"
         self.navigationController!.pushViewController(self.webViewControllerForTweets, animated: true)
+        
+        let progressView = WebViewProgressView(webView: webViewForTweets)
+        delegateForProgressForTweets = WebViewDelegateForProgress()
+        webViewForTweets.delegate = delegateForProgressForTweets
+        delegateForProgressForTweets.progressView = progressView
+        webViewForTweets.addSubview(progressView)
+        
         return false;
     }
     
-    /*
-    //show detail using their controller
-    func tweetView(tweetView: TWTRTweetView, shouldDisplayDetailViewController controller: TWTRTweetDetailViewController) -> Bool {
-        self.showViewController(controller, sender:self)
-        return false;
-    }
-*/
+
 
     func setAutoScrollBarButtonImage(){
         navigationItem.rightBarButtonItems =  autoScroller!.isAutoScrolling ? [pauseBarButton!] : [ffdBarButton!]

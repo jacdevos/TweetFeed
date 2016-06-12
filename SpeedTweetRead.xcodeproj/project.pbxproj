@@ -47,6 +47,8 @@
 		9BC9A0581D0D6B1A00127401 /* TwitterCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BC9A0501D0D6B1A00127401 /* TwitterCore.framework */; };
 		9BDF96091B9AE00100D7EE22 /* RankedTweet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BDF96081B9AE00100D7EE22 /* RankedTweet.swift */; };
 		9BDF960A1B9AE00100D7EE22 /* RankedTweet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BDF96081B9AE00100D7EE22 /* RankedTweet.swift */; };
+		9BE383921D0DE1FE00C4D17A /* WebViewForTweets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE383911D0DE1FE00C4D17A /* WebViewForTweets.swift */; };
+		9BE383931D0DE1FE00C4D17A /* WebViewForTweets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE383911D0DE1FE00C4D17A /* WebViewForTweets.swift */; };
 		9BF0D4CB1B80A582005F2F92 /* TweetCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BF0D4CA1B80A582005F2F92 /* TweetCache.swift */; };
 		9BF0D4CC1B80A582005F2F92 /* TweetCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BF0D4CA1B80A582005F2F92 /* TweetCache.swift */; };
 		9BF0D4CE1B80AAB2005F2F92 /* TwitterDeepLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BF0D4CD1B80AAB2005F2F92 /* TwitterDeepLink.swift */; };
@@ -109,6 +111,7 @@
 		9BC9A04F1D0D6B1A00127401 /* TwitterKitResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = TwitterKitResources.bundle; sourceTree = "<group>"; };
 		9BC9A0501D0D6B1A00127401 /* TwitterCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TwitterCore.framework; sourceTree = "<group>"; };
 		9BDF96081B9AE00100D7EE22 /* RankedTweet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RankedTweet.swift; sourceTree = "<group>"; };
+		9BE383911D0DE1FE00C4D17A /* WebViewForTweets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewForTweets.swift; sourceTree = "<group>"; };
 		9BF0D4CA1B80A582005F2F92 /* TweetCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetCache.swift; sourceTree = "<group>"; };
 		9BF0D4CD1B80AAB2005F2F92 /* TwitterDeepLink.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterDeepLink.swift; sourceTree = "<group>"; };
 		9BF0D4D01B80B574005F2F92 /* TweetMediator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetMediator.swift; sourceTree = "<group>"; };
@@ -179,6 +182,7 @@
 				9B3BB62E1B9B45E400784F81 /* SettingsTableViewController.swift */,
 				9BF0D4D31B80F020005F2F92 /* AutoScroller.swift */,
 				9BF0D4CD1B80AAB2005F2F92 /* TwitterDeepLink.swift */,
+				9BE383911D0DE1FE00C4D17A /* WebViewForTweets.swift */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -429,6 +433,7 @@
 				9B680B6C1B5AF04900E92874 /* TweetReadingState.swift in Sources */,
 				9BF0D4D41B80F020005F2F92 /* AutoScroller.swift in Sources */,
 				9B93B0381B47CBE10043ADA4 /* TweetsTableViewController.swift in Sources */,
+				9BE383921D0DE1FE00C4D17A /* WebViewForTweets.swift in Sources */,
 				9BF0D4CE1B80AAB2005F2F92 /* TwitterDeepLink.swift in Sources */,
 				9B8C73961C00E2300060B40B /* CouchbaseRepository.swift in Sources */,
 				9B680B691B5ACB2900E92874 /* TweetDownloader.swift in Sources */,
@@ -452,6 +457,7 @@
 				9B93B0201B47BAE10043ADA4 /* TweetDownloaderTests.swift in Sources */,
 				9BDF960A1B9AE00100D7EE22 /* RankedTweet.swift in Sources */,
 				9BF0D4CF1B80AAB2005F2F92 /* TwitterDeepLink.swift in Sources */,
+				9BE383931D0DE1FE00C4D17A /* WebViewForTweets.swift in Sources */,
 				9BF62BDA1B80A15C0058293B /* NSOutputStreamExtention.swift in Sources */,
 				9B8C73941C00DA200060B40B /* CoachbaseTests.swift in Sources */,
 				9BF62BD81B80A1550058293B /* TweetReadingState.swift in Sources */,
