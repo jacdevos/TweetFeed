@@ -4,9 +4,53 @@
 //  Copyright (c) 2015 Twitter. All rights reserved.
 //
 
+#import <TwitterCore/TWTRSession.h>
+#import <TwitterKit/TWTRAPIClient.h>
 #import <UIKit/UIKit.h>
-#import "TWTRAPIClient.h"
-#import "TWTRSession.h"
+
+@class TWTRSessionStore;
+
+NS_ASSUME_NONNULL_BEGIN
+
+typedef NS_OPTIONS(NSInteger, TWTRLoginMethod) {
+    
+    /**
+     * Attempts to log the user in with the system accounts.
+     * This log in method will only grant limited application permissions to
+     * the returned oauth token. If you would like to have more
+     * application permissions granted you must use the TWTRLoginMethodWebBased
+     * and configure your application correctly.
+     */
+    TWTRLoginMethodSystemAccounts = 1 << 0,
+    
+    /**
+     * Presents a web view that allows the user to log in. Will use
+     * either UIWebView or SFSafariViewController depending on iOS
+     * version and the presence of a custom URL scheme for auth
+     * redirects.
+     *
+     * This method will allow the developer to request more application
+     * permissions. To learn more about configuring your application to 
+     * have higher levels of permissions. 
+     * Visit https://dev.twitter.com/oauth/overview/application-permission-model for
+     * more information about Twitter's application permission model.
+     */
+    TWTRLoginMethodWebBased       = 1 << 1,
+
+    /**
+     *  Presents a web view that doesn't use any cached sessions
+     *  from Safari. Allows the developer to provide multi-user
+     *  functionality with several Twitter accounts.
+     */
+    TWTRLoginMethodWebBasedForceLogin = 1 << 2,
+    
+    /**
+     * Picks the first available log in method. The order in which 
+     * methods are checked is TWTRLoginMethodSystemAccounts -> TWTRLoginMethodWebBased.
+     */
+    TWTRLoginMethodAll            = TWTRLoginMethodSystemAccounts | TWTRLoginMethodWebBased
+};
+
 
 /**
  *  The central class of the Twitter Kit.
@@ -34,14 +78,17 @@
 - (void)startWithConsumerKey:(NSString *)consumerKey consumerSecret:(NSString *)consumerSecret;
 
 /**
- *  Client for consuming the Twitter REST API.
+ *  Start Twitter with a consumer key, secret, and keychain access group. See -[Twitter startWithConsumerKey:consumerSecret:]
  *
- *  This API client is configured with your consumer key and secret if they are available to the Twitter
- *  object (either via initialization of the Twitter instance or your application's Info.plist).
+ *  @param consumerKey    Your Twitter application's consumer key.
+ *  @param consumerSecret Your Twitter application's consumer secret.
+ *  @param accessGroup    An optional keychain access group to apply to session objects stored in the keychain.
  *
- *  @warning To make authenticated requests, you need to call `loginWithCompletion:` or `loginGuestWithCompletion:`.
+ *  @note In the majority of situations applications will not need to specify an access group to use with Twitter sessions.
+ *  This value is only needed if you plan to share credentials with another application that you control or if you are
+ *  using TwitterKit with an app extension.
  */
-@property (nonatomic, strong, readonly) TWTRAPIClient *APIClient;
+- (void)startWithConsumerKey:(NSString *)consumerKey consumerSecret:(NSString *)consumerSecret accessGroup:(nullable NSString *)accessGroup;
 
 /**
  *  The current version of this kit.
@@ -49,35 +96,37 @@
 @property (nonatomic, copy, readonly) NSString *version;
 
 /**
- *  The Twitter application consumer key.
- *  @deprecated This property is deprecated and will be removed in a later release. Please use `authConfig`.
- */
-@property (nonatomic, copy, readonly) NSString *consumerKey __attribute__((deprecated("Use `authConfig`. This property will be removed in a later release.")));
-
-/**
- *  The Twitter application consumer secret.
- *  @deprecated This property is deprecated and will be removed in a later release. Please use `authConfig`.
- */
-@property (nonatomic, copy, readonly) NSString *consumerSecret __attribute__((deprecated("Use `authConfig`. This property will be removed in a later release.")));
-
-/**
  *  Authentication configuration details. Encapsulates the `consumerKey` and `consumerSecret` credentials required to authenticate a Twitter application.
  */
-@property (nonatomic, strong, readonly) TWTRAuthConfig *authConfig;
+@property (nonatomic, readonly) TWTRAuthConfig *authConfig;
 
 /**
- *  @name Authentication
+ *  Session store exposing methods to fetch and manage active sessions. Applications that need to manage
+ *  multiple users should use the session store to authenticate and log out users.
  */
+@property (nonatomic, readonly) TWTRSessionStore *sessionStore;
 
 /**
  *  Triggers user authentication with Twitter.
  *
  *  This method will present UI to allow the user to log in if there are no saved Twitter login credentials.
+ *  This method is equivalent to calling loginWithMethods:completion: with TWTRLoginMethodAll.
  *
  *  @param completion The completion block will be called after authentication is successful or if there is an error.
  *  @warning This method requires that you have set up your `consumerKey` and `consumerSecret`.
  */
 - (void)logInWithCompletion:(TWTRLogInCompletion)completion;
+
+/**
+ *  Triggers user authentication with Twitter.
+ *
+ *  This method will attempt to log the user in based on the specified log in methods. If multiple methods
+ *  are specified the system account method will be attempted first.
+ *
+ *  @param completion The completion block will be called after authentication is successful or if there is an error.
+ *  @warning This method requires that you have set up your `consumerKey` and `consumerSecret`.
+ */
+- (void)logInWithMethods:(TWTRLoginMethod)methods completion:(TWTRLogInCompletion)completion;
 
 /**
  *  Triggers user authentication with Twitter. Allows the developer to specify the presenting view controller.
@@ -88,54 +137,36 @@
  *  @param completion The completion block will be called after authentication is successful or if there is an error.
  *  @warning This method requires that you have set up your `consumerKey` and `consumerSecret`.
  */
-- (void)logInWithViewController:(UIViewController *)viewController completion:(TWTRLogInCompletion)completion;
+- (void)logInWithViewController:(nullable UIViewController *)viewController completion:(TWTRLogInCompletion)completion;
 
 /**
- *  Log in a guest user. This can be used when the user is not a Twitter user.
+ *  Triggers user authentication with Twitter. Allows the developer to specify the presenting view controller.
  *
- *  This method will not present any UI to the user.
+ *  This method will attempt to log the user in based on the specified log in methods. If multiple methods
+ *  are specified the system account method will be attempted first.
  *
+ *  @param viewController The view controller that will be used to present the authentication view.
  *  @param completion The completion block will be called after authentication is successful or if there is an error.
  *  @warning This method requires that you have set up your `consumerKey` and `consumerSecret`.
  */
-- (void)logInGuestWithCompletion:(TWTRGuestLogInCompletion)completion;
+- (void)logInWithViewController:(nullable UIViewController *)viewController methods:(TWTRLoginMethod)methods completion:(TWTRLogInCompletion)completion;
 
 /**
- *  Triggers user authentication with Twitter given an existing session.
+ *  Finish the `SFSafariViewController` authentication loop. This method should 
+ *  be called from application:openURL:options inside the application delegate.
  *
- *  Use this method if you have already authenticated with Twitter and are migrating to TwitterKit. This
- *  method will verify that the `authToken` and `authTokenSecret` are still valid and log the user in with
- *  the existing credentials.
+ *  This method will verify an authentication token sent by the Twitter API to 
+ *  finish the web-based authentication flow.
  *
- *  @param authToken The existing authToken to use for authentication.
- *  @param authTokenSecret The existing authTokenSecret to use for authentication.
- *  @param completion The completion block will be called after authentication is successful or if there is an error.
- *  @warning This method requires that you have set up your `consumerKey` and `consumerSecret`.
- */
-- (void)logInWithExistingAuthToken:(NSString *)authToken authTokenSecret:(NSString *)authTokenSecret completion:(TWTRLogInCompletion)completion;
-
-/**
- *  Returns the current user session or nil if there is no logged in user.
+ *  @param application  The `UIApplication` instance received as a parameter.
+ *  @param url          The `NSURL` instance received as a parameter.
+ *  @param options      The options dictionary received as a parameter.
  *
- *  @return Returns the current user session or nil if there is no logged in user.
+ *  @return Boolean specifying whether this URL was handled
+ *          by Twitter Kit or not.
  */
-- (TWTRSession *)session;
-
-/**
- *  Returns the current guest session or nil if there is no logged in guest.
- *
- *  @return Returns the current guest session or nil if there is no logged in guest.
- */
-- (TWTRGuestSession *)guestSession;
-
-/**
- *  Deletes the local Twitter user session from this app. This will not remove the system Twitter account nor make a network request to invalidate the session.
- */
-- (void)logOut;
-
-/**
- *  Deletes the local guest session. Does not make a network request to invalidate the session.
- */
-- (void)logOutGuest;
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url options:(NSDictionary *)options;
 
 @end
+
+NS_ASSUME_NONNULL_END

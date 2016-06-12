@@ -11,11 +11,15 @@ class Tweet: TWTRTweet {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
+
+    required init?(JSONDictionary dictionary: [NSObject : AnyObject]) {
+       super.init(JSONDictionary: dictionary)
+    }
     
     //Used to compare the importance of tweets.
     //the higher, the better the rank
     func rank() -> Double{
-        let undecayedRank = Double(self.retweetCount) + Double(self.favoriteCount)
+        let undecayedRank = Double(self.retweetCount) + Double(self.likeCount)
         return undecayedRank / rankDecayDivisor()
     }
     

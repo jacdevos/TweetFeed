@@ -46,9 +46,9 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
         tableView.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
         tableView.separatorInset = UIEdgeInsetsZero
 
-        if #available(iOS 8.0, *) {
+        //if #available(iOS 8.0, *) {
             tableView.layoutMargins = UIEdgeInsetsZero
-        }
+        //}
         tableView.allowsSelection = true
         tableView.rowHeight = UITableViewAutomaticDimension // Explicitly set on iOS 8 if using automatic row height calculation
         tableView.allowsSelection = false
@@ -97,7 +97,8 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
     
     func handleAuthorisationError(error : NSError){
         if error.localizedDescription.rangeOfString("401") != nil{
-            Twitter.sharedInstance().logOut()
+            //TODO how do I logout with the new SDK
+            //OLD one was: Twitter.sharedInstance().logOut()
             self.dismissViewControllerAnimated(true, completion: nil)
         }
     }
@@ -136,9 +137,9 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
         cell.tweetView.delegate = self
         cell.separatorInset = UIEdgeInsetsZero
 
-            if #available(iOS 8.0, *) {
+            //if #available(iOS 8.0, *) {
                 cell.layoutMargins = UIEdgeInsetsZero
-            }
+            //}
     }
     
     override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
@@ -152,7 +153,7 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
             return 1
         }
         let tweet = mediator.tweets[indexPath.row]
-        return TweetTableViewCell.heightForTweet(tweet, width: CGRectGetWidth(self.view.bounds), showingActions: true)
+        return TweetTableViewCell.heightForTweet(tweet, style: TWTRTweetViewStyle.Compact, width: CGRectGetWidth(self.view.bounds), showingActions: true)
     }
     
     func tweetView(tweetView: TWTRTweetView!, didSelectTweet tweet: TWTRTweet!){

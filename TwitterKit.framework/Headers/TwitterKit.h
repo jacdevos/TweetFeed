@@ -5,49 +5,58 @@
 //
 
 #if __has_feature(modules)
+@import AVFoundation;
 @import Accounts;
+@import CoreMedia;
 @import Foundation;
 @import Social;
+@import TwitterCore;
 @import UIKit;
 #else
+#import <AVFoundation/AVFoundation.h>
 #import <Accounts/Accounts.h>
+#import <CoreMedia/CoreMedia.h>
 #import <Foundation/Foundation.h>
 #import <Social/Social.h>
+#import <TwitterCore/TwitterCore.h>
 #import <UIKit/UIKit.h>
 #endif
 
-#if __IPHONE_OS_VERSION_MIN_REQUIRED < 70000
-#error "TwitterKit doesn't support iOS 6.x and lower. Please, change your minimum deployment target to iOS 7.0"
+
+#if __IPHONE_OS_VERSION_MIN_REQUIRED < 80000
+#error "TwitterKit doesn't support iOS 7.x and lower. Please, change your minimum deployment target to iOS 8.0"
 #endif
 
-#import <TwitterCore/TwitterCore.h>
+#import <TwitterKit/Twitter.h>
+#import <TwitterKit/TWTRAPIClient.h>
+#import <TwitterKit/TWTRCardConfiguration.h>
+#import <TwitterKit/TWTRCollectionTimelineDataSource.h>
+#import <TwitterKit/TWTRComposer.h>
+#import <TwitterKit/TWTRComposerTheme.h>
+#import <TwitterKit/TWTRComposerViewController.h>
+#import <TwitterKit/TWTRJSONConvertible.h>
+#import <TwitterKit/TWTRListTimelineDataSource.h>
+#import <TwitterKit/TWTRLogInButton.h>
+#import <TwitterKit/TWTRMediaEntitySize.h>
+#import <TwitterKit/TWTRMoPubAdConfiguration.h>
+#import <TwitterKit/TWTRMoPubNativeAdContainerView.h>
+#import <TwitterKit/TWTRNotificationConstants.h>
+#import <TwitterKit/TWTROAuthSigning.h>
+#import <TwitterKit/TWTRSearchTimelineDataSource.h>
+#import <TwitterKit/TWTRTimelineDataSource.h>
+#import <TwitterKit/TWTRTimelineType.h>
+#import <TwitterKit/TWTRTimelineViewController.h>
+#import <TwitterKit/TWTRTweet.h>
+#import <TwitterKit/TWTRTweetCashtagEntity.h>
+#import <TwitterKit/TWTRTweetDetailViewController.h>
+#import <TwitterKit/TWTRTweetEntity.h>
+#import <TwitterKit/TWTRTweetHashtagEntity.h>
+#import <TwitterKit/TWTRTweetTableViewCell.h>
+#import <TwitterKit/TWTRTweetUrlEntity.h>
+#import <TwitterKit/TWTRTweetUserMentionEntity.h>
+#import <TwitterKit/TWTRTweetView.h>
+#import <TwitterKit/TWTRTweetViewDelegate.h>
+#import <TwitterKit/TWTRUser.h>
+#import <TwitterKit/TWTRUserTimelineDataSource.h>
+#import <TwitterKit/TWTRVideoMetaData.h>
 
-#import "Twitter.h"
-#import "TWTRAPIClient.h"
-#import "TWTRCollectionTimelineDataSource.h"
-#import "TWTRComposer.h"
-#import "TWTRDefines.h"
-#import "TWTRListTimelineDataSource.h"
-#import "TWTRLogInButton.h"
-#import "TWTROAuthSigning.h"
-#import "TWTRSearchTimelineDataSource.h"
-#import "TWTRSession.h"
-#import "TWTRShareEmailViewController.h"
-#import "TWTRTimelineDataSource.h"
-#import "TWTRTimelineType.h"
-#import "TWTRTimelineViewController.h"
-#import "TWTRTweet.h"
-#import "TWTRTweetTableViewCell.h"
-#import "TWTRTweetView.h"
-#import "TWTRTweetViewDelegate.h"
-#import "TWTRUser.h"
-#import "TWTRUserTimelineDataSource.h"
-
-#if __has_include(<DigitsKit/DigitsKit.h>)
-#import <DigitsKit/DigitsKit.h>
-#endif
-
-/**
- *  `TwitterKit` can be used as an element in the array passed to the `+[Fabric with:]`.
- */
-#define TwitterKit [Twitter sharedInstance]

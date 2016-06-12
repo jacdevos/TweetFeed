@@ -5,18 +5,22 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TWTRTweetViewDelegate.h"
+#import <TwitterKit/TWTRTweetViewDelegate.h>
 
 @class TWTRTweet;
+
+NS_ASSUME_NONNULL_BEGIN
 
 /**
  *  The style for Tweet views.
  */
 typedef NS_ENUM(NSUInteger, TWTRTweetViewStyle) {
+    
     /**
      *  A full-size Tweet view. Displays images if present.
      */
     TWTRTweetViewStyleRegular,
+    
     /**
      *  A small Tweet view, primarily designed to be used in table views.
      */
@@ -27,10 +31,12 @@ typedef NS_ENUM(NSUInteger, TWTRTweetViewStyle) {
  *  A default combination of colors for Tweet views.
  */
 typedef NS_ENUM(NSUInteger, TWTRTweetViewTheme) {
+    
     /**
      *  Official light theme.
      */
     TWTRTweetViewThemeLight,
+    
     /**
      *  Official dark theme.
      */
@@ -40,7 +46,8 @@ typedef NS_ENUM(NSUInteger, TWTRTweetViewTheme) {
 /**
  `TWTRTweetView` displays a single Tweet to the user. It handles background taps and other actions displayed to the user.
  
-    [[[Twitter sharedInstance] APIClient] loadTweetWithID:@"20" completion:^(TWTRTweet *tweet, NSError *error) {
+    TWTRAPIClient *APIClient = [[TWTRAPIClient alloc] init];
+    [[APIClient loadTweetWithID:@"20" completion:^(TWTRTweet *tweet, NSError *error) {
         if (tweet) {
             TWTRTweetView *tweetView = [[TWTRTweetView alloc] initWithTweet:tweet];
             [self.view addSubview:tweetView];
@@ -57,6 +64,7 @@ typedef NS_ENUM(NSUInteger, TWTRTweetViewTheme) {
    - When a link is selected.
    - When the share button is tapped.
    - When the share action completes.
+   - When the favorite action completes.
  
  ## Usage in UITableView
  
@@ -80,6 +88,9 @@ typedef NS_ENUM(NSUInteger, TWTRTweetViewTheme) {
      [TWTRTweetView appearance].primaryTextColor = [UIColor yellowColor];
      [TWTRTweetView appearance].backgroundColor = [UIColor blueColor];
  
+     // Setting action button visibility
+     [TWTRTweetView appearance].showActionButtons = NO;
+ 
  _Note:_ You can't change the theme through an appearance proxy after the view has already been added to the view hierarchy. Direct `theme` property access will work though.
  */
 @interface TWTRTweetView : UIView <UIAppearanceContainer>
@@ -87,39 +98,55 @@ typedef NS_ENUM(NSUInteger, TWTRTweetViewTheme) {
 /**
  *  Background color of the Tweet view and all text labels (fullname, username, Tweet text, timestamp).
  */
-@property (nonatomic, strong) UIColor *backgroundColor UI_APPEARANCE_SELECTOR;
+@property (nonatomic) UIColor *backgroundColor UI_APPEARANCE_SELECTOR;
 
 /**
  *  Color of Tweet text and full name.
  */
-@property (nonatomic, strong) UIColor *primaryTextColor UI_APPEARANCE_SELECTOR;
+@property (nonatomic) UIColor *primaryTextColor UI_APPEARANCE_SELECTOR;
 
 /**
  *  Color of links in Tweet text.
  */
-@property (nonatomic, strong) UIColor *linkTextColor UI_APPEARANCE_SELECTOR;
+@property (nonatomic) UIColor *linkTextColor UI_APPEARANCE_SELECTOR;
 
 /**
  *  Set whether the border should be shown.
+ *  Defaults to YES.
  */
-@property (nonatomic, assign) BOOL showBorder UI_APPEARANCE_SELECTOR;
+@property (nonatomic) BOOL showBorder UI_APPEARANCE_SELECTOR;
+
+/**
+ *  Set whether the action buttons (Favorite, Share) should be shown. When toggled,
+ *  both the visibility of the action buttons and the internal constraints are
+ *  updated immediately. The layout will be updated the next layout pass that occurs.
+ *
+ *  Defaults to NO.
+ */
+@property (nonatomic) BOOL showActionButtons;
 
 /**
  *  Setting the theme of the Tweet view will change the color properties accordingly.
  *
  *  Set to `TWTRTweetViewThemeLight` by default.
  */
-@property (nonatomic, assign) TWTRTweetViewTheme theme UI_APPEARANCE_SELECTOR;
+@property (nonatomic) TWTRTweetViewTheme theme;
 
 /**
  *  The style of the Tweet. i.e. `TWTRTweetViewStyleRegular` or `TWTRTweetViewStyleCompact`.
  */
-@property (nonatomic, assign, readonly) TWTRTweetViewStyle style;
+@property (nonatomic, readonly) TWTRTweetViewStyle style;
 
 /**
- *  The optional delegate to allow presenting a webview with Tweet details.
+ *  Optional delegate to receive notifications when certain actions happen
  */
 @property (nonatomic, weak) IBOutlet id<TWTRTweetViewDelegate> delegate;
+
+/**
+ *  Optional property to set a UIViewController from which to present various new UI
+ *  e.g. when presenting a Share sheet, presenting a login view controller for actions, etc
+ */
+@property (nonatomic, weak) UIViewController *presenterViewController;
 
 /**
  *  Convenience initializer to configure a compact style Tweet view.
@@ -128,7 +155,7 @@ typedef NS_ENUM(NSUInteger, TWTRTweetViewTheme) {
  *
  *  @return The fully-configured Tweet view.
  */
-- (instancetype)initWithTweet:(TWTRTweet *)tweet;
+- (instancetype)initWithTweet:(nullable TWTRTweet *)tweet;
 
 /**
  *  Designated initializer. Initializes view with both Tweet and style.
@@ -138,24 +165,20 @@ typedef NS_ENUM(NSUInteger, TWTRTweetViewTheme) {
  *
  *  @return The fully configured Tweet view.
  */
-- (instancetype)initWithTweet:(TWTRTweet *)tweet style:(TWTRTweetViewStyle)style;
+- (instancetype)initWithTweet:(nullable TWTRTweet *)tweet style:(TWTRTweetViewStyle)style;
 
 /**
  * Initialization with a frame parameter is not supported.
  */
-- (instancetype)initWithFrame:(CGRect)frame __attribute__((unavailable("Use -initWithTweet: instead")));
+- (instancetype)initWithFrame:(CGRect)frame NS_UNAVAILABLE;
 
 /**
   Find the size that fits into a desired space. This is a system method on UIView but implemented on `TWTRTweetView`
- 
-    TWTRTweetView *tweetView = [[TWTRTweetView alloc] initWithTweet:tweet];
- 
-    // Make it 280 points wide
+  
+    // Calculate the desired height at 280 points wide
     CGSize desiredSize = [tweetView sizeThatFits:CGSizeMake(280, CGFLOAT_MAX)];
-    tweetView.frame = CGRectMake(PADDING_X, PADDING_Y, 280, desiredSize.height);
- 
-    [self.view addSubview:tweetView];
- 
+
+
    @param size The space available. Should generally leave one orientation unconstrained, and the minimum width supported is 200pts.
  
    @return The size that will fit into the space available.
@@ -167,6 +190,8 @@ typedef NS_ENUM(NSUInteger, TWTRTweetViewTheme) {
  *
  *  @param tweet The Tweet to display.
  */
-- (void)configureWithTweet:(TWTRTweet *)tweet;
+- (void)configureWithTweet:(nullable TWTRTweet *)tweet;
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -4,17 +4,16 @@
 //  Copyright (c) 2015 Twitter. All rights reserved.
 //
 
-#import "TWTRDefines.h"
-
-NS_ASSUME_NONNULL_BEGIN
-
-FOUNDATION_EXPORT NSString * const TWTRTweetsNotLoadedKey;
-
 @class TWTRUser;
 @class TWTRTweet;
 @class TWTRAuthConfig;
 @class TWTRGuestSession;
 @protocol TWTRAuthSession;
+@protocol TWTRSessionStore;
+
+NS_ASSUME_NONNULL_BEGIN
+
+FOUNDATION_EXPORT NSString * const TWTRTweetsNotLoadedKey;
 
 /**
  *  @name Completion Block Types
@@ -26,7 +25,7 @@ FOUNDATION_EXPORT NSString * const TWTRTweetsNotLoadedKey;
  *  @param user  The Twitter User.
  *  @param error Error that will be set if the API request failed.
  */
-typedef void (^TWTRLoadUserCompletion)(TWTRUser * __twtr_nullable user, NSError * __twtr_nullable error);
+typedef void (^TWTRLoadUserCompletion)(TWTRUser * _Nullable user, NSError * _Nullable error);
 
 /**
  *  Completion block called when the load Tweet request succeeds or fails.
@@ -34,7 +33,7 @@ typedef void (^TWTRLoadUserCompletion)(TWTRUser * __twtr_nullable user, NSError 
  *  @param tweet The Twitter Tweet.
  *  @param error Error that will be set if the API request failed.
  */
-typedef void (^TWTRLoadTweetCompletion)(TWTRTweet * __twtr_nullable tweet, NSError * __twtr_nullable error);
+typedef void (^TWTRLoadTweetCompletion)(TWTRTweet * _Nullable tweet, NSError * _Nullable error);
 
 /**
  *  Completion block called when the load Tweets request succeeds or fails.
@@ -42,7 +41,7 @@ typedef void (^TWTRLoadTweetCompletion)(TWTRTweet * __twtr_nullable tweet, NSErr
  *  @param tweets Tweets that were successfully retrieved.
  *  @param error  Error that will be set if the API request failed.
  */
-typedef void (^TWTRLoadTweetsCompletion)(NSArray * __twtr_nullable tweets, NSError * __twtr_nullable error);
+typedef void (^TWTRLoadTweetsCompletion)(NSArray<TWTRTweet *> * _Nullable tweets, NSError * _Nullable error);
 
 /**
  *  Completion block called when the network request succeeds or fails.
@@ -51,7 +50,7 @@ typedef void (^TWTRLoadTweetsCompletion)(NSArray * __twtr_nullable tweets, NSErr
  *  @param data            Content data of the response.
  *  @param connectionError Error object describing the network error that occurred.
  */
-typedef void (^TWTRNetworkCompletion)(NSURLResponse * __twtr_nullable response, NSData * __twtr_nullable data, NSError * __twtr_nullable connectionError);
+typedef void (^TWTRNetworkCompletion)(NSURLResponse * _Nullable response, NSData * _Nullable data, NSError * _Nullable connectionError);
 
 /**
  *  Completion block called when a JSON request to the Twitter API succeeds or fails.
@@ -60,7 +59,37 @@ typedef void (^TWTRNetworkCompletion)(NSURLResponse * __twtr_nullable response, 
  *  @param responseObject Content data of the response.
  *  @param error          Error object describing the network error that occurred.
  */
-typedef void (^TWTRJSONRequestCompletion)(NSURLResponse * __twtr_nullable response, id __twtr_nullable responseObject, NSError * __twtr_nullable error);
+typedef void (^TWTRJSONRequestCompletion)(NSURLResponse * _Nullable response, id _Nullable responseObject, NSError * _Nullable error);
+
+/**
+ *  Completion block called when a Tweet action (favorite/retweet) is performed.
+ *
+ *  @param response Metadata associated with the response to a URL load request.
+ *  @param tweet    The Tweet object representing the new state of this Tweet from
+ *                  the perspective of the currently-logged in user.
+ *  @param error    Error object describing the error that occurred. This will be either a 
+ *                  network error or an NSError with an errorCode corresponding to 
+ *                  TWTRAPIErrorCodeAlreadyFavorited or TWTRAPIErrorCodeAlreadyRetweeted
+ *                  for an attempted action that has already been taken from the servers
+ *                  point of view for this logged-in user.
+ */
+typedef void (^TWTRTweetActionCompletion)(TWTRTweet * _Nullable tweet, NSError * _Nullable error);
+
+/**
+ *  Completion block called when a media upload request to the Twitter API succeeds or fails.
+ *
+ *  @param mediaID The media ID of the object that was uploaded which can be used when tweeting.
+ *  @param error   Error object describing the network error that occurred.
+ */
+typedef void (^TWTRMediaUploadResponseCompletion)(NSString * _Nullable mediaID, NSError * _Nullable error);
+
+/**
+ *  Completion block called when a request for the user's email succeeds or fails.
+ *
+ *  @param email The email of the user
+ *  @param error Error object describing the error that occurred.
+ */
+typedef void(^TWTRRequestEmailCompletion)(NSString * _Nullable email, NSError * _Nullable error);
 
 /**
  *  Client for consuming the Twitter REST API. Provides methods for common API requests, as well as the ability to create and send custom requests.
@@ -68,15 +97,29 @@ typedef void (^TWTRJSONRequestCompletion)(NSURLResponse * __twtr_nullable respon
 @interface TWTRAPIClient : NSObject
 
 /**
- *  @name Initialization
+ *  The Twitter user ID this client is making API requests on behalf of or
+ *  nil if it is a guest user.
  */
+@property (nonatomic, copy, readonly, nullable) NSString *userID;
 
-- (instancetype)init __attribute__((unavailable(("Use one of the other `-init...` methods that allow you to provide signing parameters"))));
 
 /**
- *  This method is deprecated since TwitterKit v1.4.0. To get an API client, use the one provided by the `Twitter` class.
+ *  Constructs a `TWTRAPIClient` object to perform authenticated API requests with user authentication.
+ *
+ *  @param userID (optional) ID of the user to make requests on behalf of. If the ID is nil requests will be made using guest authentication.
+ *
+ *  @return Fully initialized API client to make authenticated requests against the Twitter REST API.
  */
-- (instancetype)initWithConsumerKey:(NSString *)consumerKey consumerSecret:(NSString *)consumerSecret __attribute__((deprecated));
+- (instancetype)initWithUserID:(nullable NSString *)userID;
+
+/**
+ *  Constructs a `TWTRAPIClient` with the last logged-in user. If no user has been
+ *  logged in yet this falls back to Guest authentication.
+ *
+ *  @return Fully initialized API client to make Guest or User authenticated requests to the Twitter REST API.
+ */
++ (instancetype)clientWithCurrentUser;
+
 
 /**
  *  @name Making Requests
@@ -89,8 +132,10 @@ typedef void (^TWTRJSONRequestCompletion)(NSURLResponse * __twtr_nullable respon
  *  @param URL        Request URL. This is the full Twitter API URL. E.g. https://api.twitter.com/1.1/statuses/user_timeline.json
  *  @param parameters Request parameters.
  *  @param error      Error that will be set if there was an error signing the request.
+ *
+ *  @note If the request is not sent with the -[TWTRAPIClient sendTwitterRequest:completion:] method it is the developers responsibility to ensure that there is a valid guest session before this method is called.
  */
-- (NSURLRequest *)URLRequestWithMethod:(NSString *)method URL:(NSString *)URLString parameters:(NSDictionary *)parameters error:(NSError **)error;
+- (NSURLRequest *)URLRequestWithMethod:(NSString *)method URL:(NSString *)URLString parameters:(nullable NSDictionary *)parameters error:(NSError **)error;
 
 /**
  *  Sends a Twitter request.
@@ -107,18 +152,18 @@ typedef void (^TWTRJSONRequestCompletion)(NSURLResponse * __twtr_nullable respon
 /**
  *  Loads a Twitter User.
  *
- *  @param userIDString The Twitter user ID of the desired user.
+ *  @param userID       (required) The Twitter user ID of the desired user.
  *  @param completion   Completion block to be called on response. Called on main queue.
  */
-- (void)loadUserWithID:(NSString *)userIDString completion:(TWTRLoadUserCompletion)completion;
+- (void)loadUserWithID:(NSString *)userID completion:(TWTRLoadUserCompletion)completion;
 
 /**
  *  Loads a single Tweet from the network or cache.
  *
- *  @param tweetIDString The ID of the desired Tweet.
- *  @param completion    Completion bock to be called on response. Called on main queue.
+ *  @param tweetID      (required) The ID of the desired Tweet.
+ *  @param completion   Completion bock to be called on response. Called on main queue.
  */
-- (void)loadTweetWithID:(NSString *)tweetIDString completion:(TWTRLoadTweetCompletion)completion;
+- (void)loadTweetWithID:(NSString *)tweetID completion:(TWTRLoadTweetCompletion)completion;
 
 /**
  *  Loads a series of Tweets in a batch. The completion block will be passed an array of zero or more
@@ -126,10 +171,33 @@ typedef void (^TWTRJSONRequestCompletion)(NSURLResponse * __twtr_nullable respon
  *  number of requested IDs. If any Tweets fail to load, the IDs of the Tweets that did not load will
  *  be provided in the userInfo dictionary property of the error parameter under `TWTRTweetsNotLoadedKey`.
  *
- *  @param tweetIDStrings An array of Tweet IDs.
+ *  @param tweetIDStrings (required) An array of Tweet IDs.
  *  @param completion     Completion block to be called on response. Called on main queue.
  */
 - (void)loadTweetsWithIDs:(NSArray *)tweetIDStrings completion:(TWTRLoadTweetsCompletion)completion;
+
+/**
+ *  Uploads media to the media server. Returns a media ID to be used when tweeting.
+ *
+ *  @param media       The media to upload
+ *  @param contentType The HTTP content type of the media that you are uploading.
+ *  @param completion  The completion handler to invoke.
+ */
+- (void)uploadMedia:(NSData *)media contentType:(NSString *)contentType completion:(TWTRMediaUploadResponseCompletion)completion;
+
+/**
+ *  Requests the email for the user id which the API client was instantiated with. 
+ *  This method requires that you are using an API Client which was instantiated with 
+ *  a logged in user otherwise you will receive a "Request failed: forbidden (403)" error.
+ *
+ *  @param completion A completion block to invoke when the request completes. The email address may
+ *                    be a nil if the user does not have an email address, the email address
+ *                    is unverified or you do not have the correct permissions to request the email address.
+ *
+ *  @note Requesting a user’s email address requires your application to be whitelisted by Twitter. 
+ *  To request access, please visit https://support.twitter.com/forms/platform.
+ */
+- (void)requestEmailForCurrentUser:(TWTRRequestEmailCompletion)completion;
 
 @end
 

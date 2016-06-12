@@ -36,14 +36,15 @@
 		9B93B0111B47BAE10043ADA4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9B93B0101B47BAE10043ADA4 /* Images.xcassets */; };
 		9B93B0141B47BAE10043ADA4 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B93B0121B47BAE10043ADA4 /* LaunchScreen.xib */; };
 		9B93B0201B47BAE10043ADA4 /* TweetDownloaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B93B01F1B47BAE10043ADA4 /* TweetDownloaderTests.swift */; };
-		9B93B02E1B47BBBC0043ADA4 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B93B02A1B47BBBC0043ADA4 /* Fabric.framework */; };
-		9B93B02F1B47BBBC0043ADA4 /* TwitterKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B93B02B1B47BBBC0043ADA4 /* TwitterKit.framework */; };
-		9B93B0301B47BBBC0043ADA4 /* TwitterKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9B93B02C1B47BBBC0043ADA4 /* TwitterKitResources.bundle */; };
-		9B93B0311B47BBBC0043ADA4 /* TwitterCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B93B02D1B47BBBC0043ADA4 /* TwitterCore.framework */; };
 		9B93B0381B47CBE10043ADA4 /* TweetsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B93B0361B47CBE10043ADA4 /* TweetsTableViewController.swift */; };
-		9B93B03A1B47DD5C0043ADA4 /* TwitterCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B93B02D1B47BBBC0043ADA4 /* TwitterCore.framework */; };
-		9B93B03B1B47DD5C0043ADA4 /* TwitterKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B93B02B1B47BBBC0043ADA4 /* TwitterKit.framework */; };
-		9B93B03C1B47DD5C0043ADA4 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B93B02A1B47BBBC0043ADA4 /* Fabric.framework */; };
+		9BC9A0511D0D6B1A00127401 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BC9A04D1D0D6B1A00127401 /* Fabric.framework */; };
+		9BC9A0521D0D6B1A00127401 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BC9A04D1D0D6B1A00127401 /* Fabric.framework */; };
+		9BC9A0531D0D6B1A00127401 /* TwitterKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BC9A04E1D0D6B1A00127401 /* TwitterKit.framework */; };
+		9BC9A0541D0D6B1A00127401 /* TwitterKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BC9A04E1D0D6B1A00127401 /* TwitterKit.framework */; };
+		9BC9A0551D0D6B1A00127401 /* TwitterKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9BC9A04F1D0D6B1A00127401 /* TwitterKitResources.bundle */; };
+		9BC9A0561D0D6B1A00127401 /* TwitterKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9BC9A04F1D0D6B1A00127401 /* TwitterKitResources.bundle */; };
+		9BC9A0571D0D6B1A00127401 /* TwitterCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BC9A0501D0D6B1A00127401 /* TwitterCore.framework */; };
+		9BC9A0581D0D6B1A00127401 /* TwitterCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BC9A0501D0D6B1A00127401 /* TwitterCore.framework */; };
 		9BDF96091B9AE00100D7EE22 /* RankedTweet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BDF96081B9AE00100D7EE22 /* RankedTweet.swift */; };
 		9BDF960A1B9AE00100D7EE22 /* RankedTweet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BDF96081B9AE00100D7EE22 /* RankedTweet.swift */; };
 		9BF0D4CB1B80A582005F2F92 /* TweetCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BF0D4CA1B80A582005F2F92 /* TweetCache.swift */; };
@@ -102,11 +103,11 @@
 		9B93B0191B47BAE10043ADA4 /* SpeedTweetReadTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpeedTweetReadTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B93B01E1B47BAE10043ADA4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9B93B01F1B47BAE10043ADA4 /* TweetDownloaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetDownloaderTests.swift; sourceTree = "<group>"; };
-		9B93B02A1B47BBBC0043ADA4 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
-		9B93B02B1B47BBBC0043ADA4 /* TwitterKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TwitterKit.framework; sourceTree = "<group>"; };
-		9B93B02C1B47BBBC0043ADA4 /* TwitterKitResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = TwitterKitResources.bundle; sourceTree = "<group>"; };
-		9B93B02D1B47BBBC0043ADA4 /* TwitterCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TwitterCore.framework; sourceTree = "<group>"; };
 		9B93B0361B47CBE10043ADA4 /* TweetsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetsTableViewController.swift; sourceTree = "<group>"; };
+		9BC9A04D1D0D6B1A00127401 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		9BC9A04E1D0D6B1A00127401 /* TwitterKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TwitterKit.framework; sourceTree = "<group>"; };
+		9BC9A04F1D0D6B1A00127401 /* TwitterKitResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = TwitterKitResources.bundle; sourceTree = "<group>"; };
+		9BC9A0501D0D6B1A00127401 /* TwitterCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TwitterCore.framework; sourceTree = "<group>"; };
 		9BDF96081B9AE00100D7EE22 /* RankedTweet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RankedTweet.swift; sourceTree = "<group>"; };
 		9BF0D4CA1B80A582005F2F92 /* TweetCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetCache.swift; sourceTree = "<group>"; };
 		9BF0D4CD1B80AAB2005F2F92 /* TwitterDeepLink.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterDeepLink.swift; sourceTree = "<group>"; };
@@ -127,13 +128,13 @@
 				9B8C73911C00D90F0060B40B /* libz.tbd in Frameworks */,
 				9B8C738F1C00D9050060B40B /* libsqlite3.tbd in Frameworks */,
 				9B8C738B1C00D8DB0060B40B /* SystemConfiguration.framework in Frameworks */,
+				9BC9A0511D0D6B1A00127401 /* Fabric.framework in Frameworks */,
 				9B8C73891C00D8CE0060B40B /* Security.framework in Frameworks */,
+				9BC9A0571D0D6B1A00127401 /* TwitterCore.framework in Frameworks */,
 				9B8C73851C00D8AE0060B40B /* CFNetwork.framework in Frameworks */,
-				9B93B02E1B47BBBC0043ADA4 /* Fabric.framework in Frameworks */,
 				9B8C73781C00D72D0060B40B /* CouchbaseLiteListener.framework in Frameworks */,
-				9B93B0311B47BBBC0043ADA4 /* TwitterCore.framework in Frameworks */,
 				9B8C73761C00D72D0060B40B /* CouchbaseLite.framework in Frameworks */,
-				9B93B02F1B47BBBC0043ADA4 /* TwitterKit.framework in Frameworks */,
+				9BC9A0531D0D6B1A00127401 /* TwitterKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -144,13 +145,13 @@
 				9B8C73921C00D9160060B40B /* libz.tbd in Frameworks */,
 				9B8C738E1C00D8F90060B40B /* libsqlite3.tbd in Frameworks */,
 				9B8C738C1C00D8E40060B40B /* SystemConfiguration.framework in Frameworks */,
+				9BC9A0521D0D6B1A00127401 /* Fabric.framework in Frameworks */,
 				9B8C73881C00D8C60060B40B /* Security.framework in Frameworks */,
+				9BC9A0581D0D6B1A00127401 /* TwitterCore.framework in Frameworks */,
 				9B8C73861C00D8BB0060B40B /* CFNetwork.framework in Frameworks */,
-				9B93B03A1B47DD5C0043ADA4 /* TwitterCore.framework in Frameworks */,
 				9B8C73791C00D72D0060B40B /* CouchbaseLiteListener.framework in Frameworks */,
-				9B93B03B1B47DD5C0043ADA4 /* TwitterKit.framework in Frameworks */,
 				9B8C73771C00D72D0060B40B /* CouchbaseLite.framework in Frameworks */,
-				9B93B03C1B47DD5C0043ADA4 /* Fabric.framework in Frameworks */,
+				9BC9A0541D0D6B1A00127401 /* TwitterKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -160,12 +161,12 @@
 		9B680B631B5AC8CD00E92874 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9BC9A04D1D0D6B1A00127401 /* Fabric.framework */,
+				9BC9A04E1D0D6B1A00127401 /* TwitterKit.framework */,
+				9BC9A04F1D0D6B1A00127401 /* TwitterKitResources.bundle */,
+				9BC9A0501D0D6B1A00127401 /* TwitterCore.framework */,
 				9B8C73741C00D72D0060B40B /* CouchbaseLite.framework */,
 				9B8C73751C00D72D0060B40B /* CouchbaseLiteListener.framework */,
-				9B93B02A1B47BBBC0043ADA4 /* Fabric.framework */,
-				9B93B02B1B47BBBC0043ADA4 /* TwitterKit.framework */,
-				9B93B02C1B47BBBC0043ADA4 /* TwitterKitResources.bundle */,
-				9B93B02D1B47BBBC0043ADA4 /* TwitterCore.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -368,7 +369,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9B93B0301B47BBBC0043ADA4 /* TwitterKitResources.bundle in Resources */,
+				9BC9A0551D0D6B1A00127401 /* TwitterKitResources.bundle in Resources */,
 				9B93B00F1B47BAE10043ADA4 /* Main.storyboard in Resources */,
 				9B93B0141B47BAE10043ADA4 /* LaunchScreen.xib in Resources */,
 				9B93B0111B47BAE10043ADA4 /* Images.xcassets in Resources */,
@@ -379,6 +380,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9BC9A0561D0D6B1A00127401 /* TwitterKitResources.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -588,7 +590,7 @@
 					"$(PROJECT_DIR)/FastTwitterTestingApp",
 				);
 				INFOPLIST_FILE = FastTwitterTestingApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.nreality.TweetFeed;
@@ -613,7 +615,7 @@
 					"$(PROJECT_DIR)/FastTwitterTestingApp",
 				);
 				INFOPLIST_FILE = FastTwitterTestingApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.nreality.TweetFeed;

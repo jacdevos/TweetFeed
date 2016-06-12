@@ -11,7 +11,7 @@ class TweetDownloader {
         let params = ["count":"200","exclude_replies":"false"]
         var clientError : NSError?
         
-        let request = Twitter.sharedInstance().APIClient.URLRequestWithMethod(
+        let request = TWTRAPIClient.clientWithCurrentUser().URLRequestWithMethod(
             "GET",
             URL: statusesShowEndpoint,
             parameters: params,
@@ -19,7 +19,7 @@ class TweetDownloader {
         
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
         
-        Twitter.sharedInstance().APIClient.sendTwitterRequest(request) { (response, data, connectionError) -> Void in
+        TWTRAPIClient.clientWithCurrentUser().sendTwitterRequest(request) { (response, data, connectionError) -> Void in
             UIApplication.sharedApplication().networkActivityIndicatorVisible = false
             
             if (connectionError == nil) {
