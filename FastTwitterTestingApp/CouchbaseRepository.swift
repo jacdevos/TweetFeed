@@ -23,7 +23,7 @@ class CouchbaseRepository {
         let docID = doc.documentID
          do {
             try doc.putProperties(dictionary as! [String : AnyObject])
-            print("Document created and written to database, ID = \(docID)")
+            //print("Document created and written to database, ID = \(docID)")
             return docID;
          }catch let error as NSError {
             print("domain: \(error._domain) code:\(error._code)")
