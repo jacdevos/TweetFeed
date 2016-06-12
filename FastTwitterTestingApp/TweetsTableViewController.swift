@@ -11,6 +11,21 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate, U
     var ffdBarButton : UIBarButtonItem? = nil
     var pauseBarButton : UIBarButtonItem? = nil
     let webViewController = UIViewController()
+    let webViewControllerForWebLinks = UIViewController()
+    let webViewForWebLinks : UIWebView
+    
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?){
+        self.webViewForWebLinks = UIWebView(frame: self.webViewController.view.bounds)
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        self.webViewForWebLinks.delegate = self
+        self.webViewControllerForWebLinks.view = self.webViewForWebLinks
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        self.webViewForWebLinks = UIWebView(frame: self.webViewController.view.bounds)
+        super.init(coder: aDecoder)
+        self.webViewForWebLinks.delegate = self
+    }
     
     override func viewDidLoad() {
         TWTRTweetView.appearance().theme = .Dark
@@ -22,6 +37,7 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate, U
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        //self.webViewForWebLinks.frame = self.webViewController.view.bounds
         mediator.resetTweetsBelowActive(onLoadedTweets)
         autoScroller!.isScrollVisible = true
     }
@@ -165,17 +181,16 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate, U
 */
 
     func tweetView(tweetView: TWTRTweetView, didTapURL url: NSURL) {
-        let webView = UIWebView(frame: self.webViewController.view.bounds)
-        webView.delegate = self
-        webView.loadRequest(NSURLRequest(URL: url))
-        self.webViewController.view = webView
-        self.webViewController.navigationItem.title = url.host
+
+        self.webViewForWebLinks.loadRequest(NSURLRequest(URL: url))
+        self.webViewControllerForWebLinks.view = self.webViewForWebLinks
+        self.webViewControllerForWebLinks.navigationItem.title = url.host
         
-        self.navigationController!.pushViewController(self.webViewController, animated: true)
+        self.navigationController!.pushViewController(self.webViewControllerForWebLinks, animated: true)
     }
     
     internal func webViewDidFinishLoad(webView: UIWebView){
-        self.webViewController.navigationItem.title = webView.request?.URL?.host
+        self.webViewControllerForWebLinks.navigationItem.title = webView.request?.URL?.host
     }
     
     func tweetView(tweetView: TWTRTweetView, shouldDisplayDetailViewController controller: TWTRTweetDetailViewController) -> Bool {
@@ -183,7 +198,7 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate, U
         
         //self.showViewController(controller, sender:self)
         let webView = UIWebView(frame: self.webViewController.view.bounds)
-        webView.delegate = self
+        //webView.delegate = self
         webView.loadRequest(NSURLRequest(URL: tweetURL))
         self.webViewController.view = webView
         self.webViewController.navigationItem.title = "Tweet"
