@@ -2,7 +2,7 @@
 import UIKit
 import TwitterKit
 
-class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
+class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate, UIWebViewDelegate {
     let mediator = TweetMediator()
     let tweetTableReuseIdentifier = "TweetCell"
     var tempLoadedCells : [TweetTableViewCell] = []
@@ -10,6 +10,7 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
     @IBOutlet weak var autoScrollBarButton: UIBarButtonItem!
     var ffdBarButton : UIBarButtonItem? = nil
     var pauseBarButton : UIBarButtonItem? = nil
+    let webViewController = UIViewController()
     
     override func viewDidLoad() {
         TWTRTweetView.appearance().theme = .Dark
@@ -162,15 +163,43 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
         TwitterDeepLink.openTweetDeeplink(tweet)
     }
 */
+
     func tweetView(tweetView: TWTRTweetView, didTapURL url: NSURL) {
-        // *or* Use a system webview
-        let webViewController = UIViewController()
-        let webView = UIWebView(frame: webViewController.view.bounds)
+        let webView = UIWebView(frame: self.webViewController.view.bounds)
+        webView.delegate = self
         webView.loadRequest(NSURLRequest(URL: url))
-        webViewController.view = webView
-        self.navigationController!.pushViewController(webViewController, animated: true)
+        self.webViewController.view = webView
+        self.webViewController.navigationItem.title = url.host
+        
+        self.navigationController!.pushViewController(self.webViewController, animated: true)
     }
     
+    internal func webViewDidFinishLoad(webView: UIWebView){
+        self.webViewController.navigationItem.title = webView.request?.URL?.host
+    }
+    
+    func tweetView(tweetView: TWTRTweetView, shouldDisplayDetailViewController controller: TWTRTweetDetailViewController) -> Bool {
+        //GET URL FROM TWEETVIEW
+        
+        //self.showViewController(controller, sender:self)
+        let webView = UIWebView(frame: self.webViewController.view.bounds)
+        webView.delegate = self
+        webView.loadRequest(NSURLRequest(URL: NSURL(string: "http://www.twitter.com")!))
+        self.webViewController.view = webView
+        self.webViewController.navigationItem.title = "Tweet"
+        
+        self.navigationController!.pushViewController(self.webViewController, animated: true)
+        return false;
+    }
+    
+    /*
+    //show detail using their controller
+    func tweetView(tweetView: TWTRTweetView, shouldDisplayDetailViewController controller: TWTRTweetDetailViewController) -> Bool {
+        self.showViewController(controller, sender:self)
+        return false;
+    }
+*/
+
     func setAutoScrollBarButtonImage(){
         navigationItem.rightBarButtonItems =  autoScroller!.isAutoScrolling ? [pauseBarButton!] : [ffdBarButton!]
     }
