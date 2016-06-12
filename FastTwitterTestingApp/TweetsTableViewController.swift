@@ -179,12 +179,12 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate, U
     }
     
     func tweetView(tweetView: TWTRTweetView, shouldDisplayDetailViewController controller: TWTRTweetDetailViewController) -> Bool {
-        //GET URL FROM TWEETVIEW
+        let tweetURL = controller.tweet.permalink
         
         //self.showViewController(controller, sender:self)
         let webView = UIWebView(frame: self.webViewController.view.bounds)
         webView.delegate = self
-        webView.loadRequest(NSURLRequest(URL: NSURL(string: "http://www.twitter.com")!))
+        webView.loadRequest(NSURLRequest(URL: tweetURL))
         self.webViewController.view = webView
         self.webViewController.navigationItem.title = "Tweet"
         
