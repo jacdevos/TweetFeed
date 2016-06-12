@@ -156,8 +156,19 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
         return TweetTableViewCell.heightForTweet(tweet, style: TWTRTweetViewStyle.Compact, width: CGRectGetWidth(self.view.bounds), showingActions: true)
     }
     
+    /* obsolete
+    
     func tweetView(tweetView: TWTRTweetView!, didSelectTweet tweet: TWTRTweet!){
         TwitterDeepLink.openTweetDeeplink(tweet)
+    }
+*/
+    func tweetView(tweetView: TWTRTweetView, didTapURL url: NSURL) {
+        // *or* Use a system webview
+        let webViewController = UIViewController()
+        let webView = UIWebView(frame: webViewController.view.bounds)
+        webView.loadRequest(NSURLRequest(URL: url))
+        webViewController.view = webView
+        self.navigationController!.pushViewController(webViewController, animated: true)
     }
     
     func setAutoScrollBarButtonImage(){
