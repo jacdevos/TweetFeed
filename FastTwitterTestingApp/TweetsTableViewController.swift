@@ -36,8 +36,28 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate, U
         TWTRTweetView.appearance().theme = .Dark
         self.setupAutoScroll()
         self.setupTableView()
-        mediator.getLatestTweets(onLoadedTweets)
+       self.mediator.getLatestTweets(self.onLoadedTweets)
+        
         NSNotificationCenter.defaultCenter().addObserver(self,selector: "onApplicationDidBecomeActive:",name: UIApplicationDidBecomeActiveNotification,object: nil)
+        
+        /*
+
+            Twitter.sharedInstance().logInWithMethods(TWTRLoginMethod.WebBased) { (session, error) -> Void in
+                if let session = session {
+                    print("signed in as \(session.userName)");
+                    
+                    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+                    appDelegate.twitterSession = session
+                    
+                    
+                } else {
+                    print("error: \(error!.localizedDescription)");
+                    
+                    //UNABLE TO LOG ON TO TWITTER> MAKE SURE YOU HAVE AN INTERNET CONNECTION AND HAVE SINGED INTO TWITTER IN YOU iPHONE SETTTINGS
+                }
+            }
+
+*/
     }
     
     override func viewWillAppear(animated: Bool) {

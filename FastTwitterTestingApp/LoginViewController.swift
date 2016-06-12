@@ -8,8 +8,8 @@ class LoginViewController: UIViewController {
         let logInButton = TWTRLogInButton { (session, error) -> Void in
             if let session = session {
                 print("signed in as \(session.userName)");
-                let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-                appDelegate.twitterSession = session
+                //let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+                //appDelegate.twitterSession = session
                 self.performSegueWithIdentifier("login", sender: self)
             } else {
                 print("error: \(error!.localizedDescription)");
@@ -22,9 +22,13 @@ class LoginViewController: UIViewController {
         
         self.view.addSubview(logInButton)
         logInButton.sendActionsForControlEvents(UIControlEvents.TouchUpInside)
-        
+
         self.setNeedsStatusBarAppearanceUpdate()
+
+
     }
+    
+
 
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
         return UIStatusBarStyle.LightContent
