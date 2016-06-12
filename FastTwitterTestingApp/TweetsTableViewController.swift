@@ -13,24 +13,24 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
     let webViewControllerForTweets = UIViewController()
     let webViewForTweets : UIWebView
     let webViewControllerForWebLinks = UIViewController()
-    let webViewForWebLinks : UIWebView
+    //let webViewForWebLinks : UIWebView
     var delegateForProgressForTweets  : WebViewDelegateForProgress
     var delegateForProgressForWebLinks  : WebViewDelegateForProgress
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?){
-        self.webViewForWebLinks = UIWebView(frame: self.webViewControllerForWebLinks.view.bounds)
+        //self.webViewForWebLinks = UIWebView(frame: self.webViewControllerForWebLinks.view.bounds)
         self.webViewForTweets = UIWebView(frame: self.webViewControllerForTweets.view.bounds)
         delegateForProgressForTweets = WebViewDelegateForProgress()
         delegateForProgressForWebLinks = WebViewDelegateForProgress()
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         //self.webViewForWebLinks.delegate = self
         //self.webViewForTweets.delegate = self
-        self.webViewControllerForWebLinks.view = self.webViewForWebLinks
+        //self.webViewControllerForWebLinks.view = self.webViewForWebLinks
         self.webViewControllerForTweets.view = self.webViewForTweets
     }
 
     required init?(coder aDecoder: NSCoder) {
-        self.webViewForWebLinks = UIWebView(frame: self.webViewControllerForWebLinks.view.bounds)
+        //self.webViewForWebLinks = UIWebView(frame: self.webViewControllerForWebLinks.view.bounds)
         self.webViewForTweets = UIWebView(frame: self.webViewControllerForTweets.view.bounds)
         delegateForProgressForWebLinks = WebViewDelegateForProgress()
         delegateForProgressForTweets = WebViewDelegateForProgress()
@@ -209,9 +209,11 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
 
     func tweetView(tweetView: TWTRTweetView, didTapURL url: NSURL) {
 
-        self.webViewForWebLinks.loadRequest(NSURLRequest(URL: url))
-        self.webViewControllerForWebLinks.view = self.webViewForWebLinks
-        self.webViewControllerForWebLinks.navigationItem.title = url.host
+        
+        let webViewForWebLinks = UIWebView(frame: self.webViewControllerForWebLinks.view.bounds)
+        webViewForWebLinks.loadRequest(NSURLRequest(URL: url))
+        webViewControllerForWebLinks.view = webViewForWebLinks
+        webViewControllerForWebLinks.navigationItem.title = url.host
         
         self.navigationController!.pushViewController(self.webViewControllerForWebLinks, animated: true)
         

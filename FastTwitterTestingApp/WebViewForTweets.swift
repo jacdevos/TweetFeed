@@ -17,13 +17,21 @@ class WebViewDelegateForProgress: NSObject, UIWebViewDelegate{
     }
     
     internal func webViewDidFinishLoad(webView: UIWebView){
-        if let vc = viewController{
-            vc.navigationItem.title = webView.request?.URL?.host
+        if let progressView = self.progressView{
+            if let viewController = self.viewController{
+                
+                if viewController.navigationItem.title != webView.request?.URL?.host{
+                    viewController.navigationItem.title = webView.request?.URL?.host
+                    progressView.removeFromSuperview()
+                }
+
+            }else{
+                progressView.removeFromSuperview()
+            }
+            
         }
     
-        if let pv = progressView{
-            pv.removeFromSuperview()
-        }
+
     }
 }
 
