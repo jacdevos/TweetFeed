@@ -10,21 +10,26 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate, U
     @IBOutlet weak var autoScrollBarButton: UIBarButtonItem!
     var ffdBarButton : UIBarButtonItem? = nil
     var pauseBarButton : UIBarButtonItem? = nil
-    let webViewController = UIViewController()
+    let webViewControllerForTweets = UIViewController()
+    let webViewForTweets : UIWebView
     let webViewControllerForWebLinks = UIViewController()
     let webViewForWebLinks : UIWebView
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?){
-        self.webViewForWebLinks = UIWebView(frame: self.webViewController.view.bounds)
+        self.webViewForWebLinks = UIWebView(frame: self.webViewControllerForWebLinks.view.bounds)
+        self.webViewForTweets = UIWebView(frame: self.webViewControllerForTweets.view.bounds)
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         self.webViewForWebLinks.delegate = self
         self.webViewControllerForWebLinks.view = self.webViewForWebLinks
+        self.webViewControllerForTweets.view = self.webViewForTweets
     }
 
     required init?(coder aDecoder: NSCoder) {
-        self.webViewForWebLinks = UIWebView(frame: self.webViewController.view.bounds)
+        self.webViewForWebLinks = UIWebView(frame: self.webViewControllerForWebLinks.view.bounds)
+        self.webViewForTweets = UIWebView(frame: self.webViewControllerForTweets.view.bounds)
         super.init(coder: aDecoder)
         self.webViewForWebLinks.delegate = self
+        self.webViewControllerForTweets.view = self.webViewForTweets
     }
     
     override func viewDidLoad() {
@@ -196,14 +201,9 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate, U
     func tweetView(tweetView: TWTRTweetView, shouldDisplayDetailViewController controller: TWTRTweetDetailViewController) -> Bool {
         let tweetURL = controller.tweet.permalink
         
-        //self.showViewController(controller, sender:self)
-        let webView = UIWebView(frame: self.webViewController.view.bounds)
-        //webView.delegate = self
-        webView.loadRequest(NSURLRequest(URL: tweetURL))
-        self.webViewController.view = webView
-        self.webViewController.navigationItem.title = "Tweet"
-        
-        self.navigationController!.pushViewController(self.webViewController, animated: true)
+        webViewForTweets.loadRequest(NSURLRequest(URL: tweetURL))
+        self.webViewControllerForTweets.navigationItem.title = "Tweet"
+        self.navigationController!.pushViewController(self.webViewControllerForTweets, animated: true)
         return false;
     }
     
