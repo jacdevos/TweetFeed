@@ -40,7 +40,7 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
     }
     
     override func viewDidLoad() {
-        TWTRTweetView.appearance().theme = .Dark
+        TWTRTweetView.appearance().theme = .Light
         self.setupAutoScroll()
         self.setupTableView()
         //self.mediator.getLatestTweets(self.onLoadedTweets)
@@ -92,7 +92,7 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
 
     func setupTableView(){
         tableView.estimatedRowHeight = 150
-        tableView.separatorColor = UIColor.grayColor()
+        //tableView.separatorColor = UIColor.grayColor()
         tableView.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
         tableView.separatorInset = UIEdgeInsetsZero
 
@@ -103,7 +103,7 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
         tableView.rowHeight = UITableViewAutomaticDimension // Explicitly set on iOS 8 if using automatic row height calculation
         tableView.allowsSelection = false
         tableView.registerClass(TweetTableViewCell.self, forCellReuseIdentifier: tweetTableReuseIdentifier)
-        tableView.backgroundColor = UIColor.darkGrayColor()
+        //tableView.backgroundColor = UIColor.darkGrayColor()
     }
     
     func onLoadedTweets(error : NSError?, deletedIndexes: Range<Int>?, insertedIndexes: Range<Int>?){

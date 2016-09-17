@@ -17,7 +17,7 @@ class TweetTableViewCell: TWTRTweetTableViewCell {
         super.init(coder: aDecoder)
     }
 
-    override func configureWithTweet(tweet: TWTRTweet!){
+    override func configureWithTweet(tweet: (TWTRTweet!)){
         super.configureWithTweet(tweet)
         self.tweet = tweet as! Tweet?
     }
