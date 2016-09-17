@@ -49,7 +49,7 @@ class AutoScroller : NSObject{
         if !isAutoScrolling || !isScrollVisible{
             return
         }
-        NSTimer.scheduledTimerWithTimeInterval(Double(scrollSpeed()), target: self, selector:"scrollByOnePointOnTimer", userInfo: nil, repeats: false)
+        NSTimer.scheduledTimerWithTimeInterval(Double(scrollSpeed()), target: self, selector:#selector(AutoScroller.scrollByOnePointOnTimer), userInfo: nil, repeats: false)
     }
     
     func scrollSpeed() -> Float{

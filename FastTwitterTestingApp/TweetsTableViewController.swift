@@ -45,7 +45,7 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
         self.setupTableView()
         //self.mediator.getLatestTweets(self.onLoadedTweets)
         
-        NSNotificationCenter.defaultCenter().addObserver(self,selector: "onApplicationDidBecomeActive:",name: UIApplicationDidBecomeActiveNotification,object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self,selector: #selector(TweetsTableViewController.onApplicationDidBecomeActive(_:)),name: UIApplicationDidBecomeActiveNotification,object: nil)
         
         loginAsync()
         
@@ -86,8 +86,8 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
     
     func setupAutoScroll(){
         autoScroller = AutoScroller(tableView: tableView!, onAutoScrollingToggled: self.setAutoScrollBarButtonImage)
-        ffdBarButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FastForward, target: self, action: "autoScroll:")
-        pauseBarButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Pause, target: self, action:  "autoScroll:")
+        ffdBarButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FastForward, target: self, action: #selector(TweetsTableViewController.autoScroll(_:)))
+        pauseBarButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Pause, target: self, action:  #selector(TweetsTableViewController.autoScroll(_:)))
     }
 
     func setupTableView(){

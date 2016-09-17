@@ -76,6 +76,6 @@ class TweetReadingState{
         let dir = dirs[0] //documents directory
         
         let url = NSURL(fileURLWithPath: dir, isDirectory: true).URLByAppendingPathComponent(fileName);
-        return url.path!
+        return url!.path!
     }
 }
