@@ -10,7 +10,7 @@ class LoginViewController: UIViewController {
                 print("signed in as \(session.userName)");
                 //let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
                 //appDelegate.twitterSession = session
-                self.performSegueWithIdentifier("login", sender: self)
+                self.performSegue(withIdentifier: "login", sender: self)
             } else {
                 print("error: \(error!.localizedDescription)");
                 
@@ -21,7 +21,7 @@ class LoginViewController: UIViewController {
         logInButton.center = self.view.center
         
         self.view.addSubview(logInButton)
-        logInButton.sendActionsForControlEvents(UIControlEvents.TouchUpInside)
+        logInButton.sendActions(for: UIControlEvents.touchUpInside)
 
         self.setNeedsStatusBarAppearanceUpdate()
 
@@ -30,8 +30,8 @@ class LoginViewController: UIViewController {
     
 
 
-    override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return UIStatusBarStyle.LightContent
+    override var preferredStatusBarStyle : UIStatusBarStyle {
+        return UIStatusBarStyle.lightContent
     }
 }
 

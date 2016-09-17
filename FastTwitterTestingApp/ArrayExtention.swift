@@ -1,8 +1,8 @@
 
 extension Array {
-    mutating func removeObject<U: Equatable>(object: U) {
+    mutating func removeObject<U: Equatable>(_ object: U) {
         var index: Int?
-        for (idx, objectToCompare) in self.enumerate() {
+        for (idx, objectToCompare) in self.enumerated() {
             if let to = objectToCompare as? U {
                 if object == to {
                     index = idx
@@ -12,7 +12,7 @@ extension Array {
         
         if(index != nil) {
             
-            self.removeAtIndex(index!)
+            self.remove(at: index!)
         }
     }
 }

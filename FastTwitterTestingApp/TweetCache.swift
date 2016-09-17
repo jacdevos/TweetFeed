@@ -2,7 +2,7 @@ import TwitterKit
 
 //stor the downloaded tweets
 class TweetCache {
-    static func saveTweets(tweetData : NSData){
+    static func saveTweets(_ tweetData : Data){
         deleteRepo()//TODO: just delete the items older than a week
         saveTweetsToRepo(tweetData)
         //TODO newest and oldest saved tweetID
@@ -14,42 +14,43 @@ class TweetCache {
         return tweetsFromJSONDictionary(tweetDictionaries)
     }
     
-    private static func tweetsFromJSONDictionary(JSONDictionary : [NSDictionary])->Set<Tweet>{
+    fileprivate static func tweetsFromJSONDictionary(_ JSONDictionary : [NSDictionary])->Set<Tweet>{
         var tweets : Set<Tweet> = []
         for tweetJSONDic in JSONDictionary{
-            if let tweet = Tweet(JSONDictionary: tweetJSONDic as [NSObject : AnyObject], priorityBalance : Double(UserPreferences.instance.priorityBalance)){
+            if let tweet = Tweet(jsonDictionary: tweetJSONDic as! [AnyHashable : Any] as [AnyHashable: Any] as [NSObject : AnyObject]!, priorityBalance : Double(UserPreferences.instance.priorityBalance)){
                 tweets.insert(tweet)
             }
         }
         return tweets
     }
     
-    private static func deleteRepo(){
+    fileprivate static func deleteRepo(){
         let repository = try! CouchbaseRepository(dbName: "tweets")
         repository.deleteAll()
     }
     
-    private static func saveTweetsToRepo(tweetData : NSData){
+    fileprivate static func saveTweetsToRepo(_ tweetData : Data){
         let repository = try! CouchbaseRepository(dbName: "tweets")
         let nsarray = getJSONTweetArrayFromData(tweetData)
         for tweetJSON in nsarray{
-            let tweetJSONDic : [NSObject : AnyObject]! = tweetJSON as! [NSObject : AnyObject]
-            repository.createDocument(tweetJSONDic)
+            let tweetJSONDic : [AnyHashable: Any]! = tweetJSON as! [AnyHashable: Any]
+            let _ = repository.createDocument(tweetJSONDic as NSDictionary)
         }
     }
 
-    private static func getJSONTweetArrayFromData(data: NSData) -> NSArray {
+    fileprivate static func getJSONTweetArrayFromData(_ data: Data) -> NSArray {
         var jsonError : NSError?
-        var json : AnyObject? = nil
+        var json : Any
         do {
-            json = try NSJSONSerialization.JSONObjectWithData(data, options: [])
+            json = try JSONSerialization.jsonObject(with: data, options: [])
+            return json as! NSArray
         } catch let error as NSError {
             jsonError = error
             print(jsonError)
         } catch{
             print("Unknown error serializing JSON")
         }
-        return json as! NSArray
+        return NSArray()
     }
     
 

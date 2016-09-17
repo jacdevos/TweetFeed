@@ -1,8 +1,8 @@
 import TwitterKit
-typealias TweetsDownloadedCallback = (NSData?, NSError?) -> Void
+typealias TweetsDownloadedCallback = (Data?, NSError?) -> Void
 
 class TweetDownloader {
-    static func downloadHomeTimelineTweets(callback : TweetsDownloadedCallback){
+    static func downloadHomeTimelineTweets(_ callback : @escaping TweetsDownloadedCallback){
         //TODO: need to cater for 2 types of calls:
         //the one that gets latest 200
         //the other that gets from the last downloaded ID up to latest or 200 cap
@@ -11,23 +11,23 @@ class TweetDownloader {
         let params = ["count":"200","exclude_replies":"false"]
         var clientError : NSError?
         
-        let request = TWTRAPIClient.clientWithCurrentUser().URLRequestWithMethod(
-            "GET",
-            URL: statusesShowEndpoint,
+        let request = TWTRAPIClient.withCurrentUser().urlRequest(
+            withMethod: "GET",
+            url: statusesShowEndpoint,
             parameters: params,
             error: &clientError)
         
-        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
         
-        TWTRAPIClient.clientWithCurrentUser().sendTwitterRequest(request) { (response, data, connectionError) -> Void in
-            UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+        TWTRAPIClient.withCurrentUser().sendTwitterRequest(request) { (response, data, connectionError) -> Void in
+            UIApplication.shared.isNetworkActivityIndicatorVisible = false
             
             if (connectionError == nil) {
                 callback(data,nil)
             }
             else {
                 print("Error calling twitter: \(connectionError)")
-                callback(nil, connectionError)
+                callback(nil, connectionError as NSError?)
             }
         }
     }

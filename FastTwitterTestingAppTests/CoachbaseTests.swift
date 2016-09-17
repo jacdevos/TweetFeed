@@ -17,7 +17,7 @@ class CoachbaseTests: XCTestCase {
             let repo = try CouchbaseRepository(dbName: "test")
 
             let dic = ["name": "Big Party","location":"My House"]
-            let documentId = repo.createDocument(dic)
+            let documentId = repo.createDocument(dic as NSDictionary)
             let document = repo.getDocumentById(documentId!)
         
             XCTAssertEqual(document!["name"] as? String, "Big Party")
@@ -31,9 +31,9 @@ class CoachbaseTests: XCTestCase {
         do {
             let repo = try CouchbaseRepository(dbName: "test")
             let dic = ["name": "Big Party","location":"My House"]
-            repo.createDocument(dic);
+            repo.createDocument(dic as NSDictionary);
             let dic2 = ["name": "Big Party2","location":"My House"]
-            repo.createDocument(dic2);
+            repo.createDocument(dic2 as NSDictionary);
             let all = repo.getAllDocuments()
             
         

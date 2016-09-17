@@ -603,7 +603,7 @@
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "FastTwitterTestingApp/SpeedTweetRead-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -630,7 +630,7 @@
 				PRODUCT_NAME = SpeedTweetRead;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "FastTwitterTestingApp/SpeedTweetRead-Bridging-Header.h";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -655,7 +655,7 @@
 				PRODUCT_NAME = SpeedTweetReadTests;
 				SWIFT_OBJC_BRIDGING_HEADER = "FastTwitterTestingApp/SpeedTweetReadTests-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SpeedTweetRead.app/SpeedTweetRead";
 			};
 			name = Debug;
@@ -675,7 +675,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.nreality.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = SpeedTweetReadTests;
 				SWIFT_OBJC_BRIDGING_HEADER = "FastTwitterTestingApp/SpeedTweetReadTests-Bridging-Header.h";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SpeedTweetRead.app/SpeedTweetRead";
 			};
 			name = Release;

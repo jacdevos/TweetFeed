@@ -4,15 +4,15 @@ import TwitterKit
 class TweetDownloaderTests: XCTestCase {
     
     func testDownloadLastestTweetData(){
-        let expectAsync = self.expectationWithDescription("testDownloadLastestTweetData")
-        var downloadedData :NSData?
+        let expectAsync = self.expectation(description: "testDownloadLastestTweetData")
+        var downloadedData :Data?
         
         TweetDownloader.downloadHomeTimelineTweets { (data, error) -> Void in
-            downloadedData = data
+            downloadedData = data as Data?
             expectAsync.fulfill()
         }
         
-        self.waitForExpectationsWithTimeout(60, handler: { (error: NSError?) -> Void in
+        self.waitForExpectations(timeout: 60, handler: { XCWaitCompletionHandler in
         })
         
         XCTAssertNotNil(downloadedData, "unable to download latest tweet data")

@@ -17,13 +17,13 @@ class TweetTableViewCell: TWTRTweetTableViewCell {
         super.init(coder: aDecoder)
     }
 
-    override func configureWithTweet(tweet: (TWTRTweet!)){
-        super.configureWithTweet(tweet)
+    override func configure(with tweet: (TWTRTweet!)){
+        super.configure(with: tweet)
         self.tweet = tweet as! Tweet?
     }
     
-    func configWithTweet(tweet: Tweet!){
-        super.configureWithTweet(tweet)
+    func configWithTweet(_ tweet: Tweet!){
+        super.configure(with: tweet)
         self.tweet = tweet
     }
 }

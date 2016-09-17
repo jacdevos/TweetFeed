@@ -2,7 +2,7 @@ import UIKit
 
 
 class AutoScroller : NSObject{
-    private static let defaultScrollSpeed : Float = 0.014 //>0.01 is fast, 0.05 very slow
+    fileprivate static let defaultScrollSpeed : Float = 0.014 //>0.01 is fast, 0.05 very slow
     
     var isScrollVisible = true{
         didSet {
@@ -20,7 +20,7 @@ class AutoScroller : NSObject{
     let tableView : UITableView
     let onAutoScrollingToggledCallback : () -> Void
     
-    init(tableView :UITableView, onAutoScrollingToggled: () -> Void ){
+    init(tableView :UITableView, onAutoScrollingToggled: @escaping () -> Void ){
         self.tableView = tableView
         self.onAutoScrollingToggledCallback = onAutoScrollingToggled
     }
@@ -49,7 +49,7 @@ class AutoScroller : NSObject{
         if !isAutoScrolling || !isScrollVisible{
             return
         }
-        NSTimer.scheduledTimerWithTimeInterval(Double(scrollSpeed()), target: self, selector:#selector(AutoScroller.scrollByOnePointOnTimer), userInfo: nil, repeats: false)
+        Timer.scheduledTimer(timeInterval: Double(scrollSpeed()), target: self, selector:#selector(AutoScroller.scrollByOnePointOnTimer), userInfo: nil, repeats: false)
     }
     
     func scrollSpeed() -> Float{

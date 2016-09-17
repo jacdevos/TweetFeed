@@ -5,7 +5,7 @@ class UserPreferences : NSObject {
     static let instance = UserPreferences()
     
     override init() {
-        NSUserDefaults.standardUserDefaults().registerDefaults(["autoScrollSpeed":0.0,"priorityBalance":0.0])
+        UserDefaults.standard.register(defaults: ["autoScrollSpeed":0.0,"priorityBalance":0.0])
     }
     
     //-1 slow up tp 1 fast
@@ -14,11 +14,11 @@ class UserPreferences : NSObject {
             if (newValue > 1 || newValue < -1){
                 return;
             }
-            NSUserDefaults.standardUserDefaults().setFloat(newValue, forKey : "autoScrollSpeed")
-            NSUserDefaults.standardUserDefaults().synchronize()
+            UserDefaults.standard.set(newValue, forKey : "autoScrollSpeed")
+            UserDefaults.standard.synchronize()
         }
         get {
-            return NSUserDefaults.standardUserDefaults().floatForKey("autoScrollSpeed")
+            return UserDefaults.standard.float(forKey: "autoScrollSpeed")
         }
     }
     
@@ -28,11 +28,11 @@ class UserPreferences : NSObject {
             if (newValue > 1 || newValue < -1){
                 return;
             }
-            NSUserDefaults.standardUserDefaults().setFloat(newValue, forKey : "priorityBalance")
-            NSUserDefaults.standardUserDefaults().synchronize()
+            UserDefaults.standard.set(newValue, forKey : "priorityBalance")
+            UserDefaults.standard.synchronize()
         }
         get {
-            return NSUserDefaults.standardUserDefaults().floatForKey("priorityBalance")
+            return UserDefaults.standard.float(forKey: "priorityBalance")
         }
     }
     

@@ -3,15 +3,15 @@ import TwitterKit
 
 //TODO: need to use the Tweet repository instead of a seperate file
 class TweetReadingState{
-    private var alreadyReadTweets : Set<String> //the tweets that have crossed the whole screen
-    private let filename = "readtweetids8.txt";
+    fileprivate var alreadyReadTweets : Set<String> //the tweets that have crossed the whole screen
+    fileprivate let filename = "readtweetids8.txt";
     var activeTweets : Array<Tweet> = []//the tweets that are currently on screen; not persisted in file
     
     init() {
         alreadyReadTweets = []
-        let contents = try? String(contentsOfFile: self.pathForDocumentsFile(filename), encoding: NSUTF8StringEncoding)
+        let contents = try? String(contentsOfFile: self.pathForDocumentsFile(filename), encoding: String.Encoding.utf8)
         if let fileContents = contents{
-            let lines = fileContents.componentsSeparatedByString("\n") as [NSString]
+            let lines = fileContents.components(separatedBy: "\n") as [NSString]
             for line in lines{
                 if (line != ""){
                     alreadyReadTweets.insert(line as String)
@@ -20,17 +20,17 @@ class TweetReadingState{
         }
     }
     
-    func markAsReading(tweet : Tweet){
-        activeTweets.insert(tweet, atIndex: 0)
+    func markAsReading(_ tweet : Tweet){
+        activeTweets.insert(tweet, at: 0)
     }
     
-    func markAsRead(tweet : Tweet){
+    func markAsRead(_ tweet : Tweet){
         alreadyReadTweets.insert(tweet.tweetID)
         activeTweets.removeObject(tweet)
         
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+        DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async {
             
-            if let outputStream = NSOutputStream(toFileAtPath: self.pathForDocumentsFile(self.filename), append: true) {
+            if let outputStream = OutputStream(toFileAtPath: self.pathForDocumentsFile(self.filename), append: true) {
                 outputStream.open()
                 outputStream.write(tweet.tweetID + "\n")
                 
@@ -41,7 +41,7 @@ class TweetReadingState{
         }
     }
     
-    func tweetsThatHaveNotBeenRead(tweets : [Tweet]) -> [Tweet]{
+    func tweetsThatHaveNotBeenRead(_ tweets : [Tweet]) -> [Tweet]{
         return tweets.filter(){
             if let tweetID = ($0 as Tweet).tweetID as String! {
                 return !self.alreadyReadTweets.contains(tweetID)
@@ -51,12 +51,12 @@ class TweetReadingState{
         }
     }
     
-    func tweetsThatAreNotCurrentlyActive(tweets : [Tweet]) -> [Tweet]{
+    func tweetsThatAreNotCurrentlyActive(_ tweets : [Tweet]) -> [Tweet]{
         let unreadTweets = tweets.filter(){!self.activeTweets.contains($0)}
         return unreadTweets
     }
     
-    func tweetsWithActiveTweetsAtTheTop(tweets : [Tweet]) -> [Tweet]{
+    func tweetsWithActiveTweetsAtTheTop(_ tweets : [Tweet]) -> [Tweet]{
         var tweetsSortedByIsActive = tweets
         
         for activeTweet in self.activeTweets{
@@ -64,18 +64,18 @@ class TweetReadingState{
             for twt in tweetsSortedByIsActive{
                 if (twt.tweetID == activeTweet.tweetID){
                     tweetsSortedByIsActive.removeObject(twt)//remove from arb position if it is in main list
-                    tweetsSortedByIsActive.insert(activeTweet, atIndex: 0)
+                    tweetsSortedByIsActive.insert(activeTweet, at: 0)
                 }
             }
         }
         return tweetsSortedByIsActive
     }
     
-    func pathForDocumentsFile (fileName : String)  -> String{
-        let dirs : [String] = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true)
+    func pathForDocumentsFile (_ fileName : String)  -> String{
+        let dirs : [String] = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.allDomainsMask, true)
         let dir = dirs[0] //documents directory
         
-        let url = NSURL(fileURLWithPath: dir, isDirectory: true).URLByAppendingPathComponent(fileName);
-        return url!.path!
+        let url = URL(fileURLWithPath: dir, isDirectory: true).appendingPathComponent(fileName);
+        return url.path
     }
 }

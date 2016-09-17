@@ -17,7 +17,7 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
     var delegateForProgressForTweets  : WebViewDelegateForProgress
     var delegateForProgressForWebLinks  : WebViewDelegateForProgress
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?){
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?){
         //self.webViewForWebLinks = UIWebView(frame: self.webViewControllerForWebLinks.view.bounds)
         self.webViewForTweets = UIWebView(frame: self.webViewControllerForTweets.view.bounds)
         delegateForProgressForTweets = WebViewDelegateForProgress()
@@ -40,21 +40,21 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
     }
     
     override func viewDidLoad() {
-        TWTRTweetView.appearance().theme = .Light
+        TWTRTweetView.appearance().theme = .light
         self.setupAutoScroll()
         self.setupTableView()
         //self.mediator.getLatestTweets(self.onLoadedTweets)
         
-        NSNotificationCenter.defaultCenter().addObserver(self,selector: #selector(TweetsTableViewController.onApplicationDidBecomeActive(_:)),name: UIApplicationDidBecomeActiveNotification,object: nil)
+        NotificationCenter.default.addObserver(self,selector: #selector(TweetsTableViewController.onApplicationDidBecomeActive(_:)),name: NSNotification.Name.UIApplicationDidBecomeActive,object: nil)
         
         loginAsync()
         
-        self.webViewForTweets.loadRequest(NSURLRequest(URL: NSURL(string: "https://mobile.twitter.com/home")!))
+        self.webViewForTweets.loadRequest(URLRequest(url: URL(string: "https://mobile.twitter.com/home")!))
 
     }
     
     func loginAsync(){
-        Twitter.sharedInstance().logInWithMethods(TWTRLoginMethod.WebBased) { (session, error) -> Void in
+        Twitter.sharedInstance().logIn(withMethods: TWTRLoginMethod.webBased) { (session, error) -> Void in
             if let session = session {
                 print("signed in as \(session.userName)");
                 
@@ -68,45 +68,45 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
         }
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         //self.webViewForWebLinks.frame = self.webViewController.view.bounds
         mediator.resetTweetsBelowActive(onLoadedTweets)
         autoScroller!.isScrollVisible = true
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         autoScroller!.isScrollVisible = false
     }
     
-    @objc func onApplicationDidBecomeActive(notification: NSNotification){
+    @objc func onApplicationDidBecomeActive(_ notification: Notification){
         mediator.getLatestTweets(onLoadedTweets)
     }
     
     func setupAutoScroll(){
         autoScroller = AutoScroller(tableView: tableView!, onAutoScrollingToggled: self.setAutoScrollBarButtonImage)
-        ffdBarButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FastForward, target: self, action: #selector(TweetsTableViewController.autoScroll(_:)))
-        pauseBarButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Pause, target: self, action:  #selector(TweetsTableViewController.autoScroll(_:)))
+        ffdBarButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.fastForward, target: self, action: #selector(TweetsTableViewController.autoScroll(_:)))
+        pauseBarButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.pause, target: self, action:  #selector(TweetsTableViewController.autoScroll(_:)))
     }
 
     func setupTableView(){
         tableView.estimatedRowHeight = 150
         //tableView.separatorColor = UIColor.grayColor()
-        tableView.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
-        tableView.separatorInset = UIEdgeInsetsZero
+        tableView.separatorStyle = UITableViewCellSeparatorStyle.singleLine
+        tableView.separatorInset = UIEdgeInsets.zero
 
         //if #available(iOS 8.0, *) {
-            tableView.layoutMargins = UIEdgeInsetsZero
+            tableView.layoutMargins = UIEdgeInsets.zero
         //}
         tableView.allowsSelection = true
         tableView.rowHeight = UITableViewAutomaticDimension // Explicitly set on iOS 8 if using automatic row height calculation
         tableView.allowsSelection = false
-        tableView.registerClass(TweetTableViewCell.self, forCellReuseIdentifier: tweetTableReuseIdentifier)
+        tableView.register(TweetTableViewCell.self, forCellReuseIdentifier: tweetTableReuseIdentifier)
         //tableView.backgroundColor = UIColor.darkGrayColor()
     }
     
-    func onLoadedTweets(error : NSError?, deletedIndexes: Range<Int>?, insertedIndexes: Range<Int>?){
+    func onLoadedTweets(_ error : NSError?, deletedIndexes: CountableRange<Int>?, insertedIndexes: CountableRange<Int>?){
         if let err = error{
             print("Error downloading tweets \(err)")
             handleAuthorisationError(err)
@@ -115,10 +115,10 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
         self.tableView.beginUpdates()
 
         if let deleted = deletedIndexes{
-            self.tableView.deleteRowsAtIndexPaths(Array(deleted).map{NSIndexPath(forRow: $0, inSection: 0)}, withRowAnimation: .None)
+            self.tableView.deleteRows(at: Array(deleted).map{IndexPath(row: $0, section: 0)}, with: .none)
         }
         if let inserted = insertedIndexes{
-            self.tableView.insertRowsAtIndexPaths(Array(inserted).map{NSIndexPath(forRow: $0, inSection: 0)}, withRowAnimation: .None)
+            self.tableView.insertRows(at: Array(inserted).map{IndexPath(row: $0, section: 0)}, with: .none)
         }
         
         self.tableView.endUpdates()
@@ -141,34 +141,34 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
     }
     
     func scrollToTopRow(){
-        let indexPath = NSIndexPath(forRow: 0, inSection: 0)
-        self.tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: UITableViewScrollPosition.Top, animated: false)
+        let indexPath = IndexPath(row: 0, section: 0)
+        self.tableView.scrollToRow(at: indexPath, at: UITableViewScrollPosition.top, animated: false)
     }
     
-    func handleAuthorisationError(error : NSError){
-        if error.localizedDescription.rangeOfString("401") != nil{
+    func handleAuthorisationError(_ error : NSError){
+        if error.localizedDescription.range(of: "401") != nil{
             //TODO how do I logout with the new SDK
             //OLD one was: Twitter.sharedInstance().logOut()
-            self.dismissViewControllerAnimated(true, completion: nil)
+            self.dismiss(animated: true, completion: nil)
         }
     }
     
     // MARK: UITableViewDelegate Methods
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.mediator.tweets.count
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if (indexPath.row > mediator.tweets.count - 1){
+        if ((indexPath as NSIndexPath).row > mediator.tweets.count - 1){
             return UITableViewCell()
         }
         
-        let tweet = mediator.tweets[indexPath.row]
+        let tweet = mediator.tweets[(indexPath as NSIndexPath).row]
         
         mediator.alreadyReadTweets.markAsReading(tweet)
         
-        let cell = tableView.dequeueReusableCellWithIdentifier(tweetTableReuseIdentifier, forIndexPath: indexPath) as? TweetTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: tweetTableReuseIdentifier, for: indexPath) as? TweetTableViewCell
         let tweetFromReusedCell = cell?.tweet
         
         if let unloadedTweet = tweetFromReusedCell{
@@ -182,36 +182,36 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
         return UITableViewCell()
     }
     
-    func configureCell(cell : TweetTableViewCell, tweet : Tweet){
+    func configureCell(_ cell : TweetTableViewCell, tweet : Tweet){
         cell.configWithTweet(tweet)
         cell.tweetView.delegate = self
-        cell.separatorInset = UIEdgeInsetsZero
+        cell.separatorInset = UIEdgeInsets.zero
 
             //if #available(iOS 8.0, *) {
-                cell.layoutMargins = UIEdgeInsetsZero
+                cell.layoutMargins = UIEdgeInsets.zero
             //}
     }
     
-    override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if let tweetCell = cell as? TweetTableViewCell{
             self.tempLoadedCells.append(tweetCell)
         }
     }
     
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if (indexPath.row > mediator.tweets.count - 1){
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if ((indexPath as NSIndexPath).row > mediator.tweets.count - 1){
             return 1
         }
-        let tweet = mediator.tweets[indexPath.row]
-        return TweetTableViewCell.heightForTweet(tweet, style: TWTRTweetViewStyle.Compact, width: CGRectGetWidth(self.view.bounds), showingActions: true)
+        let tweet = mediator.tweets[(indexPath as NSIndexPath).row]
+        return TweetTableViewCell.height(for: tweet, style: TWTRTweetViewStyle.compact, width: self.view.bounds.width, showingActions: true)
     }
     
 
-    func tweetView(tweetView: TWTRTweetView, didTapURL url: NSURL) {
+    func tweetView(_ tweetView: TWTRTweetView, didTap url: URL) {
 
         
         let webViewForWebLinks = UIWebView(frame: self.webViewControllerForWebLinks.view.bounds)
-        webViewForWebLinks.loadRequest(NSURLRequest(URL: url))
+        webViewForWebLinks.loadRequest(URLRequest(url: url))
         webViewControllerForWebLinks.view = webViewForWebLinks
         webViewControllerForWebLinks.navigationItem.title = url.host
         
@@ -227,10 +227,10 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
     }
     
     
-    func tweetView(tweetView: TWTRTweetView, shouldDisplayDetailViewController controller: TWTRTweetDetailViewController) -> Bool {
+    func tweetView(_ tweetView: TWTRTweetView, shouldDisplay controller: TWTRTweetDetailViewController) -> Bool {
         let tweetURL = controller.tweet.permalink
         
-        webViewForTweets.loadRequest(NSURLRequest(URL: tweetURL))
+        webViewForTweets.loadRequest(URLRequest(url: tweetURL))
         self.webViewControllerForTweets.navigationItem.title = "Tweet"
         self.navigationController!.pushViewController(self.webViewControllerForTweets, animated: true)
         
@@ -249,11 +249,11 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
         navigationItem.rightBarButtonItems =  autoScroller!.isAutoScrolling ? [pauseBarButton!] : [ffdBarButton!]
     }
     
-    @IBAction func autoScroll(sender: AnyObject) {
+    @IBAction func autoScroll(_ sender: AnyObject) {
         autoScroller!.toggleAutoScroll()
     }
     
-    @IBAction func openPreferences(sender: UIBarButtonItem) {
-        self.performSegueWithIdentifier("preferences", sender: self)
+    @IBAction func openPreferences(_ sender: UIBarButtonItem) {
+        self.performSegue(withIdentifier: "preferences", sender: self)
     }
 }

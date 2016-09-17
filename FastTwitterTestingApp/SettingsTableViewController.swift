@@ -10,12 +10,12 @@ class SettingsTableViewController: UITableViewController {
         speedSlider.value = UserPreferences.instance.autoScrollSpeed
     }
 
-    @IBAction func prioritySliderChanged(sender: UISlider) {
+    @IBAction func prioritySliderChanged(_ sender: UISlider) {
         let newPriority = sender.value;
         UserPreferences.instance.priorityBalance = newPriority
     }
     
-    @IBAction func speedSlideChanged(sender: UISlider) {
+    @IBAction func speedSlideChanged(_ sender: UISlider) {
         let newSpeed = sender.value;
         UserPreferences.instance.autoScrollSpeed = newSpeed
     }

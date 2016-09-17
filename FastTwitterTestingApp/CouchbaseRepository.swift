@@ -1,11 +1,11 @@
 
 import Foundation
-enum CouchbaseRepositoryError: ErrorType {
-    case DatabaseCouldNotBeCreated
+enum CouchbaseRepositoryError: Error {
+    case databaseCouldNotBeCreated
 }
 class CouchbaseRepository {
-    private var database : CBLDatabase? = nil
-    private let manager : CBLManager
+    fileprivate var database : CBLDatabase? = nil
+    fileprivate let manager : CBLManager
     
     init(dbName : String) throws {
         self.manager = CBLManager.sharedInstance()
@@ -14,11 +14,11 @@ class CouchbaseRepository {
              try self.database = self.manager.databaseNamed(dbName)
         } catch let error as NSError {
             print("domain: \(error._domain) code:\(error._code)")
-            throw CouchbaseRepositoryError.DatabaseCouldNotBeCreated
+            throw CouchbaseRepositoryError.databaseCouldNotBeCreated
         }
     }
     
-    func createDocument(dictionary : NSDictionary) -> String?{
+    func createDocument(_ dictionary : NSDictionary) -> String?{
         let doc = database!.createDocument()
         let docID = doc.documentID
          do {
@@ -31,8 +31,8 @@ class CouchbaseRepository {
         }
     }
     
-    func getDocumentById(documentId : String)->NSDictionary?{
-        return database!.documentWithID(documentId)?.properties
+    func getDocumentById(_ documentId : String)->NSDictionary?{
+        return database!.document(withID: documentId)?.properties as NSDictionary?
     }
     
     func getAllDocuments()->[NSDictionary]{
@@ -40,12 +40,12 @@ class CouchbaseRepository {
         let result = try! query.run()
         var documentDictionaries = [NSDictionary]()
         while let row = result.nextRow() {
-            documentDictionaries.append((row.document?.properties)!)
+            documentDictionaries.append((row.document?.properties)! as NSDictionary)
         }
         return documentDictionaries
     }
     
     func deleteAll(){
-        try! database!.deleteDatabase()
+        try! database!.delete()
     }
 }
