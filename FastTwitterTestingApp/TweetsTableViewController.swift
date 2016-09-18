@@ -52,6 +52,7 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
         mediator.resetTweetsBelowActive(onLoadedTweets)
         if (!mediator.isLoggedIn()){
              mediator.clearTweets()
+            self.tableView.reloadData()
              mediator.getLatestTweets(onLoadedTweets)
         }
         autoScroller!.isScrollVisible = true
@@ -94,17 +95,17 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
             handleAuthorisationError(err)
             return;
         }
-        self.tableView.beginUpdates()
 
+        self.tableView.beginUpdates()
         if let deleted = deletedIndexes{
             self.tableView.deleteRows(at: Array(deleted).map{IndexPath(row: $0, section: 0)}, with: .none)
         }
+
         if let inserted = insertedIndexes{
             self.tableView.insertRows(at: Array(inserted).map{IndexPath(row: $0, section: 0)}, with: .none)
         }
-        
         self.tableView.endUpdates()
-        //ADD NEW UNREAD RANK BELOW
+
     }
     
     func reloadTweets(){
