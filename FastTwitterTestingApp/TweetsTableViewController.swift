@@ -42,6 +42,7 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
 
         
         self.webViewForTweets.loadRequest(URLRequest(url: URL(string: "https://mobile.twitter.com/home")!))
+
         self.mediator.getLatestTweets(self.onLoadedTweets)
     }
     
@@ -49,11 +50,15 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        mediator.resetTweetsBelowActive(onLoadedTweets)
         if (!mediator.isLoggedIn()){
-             mediator.clearTweets()
+            mediator.clearTweets()
             self.tableView.reloadData()
-             mediator.getLatestTweets(onLoadedTweets)
+            mediator.getLatestTweets(onLoadedTweets)
+        }else{
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                self.mediator.resetTweetsBelowActive(self.onLoadedTweets)
+            }
         }
         autoScroller!.isScrollVisible = true
     }

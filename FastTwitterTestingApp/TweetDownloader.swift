@@ -26,15 +26,16 @@ class TweetDownloader {
                     downloadHomeTimelineRecursively(callCount: callCount + 1, max_id: getLowestTweetId(tweets: tweetArrayFromService), previousTweets: newFullTweetArray, callback)
                 }else{
                     callback(newFullTweetArray as [[AnyHashable: Any]]?,nil)
+                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
                 }
                 
             }
             else {
                 print("Error calling twitter: \(connectionError)")
                 callback(nil, connectionError as NSError?)
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
             }
             
-            UIApplication.shared.isNetworkActivityIndicatorVisible = false
         }
     }
     
