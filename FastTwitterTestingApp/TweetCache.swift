@@ -2,7 +2,7 @@ import TwitterKit
 
 //stor the downloaded tweets
 class TweetCache {
-    static func saveTweets(_ tweetArray : NSArray){
+    static func saveTweets(_ tweetArray : [[AnyHashable: Any]]){
         deleteRepo()//TODO: just delete the items older than a week
         saveTweetsToRepo(tweetArray)
         //TODO newest and oldest saved tweetID
@@ -33,12 +33,11 @@ class TweetCache {
         repository.deleteAll()
     }
     
-    fileprivate static func saveTweetsToRepo(_ tweetArray : NSArray){
+    fileprivate static func saveTweetsToRepo(_ tweetArray : [[AnyHashable: Any]]){
         let repository = try! CouchbaseRepository(dbName: "tweets")
     
-        for tweetJSON in tweetArray{
-            let tweetJSONDic : [AnyHashable: Any]! = tweetJSON as! [AnyHashable: Any]
-            let _ = repository.createDocument(tweetJSONDic as NSDictionary)
+        for tweet in tweetArray{            
+            let _ = repository.createDocument(tweet as NSDictionary)
         }
     }
 

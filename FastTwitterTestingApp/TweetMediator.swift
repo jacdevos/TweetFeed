@@ -12,7 +12,7 @@ class TweetMediator {
     
     func getLatestTweets(_ callback : @escaping TweetsLoaded){
         TweetDownloader.downloadHomeTimelineTweets{ tweetArrayFromService, error in
-            let result : (NSArray?, NSError?) = (tweetArrayFromService as NSArray?, error)
+            let result : ([[AnyHashable: Any]]?, NSError?) = (tweetArrayFromService as [[AnyHashable: Any]]?, error)
             
             switch(result){
             case (nil,nil):
