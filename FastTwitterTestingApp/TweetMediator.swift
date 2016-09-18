@@ -11,8 +11,8 @@ class TweetMediator {
     }
     
     func getLatestTweets(_ callback : @escaping TweetsLoaded){
-        TweetDownloader.downloadHomeTimelineTweets{ dataFromService, error in
-            let result : (Data?, NSError?) = (dataFromService as Data?, error)
+        TweetDownloader.downloadHomeTimelineTweets{ tweetArrayFromService, error in
+            let result : (NSArray?, NSError?) = (tweetArrayFromService as NSArray?, error)
             
             switch(result){
             case (nil,nil):
@@ -20,7 +20,7 @@ class TweetMediator {
             case (nil,_):
                 callback(error,nil,nil)
             case (_,nil):
-                TweetCache.saveTweets(dataFromService!)
+                TweetCache.saveTweets(tweetArrayFromService!)
                 //println( NSString(data: dataFromSvc, encoding: NSUTF8StringEncoding))
                 self.resetTweetsBelowActive(callback)
             default:

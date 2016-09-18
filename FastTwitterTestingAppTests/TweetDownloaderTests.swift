@@ -5,10 +5,10 @@ class TweetDownloaderTests: XCTestCase {
     
     func testDownloadLastestTweetData(){
         let expectAsync = self.expectation(description: "testDownloadLastestTweetData")
-        var downloadedData :Data?
+        var downloadedData :NSArray?
         
-        TweetDownloader.downloadHomeTimelineTweets { (data, error) -> Void in
-            downloadedData = data as Data?
+        TweetDownloader.downloadHomeTimelineTweets { (tweetArray, error) -> Void in
+            downloadedData = tweetArray as NSArray?
             expectAsync.fulfill()
         }
         

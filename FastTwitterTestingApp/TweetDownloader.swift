@@ -1,5 +1,5 @@
 import TwitterKit
-typealias TweetsDownloadedCallback = (Data?, NSError?) -> Void
+typealias TweetsDownloadedCallback = (NSArray?, NSError?) -> Void
 
 class TweetDownloader {
     static func downloadHomeTimelineTweets(_ callback : @escaping TweetsDownloadedCallback){
@@ -22,8 +22,9 @@ class TweetDownloader {
         TWTRAPIClient.withCurrentUser().sendTwitterRequest(request) { (response, data, connectionError) -> Void in
             UIApplication.shared.isNetworkActivityIndicatorVisible = false
             
-            if (connectionError == nil) {
-                callback(data,nil)
+            if (connectionError == nil && data != nil) {
+                let tweetArray = getJSONTweetArrayFromData(data!)
+                callback(tweetArray,nil)
             }
             else {
                 print("Error calling twitter: \(connectionError)")
@@ -31,4 +32,21 @@ class TweetDownloader {
             }
         }
     }
+    
+    
+    fileprivate static func getJSONTweetArrayFromData(_ data: Data) -> NSArray {
+        var jsonError : NSError?
+        var json : Any
+        do {
+            json = try JSONSerialization.jsonObject(with: data, options: [])
+            return json as! NSArray
+        } catch let error as NSError {
+            jsonError = error
+            print(jsonError)
+        } catch{
+            print("Unknown error serializing JSON")
+        }
+        return NSArray()
+    }
+    
 }
