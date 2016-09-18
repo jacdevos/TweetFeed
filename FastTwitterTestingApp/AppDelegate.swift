@@ -15,6 +15,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Fabric.with([Twitter.sharedInstance()])
         return true
     }
+    
+    func application(_ application: UIApplication, handleEventsForBackgroundURLSession identifier: String, completionHandler: @escaping () -> Void) {
+        print("")
+    }
+    
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        if Twitter.sharedInstance().application(app, open:url, options: options) {
+            return true
+        }
+        
+        // If you handle other (non Twitter Kit) URLs elsewhere in your app, return true. Otherwise
+        return false
+    }
+    
 
     func applicationWillResignActive(_ application: UIApplication) {
     }

@@ -13,29 +13,22 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
     let webViewControllerForTweets = UIViewController()
     let webViewForTweets : UIWebView
     let webViewControllerForWebLinks = UIViewController()
-    //let webViewForWebLinks : UIWebView
     var delegateForProgressForTweets  : WebViewDelegateForProgress
     var delegateForProgressForWebLinks  : WebViewDelegateForProgress
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?){
-        //self.webViewForWebLinks = UIWebView(frame: self.webViewControllerForWebLinks.view.bounds)
         self.webViewForTweets = UIWebView(frame: self.webViewControllerForTweets.view.bounds)
         delegateForProgressForTweets = WebViewDelegateForProgress()
         delegateForProgressForWebLinks = WebViewDelegateForProgress()
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        //self.webViewForWebLinks.delegate = self
-        //self.webViewForTweets.delegate = self
-        //self.webViewControllerForWebLinks.view = self.webViewForWebLinks
         self.webViewControllerForTweets.view = self.webViewForTweets
     }
 
     required init?(coder aDecoder: NSCoder) {
-        //self.webViewForWebLinks = UIWebView(frame: self.webViewControllerForWebLinks.view.bounds)
         self.webViewForTweets = UIWebView(frame: self.webViewControllerForTweets.view.bounds)
         delegateForProgressForWebLinks = WebViewDelegateForProgress()
         delegateForProgressForTweets = WebViewDelegateForProgress()
         super.init(coder: aDecoder)
-        //self.webViewForWebLinks.delegate = self
         self.webViewControllerForTweets.view = self.webViewForTweets
     }
     
@@ -46,18 +39,17 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
         //self.mediator.getLatestTweets(self.onLoadedTweets)
         
         NotificationCenter.default.addObserver(self,selector: #selector(TweetsTableViewController.onApplicationDidBecomeActive(_:)),name: NSNotification.Name.UIApplicationDidBecomeActive,object: nil)
-        
-        loginAsync()
+
         
         self.webViewForTweets.loadRequest(URLRequest(url: URL(string: "https://mobile.twitter.com/home")!))
-
+        self.mediator.getLatestTweets(self.onLoadedTweets)
     }
     
     func loginAsync(){
+        //use webBased login, so that when tapping on tweet we can open the twitter webview in an already logged in state
         Twitter.sharedInstance().logIn(withMethods: TWTRLoginMethod.webBased) { (session, error) -> Void in
             if let session = session {
                 print("signed in as \(session.userName)");
-                
                 self.mediator.getLatestTweets(self.onLoadedTweets)
                 
             } else {
@@ -70,7 +62,6 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        //self.webViewForWebLinks.frame = self.webViewController.view.bounds
         mediator.resetTweetsBelowActive(onLoadedTweets)
         autoScroller!.isScrollVisible = true
     }
@@ -136,7 +127,6 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
     func cleanOldreuseCellsSoThatTheyDontAffectMarkAsReadLogic(){
         for tweetCell in self.tempLoadedCells{
             tweetCell.tweet = nil
-            //println("position \(tweetCell.frame.origin.y)")
         }
     }
     
@@ -146,10 +136,8 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
     }
     
     func handleAuthorisationError(_ error : NSError){
-        if error.localizedDescription.range(of: "401") != nil{
-            //TODO how do I logout with the new SDK
-            //OLD one was: Twitter.sharedInstance().logOut()
-            self.dismiss(animated: true, completion: nil)
+        if error.localizedDescription.range(of: "401") != nil || error.localizedDescription.range(of: "403") != nil{
+            loginAsync()
         }
     }
     
@@ -186,10 +174,8 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
         cell.configWithTweet(tweet)
         cell.tweetView.delegate = self
         cell.separatorInset = UIEdgeInsets.zero
+        cell.layoutMargins = UIEdgeInsets.zero
 
-            //if #available(iOS 8.0, *) {
-                cell.layoutMargins = UIEdgeInsets.zero
-            //}
     }
     
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -208,21 +194,7 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
     
 
     func tweetView(_ tweetView: TWTRTweetView, didTap url: URL) {
-
-        
-        let webViewForWebLinks = UIWebView(frame: self.webViewControllerForWebLinks.view.bounds)
-        webViewForWebLinks.loadRequest(URLRequest(url: url))
-        webViewControllerForWebLinks.view = webViewForWebLinks
-        webViewControllerForWebLinks.navigationItem.title = url.host
-        
-        self.navigationController!.pushViewController(self.webViewControllerForWebLinks, animated: true)
-        
-        let progressView = WebViewProgressView(webView: webViewForWebLinks)
-        delegateForProgressForWebLinks = WebViewDelegateForProgress()
-        delegateForProgressForWebLinks.viewController = self.webViewControllerForWebLinks
-        webViewForWebLinks.delegate = delegateForProgressForWebLinks
-        delegateForProgressForWebLinks.progressView = progressView
-        webViewForWebLinks.addSubview(progressView)
+        UIApplication.shared.openURL(url)
         
     }
     

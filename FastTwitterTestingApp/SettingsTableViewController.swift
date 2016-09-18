@@ -1,5 +1,6 @@
 
 import UIKit
+import TwitterKit
 
 class SettingsTableViewController: UITableViewController {
     @IBOutlet weak var prioritySlider: UISlider!
@@ -19,4 +20,22 @@ class SettingsTableViewController: UITableViewController {
         let newSpeed = sender.value;
         UserPreferences.instance.autoScrollSpeed = newSpeed
     }
+    
+    @IBAction func logout(_ sender: UIBarButtonItem) {
+        let store = Twitter.sharedInstance().sessionStore
+        let sessions = store.existingUserSessions()
+        for session in sessions{
+            let userID = (session as! TWTRAuthSession).userID
+            store.logOutUserID(userID)
+        }
+        print(sessions)
+        
+
+        //use webBased login, so that when tapping on tweet we can open the twitter webview in an already logged in state
+        Twitter.sharedInstance().logIn(withMethods: TWTRLoginMethod.webBased) { (session, error) -> Void in
+        }
+    }
+    
+    
+    
 }
