@@ -12,21 +12,17 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
     var pauseBarButton : UIBarButtonItem? = nil
     let webViewControllerForTweets = UIViewController()
     let webViewForTweets : UIWebView
-    let webViewControllerForWebLinks = UIViewController()
     var delegateForProgressForTweets  : WebViewDelegateForProgress
-    var delegateForProgressForWebLinks  : WebViewDelegateForProgress
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?){
         self.webViewForTweets = UIWebView(frame: self.webViewControllerForTweets.view.bounds)
         delegateForProgressForTweets = WebViewDelegateForProgress()
-        delegateForProgressForWebLinks = WebViewDelegateForProgress()
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         self.webViewControllerForTweets.view = self.webViewForTweets
     }
 
     required init?(coder aDecoder: NSCoder) {
         self.webViewForTweets = UIWebView(frame: self.webViewControllerForTweets.view.bounds)
-        delegateForProgressForWebLinks = WebViewDelegateForProgress()
         delegateForProgressForTweets = WebViewDelegateForProgress()
         super.init(coder: aDecoder)
         self.webViewControllerForTweets.view = self.webViewForTweets

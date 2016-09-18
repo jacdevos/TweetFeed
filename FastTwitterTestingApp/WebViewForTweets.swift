@@ -13,7 +13,6 @@ class WebViewDelegateForProgress: NSObject, UIWebViewDelegate{
     var viewController : UIViewController?
     
     func webViewDidStartLoad(_ webView_Pages: UIWebView) {
-        // webViewProgressView.hidden = false;
     }
     
     internal func webViewDidFinishLoad(_ webView: UIWebView){
