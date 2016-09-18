@@ -32,7 +32,7 @@ class SettingsTableViewController: UITableViewController {
         
 
         //use webBased login, so that when tapping on tweet we can open the twitter webview in an already logged in state
-        Twitter.sharedInstance().logIn(withMethods: TWTRLoginMethod.webBased) { (session, error) -> Void in
+        Twitter.sharedInstance().logIn(withMethods: TWTRLoginMethod.webBasedForceLogin) { (session, error) -> Void in
         }
     }
     

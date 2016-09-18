@@ -45,20 +45,7 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
         self.mediator.getLatestTweets(self.onLoadedTweets)
     }
     
-    func loginAsync(){
-        //use webBased login, so that when tapping on tweet we can open the twitter webview in an already logged in state
-        Twitter.sharedInstance().logIn(withMethods: TWTRLoginMethod.webBased) { (session, error) -> Void in
-            if let session = session {
-                print("signed in as \(session.userName)");
-                self.mediator.getLatestTweets(self.onLoadedTweets)
-                
-            } else {
-                print("error: \(error!.localizedDescription)");
-                
-                //UNABLE TO LOG ON TO TWITTER> MAKE SURE YOU HAVE AN INTERNET CONNECTION AND HAVE SINGED INTO TWITTER IN YOU iPHONE SETTTINGS
-            }
-        }
-    }
+
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -137,7 +124,7 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
     
     func handleAuthorisationError(_ error : NSError){
         if error.localizedDescription.range(of: "401") != nil || error.localizedDescription.range(of: "403") != nil{
-            loginAsync()
+            self.mediator.loginAsync(self.onLoadedTweets)
         }
     }
     

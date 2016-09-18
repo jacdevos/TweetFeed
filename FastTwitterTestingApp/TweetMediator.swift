@@ -81,4 +81,19 @@ class TweetMediator {
         }
         return maxActiveIndex
     }
+    
+    func loginAsync(_ callback : @escaping TweetsLoaded){
+        //use webBased login, so that when tapping on tweet we can open the twitter webview in an already logged in state
+        Twitter.sharedInstance().logIn(withMethods: TWTRLoginMethod.webBasedForceLogin) { (session, error) -> Void in
+            if let session = session {
+                print("signed in as \(session.userName)");
+                self.getLatestTweets(callback)
+                
+            } else {
+                print("error: \(error!.localizedDescription)");
+                
+                //UNABLE TO LOG ON TO TWITTER> MAKE SURE YOU HAVE AN INTERNET CONNECTION AND HAVE SINGED INTO TWITTER IN YOU iPHONE SETTTINGS
+            }
+        }
+    }
 }

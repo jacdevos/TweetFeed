@@ -13,6 +13,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         Twitter.sharedInstance().start(withConsumerKey: "CUdwBwT5afPSN7QfqAzNvEjtt", consumerSecret: "1wP8OkfpkCPv7w57q6HBYJ8ZhKpIHVna0qI7TlkPc3IbOKsTN6")
         Fabric.with([Twitter.sharedInstance()])
+        HTTPCookieStorage.shared.cookieAcceptPolicy = HTTPCookie.AcceptPolicy.always
         return true
     }
     
