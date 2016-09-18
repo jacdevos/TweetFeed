@@ -419,7 +419,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#Update build number with number of git commits if in release mode\nif [ ${CONFIGURATION} == \"Release\" ]; then\n#buildNumber=$(git rev-list --all --count)\nbuildNumber = ${GREENHOUSE_BUILD_NUMBER}\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"\nfi;";
+			shellScript = "#Update build number with number of git commits if in release mode\n#if [ ${CONFIGURATION} == \"Release\" ]; then\n#buildNumber=$(git rev-list --all --count)\n#buildNumber = ${GREENHOUSE_BUILD_NUMBER}\n#/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"\n#fi;";
 		};
 /* End PBXShellScriptBuildPhase section */
 
