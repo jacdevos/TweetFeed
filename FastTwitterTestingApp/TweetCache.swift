@@ -7,6 +7,10 @@ class TweetCache {
         saveTweetsToRepo(tweetData)
         //TODO newest and oldest saved tweetID
     }
+    
+    static func clear(){
+        deleteRepo();
+    }
 
     static func getAll() -> Set<Tweet>{
         let repository = try! CouchbaseRepository(dbName: "tweets")

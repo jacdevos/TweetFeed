@@ -28,12 +28,9 @@ class SettingsTableViewController: UITableViewController {
             let userID = (session as! TWTRAuthSession).userID
             store.logOutUserID(userID)
         }
-        print(sessions)
+        print("Twitter sessions: \(sessions)")
         
-
-        //use webBased login, so that when tapping on tweet we can open the twitter webview in an already logged in state
-        Twitter.sharedInstance().logIn(withMethods: TWTRLoginMethod.webBasedForceLogin) { (session, error) -> Void in
-        }
+        self.navigationController?.popViewController(animated: true)
     }
     
     

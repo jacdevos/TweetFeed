@@ -29,6 +29,11 @@ class TweetMediator {
         }
     }
     
+    func clearTweets(){
+        tweets.removeAll()
+        TweetCache.clear()
+    }
+    
     //Remove everything below active tweets, and replace with recalculated, unread items
     //Reason: we don't want to change what the user is seeing on screen, ranking should happen invisibly. 
     //The next item should just magically be the most relevant - user should ALWAYS just have to keep scrolling without missing a beat
@@ -66,8 +71,10 @@ class TweetMediator {
         if self.tweets.count > 0{
             let removeStart =  getIndexOfLastActive() + 1
             let removeEnd = self.tweets.count - 1
-            removeRange  = CountableRange<Int>(removeStart...removeEnd)
-            self.tweets.removeSubrange(removeRange!)
+            if removeEnd > removeStart{
+                removeRange  = CountableRange<Int>(removeStart...removeEnd)
+                self.tweets.removeSubrange(removeRange!)
+            }
         }
         return removeRange
     }
@@ -95,5 +102,11 @@ class TweetMediator {
                 //UNABLE TO LOG ON TO TWITTER> MAKE SURE YOU HAVE AN INTERNET CONNECTION AND HAVE SINGED INTO TWITTER IN YOU iPHONE SETTTINGS
             }
         }
+    }
+    
+    func isLoggedIn()->Bool{
+        let store = Twitter.sharedInstance().sessionStore
+        let sessions = store.existingUserSessions()
+        return sessions.count > 0
     }
 }

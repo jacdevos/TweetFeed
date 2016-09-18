@@ -50,6 +50,10 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         mediator.resetTweetsBelowActive(onLoadedTweets)
+        if (!mediator.isLoggedIn()){
+             mediator.clearTweets()
+             mediator.getLatestTweets(onLoadedTweets)
+        }
         autoScroller!.isScrollVisible = true
     }
     
