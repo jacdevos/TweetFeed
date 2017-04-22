@@ -53,7 +53,7 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate, U
     }
 }
 
-//UITableViewDelegate Methods extention
+//Integration with Twitter logic extention
 extension TweetsTableViewController{
     
     func refreshTweets(){
@@ -229,6 +229,7 @@ extension TweetsTableViewController{
             popoverViewController.modalPresentationStyle = UIModalPresentationStyle.popover
             popoverViewController.preferredContentSize = CGSize(width: self.view.frame.size.width, height: 300)
             popoverViewController.onDismiss = handlePopoverDismiss
+            popoverViewController.refreshTweets = refreshTweets
             
             let popoverPresentationController = popoverViewController.popoverPresentationController! as UIPopoverPresentationController
             popoverPresentationController.delegate = self
@@ -252,7 +253,6 @@ extension TweetsTableViewController{
                 subView.removeFromSuperview()
             }
         }
-        refreshTweets()
     }
     
     func popoverPresentationControllerDidDismissPopover(_ popoverPresentationController: UIPopoverPresentationController){
@@ -260,7 +260,7 @@ extension TweetsTableViewController{
     }
 }
 
-//FloatingButtons helpers extention
+//FloatingButtons extention
 extension TweetsTableViewController{
     
     func addFloatingButtons(){
