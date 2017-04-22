@@ -11,7 +11,7 @@ class MediatorTests: XCTestCase {
         }
         self.waitForExpectations(timeout: 60, handler: { XCWaitCompletionHandler in })
         
-        XCTAssertGreaterThan(mediator.tweets.count, 0, "No tweets downloaded and serialized")
+        XCTAssertGreaterThan(mediator.viewableTweets.count, 0, "No tweets downloaded and serialized")
     }
 }
 
