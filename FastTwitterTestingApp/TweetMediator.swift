@@ -3,13 +3,9 @@ typealias TweetsLoaded = (NSError?,_ deletedIndexes: CountableRange<Int>?, _ ins
 
 //This guy is at the centre, coordinating with all the other objects to do download, store, get and rank tweets
 class TweetMediator {
-    var tweets: [Tweet] = []
+    var viewableTweets: [Tweet] = []
     let alreadyReadTweets : TweetReadingState = TweetReadingState()
-    
-    func downloadNextTweets(){
-        //TODO: fromload from last id tweet up to max and save
-    }
-    
+
     func getLatestTweets(_ callback : @escaping TweetsLoaded){
         TweetDownloader.downloadHomeTimelineTweets{ tweetArrayFromService, error in
             let result : ([[AnyHashable: Any]]?, NSError?) = (tweetArrayFromService as [[AnyHashable: Any]]?, error)
@@ -21,7 +17,6 @@ class TweetMediator {
                 callback(error,nil,nil)
             case (_,nil):
                 TweetCache.saveTweets(tweetArrayFromService!)
-                //println( NSString(data: dataFromSvc, encoding: NSUTF8StringEncoding))
                 self.resetTweetsBelowActive(callback)
             default:
                 callback(NSError(domain: "TweetMediator", code: 0, userInfo: [NSLocalizedDescriptionKey:"Unexpected error"]),nil,nil)
@@ -30,7 +25,7 @@ class TweetMediator {
     }
     
     func clearTweets(){
-        tweets.removeAll()
+        viewableTweets.removeAll()
         TweetCache.clear()
     }
     
@@ -38,6 +33,8 @@ class TweetMediator {
     //Reason: we don't want to change what the user is seeing on screen, ranking should happen invisibly. 
     //The next item should just magically be the most relevant - user should ALWAYS just have to keep scrolling without missing a beat
     func resetTweetsBelowActive(_ callback : TweetsLoaded){
+        //CLEAR
+        
         let removeRange = removeTweetsAfterActive()
         
         let rankedUnread = calculateRankedUnreadTweets()
@@ -58,22 +55,22 @@ class TweetMediator {
     func appendTweets(_ tweetsToAppend : [Tweet])->CountableRange<Int>?{
         var addRange : CountableRange<Int>? = nil
         if tweetsToAppend.count > 0{
-            let addStart = self.tweets.count
-            let addEnd = self.tweets.count + tweetsToAppend.count - 1
+            let addStart = self.viewableTweets.count
+            let addEnd = self.viewableTweets.count + tweetsToAppend.count - 1
             addRange  = CountableRange<Int>(addStart...addEnd)
         }
-        self.tweets.append(contentsOf: tweetsToAppend)
+        self.viewableTweets.append(contentsOf: tweetsToAppend)
         return addRange
     }
     
     func removeTweetsAfterActive()->CountableRange<Int>?{
         var removeRange : CountableRange<Int>?  =   nil
-        if self.tweets.count > 0{
+        if self.viewableTweets.count > 0{
             let removeStart =  getIndexOfLastActive() + 1
-            let removeEnd = self.tweets.count - 1
+            let removeEnd = self.viewableTweets.count - 1
             if removeEnd > removeStart{
                 removeRange  = CountableRange<Int>(removeStart...removeEnd)
-                self.tweets.removeSubrange(removeRange!)
+                self.viewableTweets.removeSubrange(removeRange!)
             }
         }
         return removeRange
@@ -83,7 +80,7 @@ class TweetMediator {
         var maxActiveIndex = 0
         
         for active in actives{
-            let index = self.tweets.index(of: active) ?? 0
+            let index = self.viewableTweets.index(of: active) ?? 0
             maxActiveIndex = max(index, maxActiveIndex)
         }
         return maxActiveIndex

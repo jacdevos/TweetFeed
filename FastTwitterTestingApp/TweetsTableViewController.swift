@@ -112,7 +112,7 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
     func reloadTweets(){
         cleanOldreuseCellsSoThatTheyDontAffectMarkAsReadLogic()
         self.tableView.reloadData()
-        if self.mediator.tweets.count > 0{
+        if self.mediator.viewableTweets.count > 0{
             scrollToTopRow()
         }
     }
@@ -136,16 +136,16 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
     
     // MARK: UITableViewDelegate Methods
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.mediator.tweets.count
+        return self.mediator.viewableTweets.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if ((indexPath as NSIndexPath).row > mediator.tweets.count - 1){
+        if ((indexPath as NSIndexPath).row > mediator.viewableTweets.count - 1){
             return UITableViewCell()
         }
         
-        let tweet = mediator.tweets[(indexPath as NSIndexPath).row]
+        let tweet = mediator.viewableTweets[(indexPath as NSIndexPath).row]
         
         mediator.alreadyReadTweets.markAsReading(tweet)
         
@@ -178,10 +178,10 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if ((indexPath as NSIndexPath).row > mediator.tweets.count - 1){
+        if ((indexPath as NSIndexPath).row > mediator.viewableTweets.count - 1){
             return 1
         }
-        let tweet = mediator.tweets[(indexPath as NSIndexPath).row]
+        let tweet = mediator.viewableTweets[(indexPath as NSIndexPath).row]
         return TweetTableViewCell.height(for: tweet, style: TWTRTweetViewStyle.compact, width: self.view.bounds.width, showingActions: true)
     }
     
