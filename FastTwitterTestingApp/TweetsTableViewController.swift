@@ -48,8 +48,12 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate, U
     }
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        stickFloatingButtonToScroll(scrollView, floating: self.autoScrollerButton)
-        stickFloatingButtonToScroll(scrollView, floating: self.settingsButton)
+        stickFloatingButtonToScroll(scrollView, floating: self.autoScrollerButton, heightAdjust: -5)
+        stickFloatingButtonToScroll(scrollView, floating: self.settingsButton, heightAdjust: -10)
+    }
+    
+    override var prefersStatusBarHidden: Bool {
+        return true
     }
 }
 
@@ -92,7 +96,13 @@ extension TweetsTableViewController{
     func handleAuthorisationError(_ error : NSError){
         if error.localizedDescription.range(of: "401") != nil || error.localizedDescription.range(of: "403") != nil{
             self.mediator.loginAsync(self.onLoadedTweets)
+            return
         }
+        
+        let alert = UIAlertController(title: "Twitter Error", message: "An Twitter error occurred, please try again later.\n\n Error details:\n\(error.localizedDescription)\n \(error.localizedFailureReason)", preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+
+        self.present(alert, animated: true, completion: nil)
     }
     
 }
@@ -285,8 +295,8 @@ extension TweetsTableViewController{
         self.view.addSubview(settingsButton)
     }
     
-    func stickFloatingButtonToScroll(_ scrollView: UIScrollView, floating: UIView) {
-        let y = scrollView.contentOffset.y + self.tableView.frame.size.height - floating.frame.size.height - 5
+    func stickFloatingButtonToScroll(_ scrollView: UIScrollView, floating: UIView, heightAdjust: CGFloat = -5) {
+        let y = scrollView.contentOffset.y + self.tableView.frame.size.height - floating.frame.size.height + heightAdjust
         let newFrame = CGRect(x: floating.frame.origin.x, y: y, width: floating.frame.size.width, height: floating.frame.size.height)
         floating.frame = newFrame
         self.view.bringSubview(toFront: floating)

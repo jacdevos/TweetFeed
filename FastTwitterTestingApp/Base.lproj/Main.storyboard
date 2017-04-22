@@ -85,36 +85,37 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="gFb-oT-SvS">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TcN-2S-1kE">
+                                    <rect key="frame" x="301" y="5.5" width="66" height="33"/>
+                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                    <state key="normal" title="Sign out"/>
+                                    <connections>
+                                        <action selector="signOutAndClose:" destination="qy6-C4-WYy" eventType="touchUpInside" id="dL5-t2-Aw4"/>
+                                    </connections>
+                                </button>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="UserName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1fM-np-oSv">
+                                    <rect key="frame" x="16" y="11" width="82" height="21"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="TcN-2S-1kE" firstAttribute="trailing" secondItem="gFb-oT-SvS" secondAttribute="trailingMargin" id="6D1-2e-IJ6"/>
+                                <constraint firstItem="TcN-2S-1kE" firstAttribute="centerY" secondItem="gFb-oT-SvS" secondAttribute="centerY" id="KhP-TL-RLu"/>
+                            </constraints>
+                        </view>
                         <sections>
-                            <tableViewSection headerTitle="" footerTitle="" id="lFy-z2-Y1J">
-                                <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="jsk-Lk-lh4">
-                                        <rect key="frame" x="0.0" y="35" width="375" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jsk-Lk-lh4" id="wUH-ms-2Rb">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TcN-2S-1kE">
-                                                    <rect key="frame" x="310" y="6" width="57" height="30"/>
-                                                    <state key="normal" title="Sign out"/>
-                                                    <connections>
-                                                        <action selector="signOutAndClose:" destination="qy6-C4-WYy" eventType="touchUpInside" id="dL5-t2-Aw4"/>
-                                                    </connections>
-                                                </button>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="TcN-2S-1kE" firstAttribute="trailing" secondItem="wUH-ms-2Rb" secondAttribute="trailingMargin" id="2tW-Gx-CTT"/>
-                                                <constraint firstItem="TcN-2S-1kE" firstAttribute="centerY" secondItem="wUH-ms-2Rb" secondAttribute="centerY" id="e34-Qj-1Dp"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
                             <tableViewSection headerTitle="SET PRIORITY" footerTitle="" id="lN5-gF-VJC">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="wxF-sG-XqS">
-                                        <rect key="frame" x="0.0" y="143" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="100" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wxF-sG-XqS" id="IxK-e2-poV">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
@@ -189,7 +190,7 @@
                             <tableViewSection headerTitle="SET READ SPEED" id="PFo-4J-95A">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="I9k-Of-SyS">
-                                        <rect key="frame" x="0.0" y="244" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="201" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="I9k-Of-SyS" id="xRc-ph-UHg">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
@@ -276,7 +277,9 @@
                     </refreshControl>
                     <connections>
                         <outlet property="prioritySlider" destination="Rjm-Zd-8bC" id="4AC-h7-W3L"/>
+                        <outlet property="signoutButton" destination="TcN-2S-1kE" id="ddl-6Y-5c8"/>
                         <outlet property="speedSlider" destination="M3c-c0-Cyv" id="ZlM-Yt-yat"/>
+                        <outlet property="userNameLabel" destination="1fM-np-oSv" id="yRk-fK-EOB"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MZY-bi-ErL" userLabel="First Responder" sceneMemberID="firstResponder"/>
