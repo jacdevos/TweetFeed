@@ -13,7 +13,7 @@ class SettingsTableViewController: UITableViewController {
         prioritySlider.value = UserPreferences.instance.priorityBalance
         speedSlider.value = UserPreferences.instance.autoScrollSpeed
         let userID = getLoggedOnUser()
-        userNameLabel.text = userID
+        userNameLabel.text = ""//userID
         signoutButton.setTitle(userID == "" ? "Sign in" : "Sign out", for: .normal)
     }
 

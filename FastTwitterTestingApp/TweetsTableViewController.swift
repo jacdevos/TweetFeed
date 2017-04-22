@@ -298,7 +298,7 @@ extension TweetsTableViewController{
         
         settingsButton.addTarget(self, action:#selector(self.openPreferences), for: .touchUpInside)
         settingsButton.setImage(UIImage(named: "SettingsIcon"), for: .normal)
-        settingsButton.frame = CGRect(x: 5, y: self.view.frame.size.height - 55 - 5, width: 50, height: 50)
+        settingsButton.frame = CGRect(x: 5, y: self.view.frame.size.height - 55, width: 48, height: 48)
         settingsButton.layer.shadowColor = UIColor.black.cgColor
         settingsButton.layer.shadowOffset = CGSize(width: 0.5, height: 0.5)
         settingsButton.layer.shadowRadius = 1
