@@ -19,9 +19,18 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate, U
     required init?(coder aDecoder: NSCoder) {
         self.webViewForTweets = UIWebView(frame: self.webViewControllerForTweets.view.bounds)
         delegateForProgressForTweets = WebViewDelegateForProgress()
+        delegateForProgressForTweets.viewController = self.webViewControllerForTweets
         super.init(coder: aDecoder)
         self.webViewControllerForTweets.view = self.webViewForTweets
+        
+        webViewControllerForTweets.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismisswebViewControllerForTweets))
     }
+    
+    func dismisswebViewControllerForTweets(){
+        self.webViewControllerForTweets.dismiss(animated: true, completion: nil)
+    }
+    
+    
     
     override func viewDidLoad() {
         TWTRTweetView.appearance().theme = .light
@@ -181,8 +190,14 @@ extension TweetsTableViewController{
         let tweetURL = controller.tweet.permalink
         
         webViewForTweets.loadRequest(URLRequest(url: tweetURL))
-        self.webViewControllerForTweets.navigationItem.title = "Tweet"
-        self.navigationController!.pushViewController(self.webViewControllerForTweets, animated: true)
+        webViewControllerForTweets.navigationItem.title = "Twitter Web View"
+    
+
+        let nav1 = UINavigationController()
+        nav1.viewControllers = [webViewControllerForTweets]
+        self.present(nav1, animated: true, completion: nil)
+
+        //self.navigationController!.pushViewController(self.webViewControllerForTweets, animated: true)
         
         let progressView = WebViewProgressView(webView: webViewForTweets)
         delegateForProgressForTweets = WebViewDelegateForProgress()
@@ -225,9 +240,6 @@ extension TweetsTableViewController{
 //Preferences interaction extention
 extension TweetsTableViewController{
 
-    @IBAction func openPreferences(_ sender: UIBarButtonItem) {
-        self.performSegue(withIdentifier: "preferences", sender: self)
-    }
     
     func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
         return UIModalPresentationStyle.none
@@ -300,5 +312,10 @@ extension TweetsTableViewController{
         let newFrame = CGRect(x: floating.frame.origin.x, y: y, width: floating.frame.size.width, height: floating.frame.size.height)
         floating.frame = newFrame
         self.view.bringSubview(toFront: floating)
+    }
+    
+    
+    @IBAction func openPreferences(_ sender: UIBarButtonItem) {
+        self.performSegue(withIdentifier: "preferences", sender: self)
     }
 }
