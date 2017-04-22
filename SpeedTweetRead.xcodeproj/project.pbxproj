@@ -37,6 +37,9 @@
 		9B93B0111B47BAE10043ADA4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9B93B0101B47BAE10043ADA4 /* Images.xcassets */; };
 		9B93B0201B47BAE10043ADA4 /* TweetDownloaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B93B01F1B47BAE10043ADA4 /* TweetDownloaderTests.swift */; };
 		9B93B0381B47CBE10043ADA4 /* TweetsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B93B0361B47CBE10043ADA4 /* TweetsTableViewController.swift */; };
+		9BB4F4B41EABA21700ED20A6 /* KCFloatingActionButton in Resources */ = {isa = PBXBuildFile; fileRef = 9BB4F4B31EABA21700ED20A6 /* KCFloatingActionButton */; };
+		9BB4F4C91EABE72100ED20A6 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3BB62E1B9B45E400784F81 /* SettingsTableViewController.swift */; };
+		9BB4F4CA1EABE72600ED20A6 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B93B00B1B47BAE10043ADA4 /* LoginViewController.swift */; };
 		9BC9A0511D0D6B1A00127401 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BC9A04D1D0D6B1A00127401 /* Fabric.framework */; };
 		9BC9A0521D0D6B1A00127401 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BC9A04D1D0D6B1A00127401 /* Fabric.framework */; };
 		9BC9A0531D0D6B1A00127401 /* TwitterKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BC9A04E1D0D6B1A00127401 /* TwitterKit.framework */; };
@@ -106,6 +109,7 @@
 		9B93B01E1B47BAE10043ADA4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9B93B01F1B47BAE10043ADA4 /* TweetDownloaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetDownloaderTests.swift; sourceTree = "<group>"; };
 		9B93B0361B47CBE10043ADA4 /* TweetsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetsTableViewController.swift; sourceTree = "<group>"; };
+		9BB4F4B31EABA21700ED20A6 /* KCFloatingActionButton */ = {isa = PBXFileReference; lastKnownFileType = folder; name = KCFloatingActionButton; path = /Users/nreality/Documents/experiments/FastTwitterTestingApp/FastTwitterTestingApp/KCFloatingActionButton; sourceTree = "<absolute>"; };
 		9BC9A04D1D0D6B1A00127401 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		9BC9A04E1D0D6B1A00127401 /* TwitterKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TwitterKit.framework; sourceTree = "<group>"; };
 		9BC9A04F1D0D6B1A00127401 /* TwitterKitResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = TwitterKitResources.bundle; sourceTree = "<group>"; };
@@ -378,6 +382,7 @@
 			files = (
 				9BC9A0551D0D6B1A00127401 /* TwitterKitResources.bundle in Resources */,
 				9B93B00F1B47BAE10043ADA4 /* Main.storyboard in Resources */,
+				9BB4F4B41EABA21700ED20A6 /* KCFloatingActionButton in Resources */,
 				9B6F36D81D8D6645002FEF22 /* Launch Screen.storyboard in Resources */,
 				9B93B0111B47BAE10043ADA4 /* Images.xcassets in Resources */,
 			);
@@ -452,6 +457,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9BB4F4CA1EABE72600ED20A6 /* LoginViewController.swift in Sources */,
+				9BB4F4C91EABE72100ED20A6 /* SettingsTableViewController.swift in Sources */,
 				9BF0D4D21B80B60A005F2F92 /* TweetMediator.swift in Sources */,
 				9BF62BD91B80A1590058293B /* ArrayExtention.swift in Sources */,
 				9B680B6A1B5AD26900E92874 /* TweetDownloader.swift in Sources */,

@@ -24,6 +24,8 @@
 	<string>1</string>
 	<key>Fabric</key>
 	<dict>
+		<key>New item</key>
+		<string> SpeedTweetRead.xcodeproj/project.pbxproj</string>
 		<key>APIKey</key>
 		<string>e73d97cec21122d8ab154b7ab57c4e73f22c784b</string>
 		<key>Kits</key>

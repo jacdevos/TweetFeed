@@ -5,6 +5,7 @@ import TwitterKit
 class SettingsTableViewController: UITableViewController {
     @IBOutlet weak var prioritySlider: UISlider!
     @IBOutlet weak var speedSlider: UISlider!
+    var onDismiss : () -> () = {};
     
     override func viewDidLoad() {
         prioritySlider.value = UserPreferences.instance.priorityBalance
@@ -21,18 +22,22 @@ class SettingsTableViewController: UITableViewController {
         UserPreferences.instance.autoScrollSpeed = newSpeed
     }
     
-    @IBAction func logout(_ sender: UIBarButtonItem) {
-        let store = Twitter.sharedInstance().sessionStore
-        let sessions = store.existingUserSessions()
-        for session in sessions{
-            let userID = (session as! TWTRAuthSession).userID
-            store.logOutUserID(userID)
-        }
-        print("Twitter sessions: \(sessions)")
+    @IBAction func signOutAndClose(_ sender: Any) {
         
-        self.navigationController?.popViewController(animated: true)
+         let store = Twitter.sharedInstance().sessionStore
+         let sessions = store.existingUserSessions()
+         for session in sessions{
+         let userID = (session as! TWTRAuthSession).userID
+         store.logOutUserID(userID)
+         }
+         print("Twitter sessions: \(sessions)")
+ 
+        dismiss(animated: true) {
+            self.onDismiss()
+        }
     }
-    
-    
-    
+
+
+
+
 }
