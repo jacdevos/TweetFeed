@@ -108,11 +108,13 @@ extension TweetsTableViewController{
             self.mediator.loginAsync(self.onLoadedTweets)
             return
         }
-        
+        /* DO NOT SHOW ANY ERRORS - this makes it more seamless but less informant to user
         let alert = UIAlertController(title: "Twitter Error", message: "An Twitter error occurred, please try again later.\n\n Error details:\n\(error.localizedDescription)\n \(error.localizedFailureReason)", preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
 
         self.present(alert, animated: true, completion: nil)
+         */
+ 
     }
     
 }
