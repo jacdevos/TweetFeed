@@ -361,8 +361,8 @@
 				TargetAttributes = {
 					9B93B0001B47BAE10043ADA4 = {
 						CreatedOnToolsVersion = 6.3.2;
-						DevelopmentTeam = 8MDZR45CDF;
 						LastSwiftMigration = 0800;
+						ProvisioningStyle = Manual;
 					};
 					9B93B0181B47BAE10043ADA4 = {
 						CreatedOnToolsVersion = 6.3.2;
@@ -642,7 +642,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 8MDZR45CDF;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -671,7 +671,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_ENTITLEMENTS[sdk=*]" = "";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				DEVELOPMENT_TEAM = 8MDZR45CDF;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -685,7 +685,8 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.nreality.TweetFeed;
 				PRODUCT_NAME = SpeedTweetRead;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "87720e06-f3b8-428c-a7e4-a04a616c5ec1";
+				PROVISIONING_PROFILE_SPECIFIER = TweetFeedAppStore;
 				SWIFT_OBJC_BRIDGING_HEADER = "FastTwitterTestingApp/SpeedTweetRead-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;

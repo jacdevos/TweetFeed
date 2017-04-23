@@ -17,15 +17,13 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>0.2</string>
+	<string>0.3</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>4</string>
 	<key>Fabric</key>
 	<dict>
-		<key>New item</key>
-		<string> SpeedTweetRead.xcodeproj/project.pbxproj</string>
 		<key>APIKey</key>
 		<string>e73d97cec21122d8ab154b7ab57c4e73f22c784b</string>
 		<key>Kits</key>
@@ -42,6 +40,8 @@
 				<string>Twitter</string>
 			</dict>
 		</array>
+		<key>New item</key>
+		<string> SpeedTweetRead.xcodeproj/project.pbxproj</string>
 	</dict>
 	<key>LSApplicationCategoryType</key>
 	<string></string>
