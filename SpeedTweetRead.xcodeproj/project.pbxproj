@@ -40,6 +40,8 @@
 		9BB4F4B41EABA21700ED20A6 /* KCFloatingActionButton in Resources */ = {isa = PBXBuildFile; fileRef = 9BB4F4B31EABA21700ED20A6 /* KCFloatingActionButton */; };
 		9BB4F4C91EABE72100ED20A6 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3BB62E1B9B45E400784F81 /* SettingsTableViewController.swift */; };
 		9BB4F4CA1EABE72600ED20A6 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B93B00B1B47BAE10043ADA4 /* LoginViewController.swift */; };
+		9BB4F4DA1EACBC8F00ED20A6 /* SKPhotoBrowser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BB4F4D91EACBC8F00ED20A6 /* SKPhotoBrowser.framework */; };
+		9BB4F4DD1EACBDB900ED20A6 /* SKPhotoBrowser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BB4F4D91EACBC8F00ED20A6 /* SKPhotoBrowser.framework */; };
 		9BC9A0511D0D6B1A00127401 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BC9A04D1D0D6B1A00127401 /* Fabric.framework */; };
 		9BC9A0521D0D6B1A00127401 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BC9A04D1D0D6B1A00127401 /* Fabric.framework */; };
 		9BC9A0531D0D6B1A00127401 /* TwitterKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BC9A04E1D0D6B1A00127401 /* TwitterKit.framework */; };
@@ -110,6 +112,7 @@
 		9B93B01F1B47BAE10043ADA4 /* TweetDownloaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetDownloaderTests.swift; sourceTree = "<group>"; };
 		9B93B0361B47CBE10043ADA4 /* TweetsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetsTableViewController.swift; sourceTree = "<group>"; };
 		9BB4F4B31EABA21700ED20A6 /* KCFloatingActionButton */ = {isa = PBXFileReference; lastKnownFileType = folder; name = KCFloatingActionButton; path = /Users/nreality/Documents/experiments/FastTwitterTestingApp/FastTwitterTestingApp/KCFloatingActionButton; sourceTree = "<absolute>"; };
+		9BB4F4D91EACBC8F00ED20A6 /* SKPhotoBrowser.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SKPhotoBrowser.framework; path = Carthage/Build/iOS/SKPhotoBrowser.framework; sourceTree = "<group>"; };
 		9BC9A04D1D0D6B1A00127401 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		9BC9A04E1D0D6B1A00127401 /* TwitterKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TwitterKit.framework; sourceTree = "<group>"; };
 		9BC9A04F1D0D6B1A00127401 /* TwitterKitResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = TwitterKitResources.bundle; sourceTree = "<group>"; };
@@ -132,6 +135,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9BB4F4DA1EACBC8F00ED20A6 /* SKPhotoBrowser.framework in Frameworks */,
 				9B8C73911C00D90F0060B40B /* libz.tbd in Frameworks */,
 				9B8C738F1C00D9050060B40B /* libsqlite3.tbd in Frameworks */,
 				9B8C738B1C00D8DB0060B40B /* SystemConfiguration.framework in Frameworks */,
@@ -159,6 +163,7 @@
 				9B8C73791C00D72D0060B40B /* CouchbaseLiteListener.framework in Frameworks */,
 				9B8C73771C00D72D0060B40B /* CouchbaseLite.framework in Frameworks */,
 				9BC9A0541D0D6B1A00127401 /* TwitterKit.framework in Frameworks */,
+				9BB4F4DD1EACBDB900ED20A6 /* SKPhotoBrowser.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -225,6 +230,7 @@
 				9B93B0031B47BAE10043ADA4 /* FastTwitterTestingApp */,
 				9B93B01C1B47BAE10043ADA4 /* FastTwitterTestingAppTests */,
 				9B93B0021B47BAE10043ADA4 /* Products */,
+				9BB4F4D81EACBC8F00ED20A6 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -283,6 +289,14 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		9BB4F4D81EACBC8F00ED20A6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9BB4F4D91EACBC8F00ED20A6 /* SKPhotoBrowser.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		9BF904E51B5C203F00B09D5A /* Utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -300,6 +314,7 @@
 			buildConfigurationList = 9B93B0231B47BAE10043ADA4 /* Build configuration list for PBXNativeTarget "SpeedTweetRead" */;
 			buildPhases = (
 				9BC825621C174C11000699F3 /* Run Script-BuildNr */,
+				9BB4F4DB1EACBCCA00ED20A6 /* Carthage */,
 				9B93AFFD1B47BAE10043ADA4 /* Sources */,
 				9B93AFFE1B47BAE10043ADA4 /* Frameworks */,
 				9B93AFFF1B47BAE10043ADA4 /* Resources */,
@@ -321,6 +336,7 @@
 				9B93B0151B47BAE10043ADA4 /* Sources */,
 				9B93B0161B47BAE10043ADA4 /* Frameworks */,
 				9B93B0171B47BAE10043ADA4 /* Resources */,
+				9BB4F4DC1EACBD7900ED20A6 /* Carthage */,
 			);
 			buildRules = (
 			);
@@ -411,6 +427,36 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "./Fabric.framework/run e73d97cec21122d8ab154b7ab57c4e73f22c784b 8048d1cca35fa23f5fcf28f3ef7a8be90257a22e385a66668870ec7deea681c9";
+		};
+		9BB4F4DB1EACBCCA00ED20A6 /* Carthage */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/SKPhotoBrowser.framework",
+			);
+			name = Carthage;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+		9BB4F4DC1EACBD7900ED20A6 /* Carthage */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/SKPhotoBrowser.framework",
+			);
+			name = Carthage;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
 		};
 		9BC825621C174C11000699F3 /* Run Script-BuildNr */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -601,6 +647,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/FastTwitterTestingApp",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = FastTwitterTestingApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -630,6 +677,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/FastTwitterTestingApp",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = FastTwitterTestingApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -654,6 +702,7 @@
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 					"$(PROJECT_DIR)/FastTwitterTestingApp",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -680,6 +729,7 @@
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 					"$(PROJECT_DIR)/FastTwitterTestingApp",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = FastTwitterTestingAppTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";

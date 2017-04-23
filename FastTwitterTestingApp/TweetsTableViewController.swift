@@ -1,6 +1,7 @@
 
 import UIKit
 import TwitterKit
+import SKPhotoBrowser
 
 class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate, UIPopoverPresentationControllerDelegate {
      let settingsButton = UIButton(type: UIButtonType.roundedRect)
@@ -184,6 +185,17 @@ extension TweetsTableViewController{
 extension TweetsTableViewController{
     func tweetView(_ tweetView: TWTRTweetView, didTap url: URL) {
         UIApplication.shared.openURL(url)
+    }
+    
+    func tweetView(_ tweetView: TWTRTweetView, didTap image: UIImage, with imageURL: URL) {
+        var images = [SKPhoto]()
+        let photo = SKPhoto.photoWithImage(image)// add some UIImage
+        images.append(photo)
+        
+        // 2. create PhotoBrowser Instance, and present from your viewController.
+        let browser = SKPhotoBrowser(photos: images)
+        browser.initializePageIndex(0)
+        present(browser, animated: true, completion: {})
     }
     
     func tweetView(_ tweetView: TWTRTweetView, shouldDisplay controller: TWTRTweetDetailViewController) -> Bool {
