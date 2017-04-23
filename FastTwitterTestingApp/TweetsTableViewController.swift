@@ -62,9 +62,6 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate, U
         stickFloatingButtonToScroll(scrollView, floating: self.settingsButton, heightAdjust: -10)
     }
     
-    override var prefersStatusBarHidden: Bool {
-        return true
-    }
 }
 
 //Integration with Twitter logic extention
