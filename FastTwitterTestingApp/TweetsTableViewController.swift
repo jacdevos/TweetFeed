@@ -61,7 +61,7 @@ class TweetsTableViewController: UITableViewController, TWTRTweetViewDelegate, U
         stickFloatingButtonToScroll(scrollView, floating: self.autoScrollerButton, heightAdjust: -5)
         stickFloatingButtonToScroll(scrollView, floating: self.settingsButton, heightAdjust: -10)
     }
-    
+
 }
 
 //Integration with Twitter logic extention
